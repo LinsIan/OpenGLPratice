@@ -1,6 +1,50 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+
+struct ShaderSource
+{
+	std::string vertexSource;
+	std::string fragmentSource;
+};
+
+static ShaderSource ParseShader(const std::string& filepath)
+{
+    std::ifstream stream(filepath);
+
+	enum class ShaderType
+	{
+		NONE = -1, VERTEX = 0, FRAGMENT = 1
+	};
+
+    std::string str;
+	ShaderType type = ShaderType::NONE;
+	std::stringstream ss[2];
+
+    while (getline(stream, str))
+    {
+		if (str.find("#shader") != std::string::npos)
+        {
+			if (str.find("vertex") != std::string::npos)
+            {
+				type = ShaderType::VERTEX;
+			}
+            else if (str.find("fragment") != std::string::npos)
+            {
+		        type = ShaderType::FRAGMENT;
+			}
+		}
+        else if (type != ShaderType::NONE)
+        {
+            ss[(int)type] << str << "\n";
+        }
+    }
+
+	return ShaderSource{ ss[0].str(), ss[1].str() };
+};
 
 static unsigned int CompileShader(unsigned int type, const std::string& source)
 {
@@ -85,33 +129,9 @@ int main(void)
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 	glEnableVertexAttribArray(0);
 
-    // shader說明：宣告position，透過id0取得postion Attrib，並宣告成vector4，不足的資料會自動補
-    std::string vertexSahder = 
-        R"(
-        #version 330 core
-        
-        layout(location = 0) in vec4 position; //in代表輸入變數，會抓該頂點id=0的attrib資料
+    ShaderSource source = ParseShader("res/shaders/Basic.shader");
 
-        void main()
-        {
-            gl_Position = position; // gl_Position是內建的，代表頂點的位置
-        }
-        )";
-
-    std::string fragmentSahder =
-        R"(
-        #version 330 core
-        
-        //定義一個輸出變量，然後綁定到framebuffer的第一個顏色緩衝區（也就是最終呈現在螢幕上的主要顏色buffer)
-        layout(location = 0) out vec4 color;
-
-        void main()
-        {
-            color = vec4(1.0, 0.0, 0.0, 1.0);
-        }
-        )";
-
-    unsigned int shader = CreateShader(vertexSahder, fragmentSahder);
+    unsigned int shader = CreateShader(source.vertexSource, source.fragmentSource);
     glUseProgram(shader);
 
 
