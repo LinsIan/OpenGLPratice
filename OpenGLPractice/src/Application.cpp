@@ -5,6 +5,30 @@
 #include <sstream>
 #include <string>
 
+#define ASSERT(x) if(x) __debugbreak();
+
+#define GLCall(x) GLClearError();\
+                  x;\
+                  ASSERT(GLCheckError(#x, __FILE__, __LINE__));\
+
+static void GLClearError()
+{
+    while (glGetError() != GL_NO_ERROR) {}
+}
+
+static bool GLCheckError(const char* funcName, const char* file, int line)
+{
+    while (GLenum error = glGetError())
+    {
+        std::cout << "[OpenGL Error] (" << error << "): " << funcName << " "
+        << file << ":" << line << std::endl;
+        return true;
+    }
+
+    return false;
+}
+
+
 struct ShaderSource
 {
 	std::string vertexSource;
@@ -155,7 +179,7 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         //glDrawArrays(GL_TRIANGLES, 0, 6);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        GLCall(glDrawElements(GL_TRIANGLES, 6, GL_INT, nullptr));
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
