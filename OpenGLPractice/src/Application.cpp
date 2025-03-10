@@ -5,28 +5,9 @@
 #include <sstream>
 #include <string>
 
-#define ASSERT(x) if(x) __debugbreak();
-
-#define GLCall(x) GLClearError();\
-                  x;\
-                  ASSERT(GLCheckError(#x, __FILE__, __LINE__));\
-
-static void GLClearError()
-{
-    while (glGetError() != GL_NO_ERROR) {}
-}
-
-static bool GLCheckError(const char* funcName, const char* file, int line)
-{
-    while (GLenum error = glGetError())
-    {
-        std::cout << "[OpenGL Error] (" << error << "): " << funcName << " "
-        << file << ":" << line << std::endl;
-        return true;
-    }
-
-    return false;
-}
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "Renderer.h"
 
 
 struct ShaderSource
@@ -84,9 +65,9 @@ static unsigned int CompileShader(unsigned int type, const std::string& source)
     {
         int length;
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-        char* errMsg = (char*)alloca(length * sizeof(char)); // alloca在statck上申請內存，不需要自己刪除
+        char* errMsg = (char*)alloca(length * sizeof(char)); // allocate在statck上申請內存，不需要自己刪除
         glGetShaderInfoLog(id, length, &length, errMsg);
-        std::cout << "Fiaild to compile" << (type == GL_VERTEX_SHADER ? "Vertex" : "Fragment") << "shader!" << std::endl << errMsg << std::endl;
+        std::cout << "Failed to compile" << (type == GL_VERTEX_SHADER ? "Vertex" : "Fragment") << "shader!" << std::endl << errMsg << std::endl;
         glDeleteShader(id);
         return 0;
     }
@@ -144,83 +125,76 @@ int main(void)
     }
 
     std::cout << glGetString(GL_VERSION) << std::endl;
-
-    float position[] = 
     {
-        -0.5f, -0.5f, // 0
-         0.5f, -0.5f, // 1
-         0.5f,  0.5f, // 2
-        -0.5f,  0.5f, // 3
-    };
+        float position[] = 
+        {
+            -0.5f, -0.5f, // 0
+             0.5f, -0.5f, // 1
+             0.5f,  0.5f, // 2
+            -0.5f,  0.5f, // 3
+        };
 
-    //一定要unsinged，另外想更省內存可以用char或是short
-    unsigned int indeces[] =
-    {
-        0, 1, 2,
-        2, 3, 0
-    };
+        //一定要unsinged，另外想更省內存可以用char或是short
+        unsigned int indeces[] =
+        {
+            0, 1, 2,
+            2, 3, 0
+        };
 
-    unsigned int vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
+        unsigned int vao;
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray(vao);
 
-    unsigned int buffer;
-    glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), position, GL_STATIC_DRAW);
+        VertexBuffer vb(position, 8 * sizeof(float));
 
-    // 設定頂點屬性的時候，會把當前的vertex buffer資料存到vao當中
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
-    glEnableVertexAttribArray(0);
+        // 設定頂點屬性的時候，會把當前的vertex buffer資料存到vao當中
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+        glEnableVertexAttribArray(0);
 
-    unsigned int indexBuffer;
-    glGenBuffers(1, &indexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indeces, GL_STATIC_DRAW);
+	    IndexBuffer ib(indeces, 6);
+        ShaderSource source = ParseShader("res/shaders/Basic.shader");
 
-    ShaderSource source = ParseShader("res/shaders/Basic.shader");
-
-    unsigned int shader = CreateShader(source.vertexSource, source.fragmentSource);
-    GLCall(glUseProgram(shader));
-
-    int location = glGetUniformLocation(shader, "u_Color");
-    ASSERT(location == -1);
-
-    GLCall(glBindVertexArray(0));
-    GLCall(glUseProgram(0));
-    GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
-    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-
-    float r = 0;
-    float increment = 0.05f;
-
-    /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
-    {
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
-
+        unsigned int shader = CreateShader(source.vertexSource, source.fragmentSource);
         GLCall(glUseProgram(shader));
-        GLCall(glUniform4f(location, r, 0.3f, 0.8f, 1.0f));
 
-        GLCall(glBindVertexArray(vao)); //前面資料已經存進vao了，所以這邊綁定vao就好
-        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer));
-        GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+        int location = glGetUniformLocation(shader, "u_Color");
+        ASSERT(location == -1);
 
-        if (r >= 1) increment = -0.05f;
-        else if (r <= 0) increment = 0.05f;
+        GLCall(glBindVertexArray(0));
+        GLCall(glUseProgram(0));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
-        r += increment;
+        float r = 0;
+        float increment = 0.05f;
 
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+        /* Loop until the user closes the window */
+        while (!glfwWindowShouldClose(window))
+        {
+            /* Render here */
+            glClear(GL_COLOR_BUFFER_BIT);
 
-        /* Poll for and process events */
-        glfwPollEvents();
+            GLCall(glUseProgram(shader));
+            GLCall(glUniform4f(location, r, 0.3f, 0.8f, 1.0f));
+
+            GLCall(glBindVertexArray(vao)); //前面資料已經存進vao了，所以這邊綁定vao就好
+            ib.Bind();
+            GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+
+            if (r >= 1) increment = -0.05f;
+            else if (r <= 0) increment = 0.05f;
+
+            r += increment;
+
+            /* Swap front and back buffers */
+            glfwSwapBuffers(window);
+
+            /* Poll for and process events */
+            glfwPollEvents();
+        }
+
+        glDeleteProgram(shader);
     }
-
-    glDeleteProgram(shader);
-    
     glfwTerminate();
     return 0;
 }
