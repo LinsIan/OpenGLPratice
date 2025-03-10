@@ -17,7 +17,9 @@ void main()
 //定義一個輸出變量，然後綁定到framebuffer的第一個顏色緩衝區（也就是最終呈現在螢幕上的主要顏色buffer)
 layout(location = 0) out vec4 color;
 
+uniform vec4 u_Color;
+
 void main()
 {
-    color = vec4(0.0, 0.0, 1.0, 1.0);
+    color = u_Color;
 }
