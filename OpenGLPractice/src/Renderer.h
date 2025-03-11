@@ -1,7 +1,14 @@
 #pragma once
 #include <GL/glew.h>
 
-#define ASSERT(x) if(x) __debugbreak();
+#ifdef _MSC_VER
+    #define ASSERT(x) if(x) __debugbreak();
+#elif defined(__GNUC__) || defined(__clang__)
+    #include <signal.h>
+    #define ASSERT(x) if(x) raise(SIGTRAP);
+#else
+    #error "Unsupported compiler"
+#endif
 
 #define GLCall(x) GLClearError();\
                   x;\
