@@ -8,6 +8,8 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "Renderer.h"
+#include "VertexArray.h"
+#include "VertexBufferLayout.h"
 
 
 struct ShaderSource
@@ -55,7 +57,7 @@ static unsigned int CompileShader(unsigned int type, const std::string& source)
 {
 	unsigned int id = glCreateShader(type);
     const char* src = source.c_str();
-    glShaderSource(id, 1, &src, nullptr);// 第二個參數是shader的數量
+    glShaderSource(id, 1, &src, nullptr);// 嚙衝二嚙諉參數是shader嚙踝蕭嚙複量
     glCompileShader(id);
 
 	int result;
@@ -65,7 +67,7 @@ static unsigned int CompileShader(unsigned int type, const std::string& source)
     {
         int length;
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-        char* errMsg = (char*)alloca(length * sizeof(char)); // allocate在statck上申請內存，不需要自己刪除
+        char* errMsg = (char*)alloca(length * sizeof(char)); // allocate嚙箭statck嚙磕嚙諉請歹蕭嚙編嚙璀嚙踝蕭嚙豎要嚙諛己嚙磋嚙踝蕭
         glGetShaderInfoLog(id, length, &length, errMsg);
         std::cout << "Failed to compile" << (type == GL_VERTEX_SHADER ? "Vertex" : "Fragment") << "shader!" << std::endl << errMsg << std::endl;
         glDeleteShader(id);
@@ -86,7 +88,7 @@ static int CreateShader(const std::string& vertexShader, const std::string& frag
     glLinkProgram(program);
     glValidateProgram(program);
 
-    // 連結完後可以把shader原始碼刪除
+    // 嚙編嚙踝蕭嚙踝蕭嚙踝蕭i嚙瘡嚙踝蕭shader嚙踝蕭l嚙碼嚙磋嚙踝蕭
     glDeleteShader(vs);
     glDeleteShader(fs);
 
@@ -116,7 +118,7 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
-    // 設定畫面更新的頻率，1為螢幕刷新一次就更新一次
+    // 嚙稽嚙緩嚙箴嚙踝蕭嚙踝蕭s嚙踝蕭嚙磕嚙緞嚙璀1嚙踝蕭嚙衛對蕭嚙踝蕭s嚙瑾嚙踝蕭嚙瞇嚙踝蕭s嚙瑾嚙踝蕭
     glfwSwapInterval(1);
 
     if (glewInit() != GLEW_OK)
@@ -134,22 +136,18 @@ int main(void)
             -0.5f,  0.5f, // 3
         };
 
-        //一定要unsinged，另外想更省內存可以用char或是short
+        //嚙瑾嚙緩嚙緯unsinged嚙璀嚙緣嚙羯嚙瞋嚙踝蕭暀嚙踝蕭s嚙箠嚙瘡嚙踝蕭char嚙諄是short
         unsigned int indeces[] =
         {
             0, 1, 2,
             2, 3, 0
         };
 
-        unsigned int vao;
-        glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);
-
+        VertexArray va;
         VertexBuffer vb(position, 8 * sizeof(float));
-
-        // 設定頂點屬性的時候，會把當前的vertex buffer資料存到vao當中
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
-        glEnableVertexAttribArray(0);
+        VertexBufferLayout layout;
+        layout.Push<float>(2);
+        va.AddBuffer(vb, layout);
 
 	    IndexBuffer ib(indeces, 6);
         ShaderSource source = ParseShader("res/shaders/Basic.shader");
@@ -177,7 +175,7 @@ int main(void)
             GLCall(glUseProgram(shader));
             GLCall(glUniform4f(location, r, 0.3f, 0.8f, 1.0f));
 
-            GLCall(glBindVertexArray(vao)); //前面資料已經存進vao了，所以這邊綁定vao就好
+            va.Bind();
             ib.Bind();
             GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 
