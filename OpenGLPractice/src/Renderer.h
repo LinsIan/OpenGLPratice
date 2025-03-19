@@ -1,5 +1,8 @@
 #pragma once
 #include <GL/glew.h>
+#include "VertexArray.h"
+#include "IndexBuffer.h"
+#include "Shader.h"
 
 #ifdef _MSC_VER
     #define ASSERT(x) if(x) __debugbreak();
@@ -19,5 +22,8 @@ bool GLCheckError(const char* funcName, const char* file, int line);
 
 class Renderer
 {
+public:
+    void Clear() const;
+    void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
 };
 
