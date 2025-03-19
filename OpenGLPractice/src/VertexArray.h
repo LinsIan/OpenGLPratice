@@ -9,7 +9,7 @@ class VertexArray
 private:
     unsigned int rendererID;
 public:
-    VertexArray(/* args */);
+    VertexArray();
     ~VertexArray();
 
     void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);

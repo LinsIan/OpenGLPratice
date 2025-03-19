@@ -2,9 +2,9 @@
 #include "VertexBufferLayout.h"
 #include "Renderer.h"
 
-VertexArray::VertexArray(/* args */)
+VertexArray::VertexArray()
 {
-	GLCall((1, &rendererID));
+	GLCall(glCreateVertexArrays(1, &rendererID));
 }
 
 VertexArray::~VertexArray()
