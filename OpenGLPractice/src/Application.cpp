@@ -11,6 +11,7 @@
 #include "IndexBuffer.h"
 #include "VertexArray.h"
 #include "Shader.h"
+#include "Texture.h"
 
 int main(void)
 {
@@ -47,10 +48,10 @@ int main(void)
     {
         float position[] = 
         {
-            -0.5f, -0.5f, // 0
-             0.5f, -0.5f, // 1
-             0.5f,  0.5f, // 2
-            -0.5f,  0.5f, // 3
+            -0.5f, -0.5f, 0.0f, 0.0f, // 0
+             0.5f, -0.5f, 1.0f, 0.0f, // 1
+             0.5f,  0.5f, 1.0f, 1.0f, // 2
+            -0.5f,  0.5f, 0.0f, 1.0f  // 3
         };
 
         //�@�w�nunsinged�A�t�~�Q��٤��s�i�H��char�άOshort
@@ -60,14 +61,25 @@ int main(void)
             2, 3, 0
         };
 
+        // take source alpha value
+        GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+        GLCall(glEnable(GL_BLEND));
+
         VertexArray va;
-        VertexBuffer vb(position, 8 * sizeof(float));
+        VertexBuffer vb(position, 4 * 4 * sizeof(float));
         VertexBufferLayout layout;
-        layout.Push<float>(2);
+        layout.Push<float>(2); // position
+        layout.Push<float>(2); // texture coordinate
         va.AddBuffer(vb, layout);
 
 	    IndexBuffer ib(indeces, 6);
         Shader shader("res/shaders/Basic.shader");
+
+        Texture texture("res/textures/leaf.png");
+        unsigned int slot = 0;
+        texture.Bind(slot);
+
+        shader.SetUniform1i("u_Texture", slot);
 
         va.Unbind();
         vb.Unbind();
