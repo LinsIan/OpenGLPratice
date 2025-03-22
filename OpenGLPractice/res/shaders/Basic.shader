@@ -1,25 +1,33 @@
-// shader»¡©ú¡G«Å§iposition¡A³z¹Lid0¨ú±opostion Attrib¡A¨Ã«Å§i¦¨vector4¡A¤£¨¬ªº¸ê®Æ·|¦Û°Ê¸É
+// shaderï¿½ï¿½ï¿½ï¿½ï¿½Gï¿½Å§ipositionï¿½Aï¿½zï¿½Lid0ï¿½ï¿½ï¿½opostion Attribï¿½Aï¿½Ã«Å§iï¿½ï¿½vector4ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·|ï¿½Û°Ê¸ï¿½
 
-// ¦Û©w¸qªº»yªk¡A¥Î¨ÓÅªÀÉ®É½T»{¬O­þºØshader
+// ï¿½Û©wï¿½qï¿½ï¿½ï¿½yï¿½kï¿½Aï¿½Î¨ï¿½Åªï¿½É®É½Tï¿½{ï¿½Oï¿½ï¿½ï¿½ï¿½shader
 #shader vertex
 #version 330 core
-        
-layout(location = 0) in vec4 position; //in¥Nªí¿é¤JÅÜ¼Æ¡A·|§ì¸Ó³»ÂIid=0ªºattrib¸ê®Æ
+
+layout(location = 0) in vec4 position; //inï¿½Nï¿½ï¿½ï¿½ï¿½Jï¿½Ü¼Æ¡Aï¿½|ï¿½ï¿½Ó³ï¿½ï¿½Iid=0ï¿½ï¿½attribï¿½ï¿½ï¿½
+layout(location = 1) in vec2 texCoord;
+
+out vec2 v_TexCoord;
 
 void main()
 {
-    gl_Position = position; // gl_Position¬O¤º«Øªº¡A¥Nªí³»ÂIªº¦ì¸m
+    gl_Position = position; // gl_Positionï¿½Oï¿½ï¿½ï¿½Øªï¿½ï¿½Aï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½m
+    v_TexCoord = texCoord;
 }
 
 #shader fragment
 #version 330 core
-        
-//©w¸q¤@­Ó¿é¥XÅÜ¶q¡AµM«á¸j©w¨ìframebufferªº²Ä¤@­ÓÃC¦â½w½Ä°Ï¡]¤]´N¬O³Ì²×§e²{¦b¿Ã¹õ¤Wªº¥D­nÃC¦âbuffer)
+
+//ï¿½wï¿½qï¿½@ï¿½Ó¿ï¿½Xï¿½Ü¶qï¿½Aï¿½Mï¿½ï¿½jï¿½wï¿½ï¿½framebufferï¿½ï¿½ï¿½Ä¤@ï¿½ï¿½ï¿½Cï¿½ï¿½wï¿½Ä°Ï¡]ï¿½]ï¿½Nï¿½Oï¿½Ì²×§eï¿½{ï¿½bï¿½Ã¹ï¿½ï¿½Wï¿½ï¿½ï¿½Dï¿½nï¿½Cï¿½ï¿½buffer)
 layout(location = 0) out vec4 color;
 
+in vec2 v_TexCoord;
+
 uniform vec4 u_Color;
+uniform sampler2D u_Texture;
 
 void main()
 {
-    color = u_Color;
+    vec4 texColor = texture(u_Texture, v_TexCoord);
+    color = texColor;
 }
