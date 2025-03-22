@@ -35,16 +35,21 @@ int main(void)
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
-
-    // �]�w�e����s���W�v�A1���ù���s�@���N��s�@��
     glfwSwapInterval(1);
 
-    if (glewInit() != GLEW_OK)
-    {
-        std::cout << "Error!" << std::endl;
-    }
+	GLenum err = glewInit();
 
-    std::cout << glGetString(GL_VERSION) << std::endl;
+	if (GLEW_OK != err)
+    {
+		std::cout << "Error: " << glewGetErrorString(err) << std::endl;
+	}
+
+	std::cout << "Status: Using GLEW " << glewGetString(GLEW_VERSION) << std::endl;
+
+	unsigned char* glVersion;
+	GLCall(glVersion = (unsigned char*)glGetString(GL_VERSION));
+	std::cout << "Status: Using GL " << glVersion << std::endl;
+
     {
         float position[] = 
         {
@@ -54,7 +59,6 @@ int main(void)
             -0.5f,  0.5f, 0.0f, 1.0f  // 3
         };
 
-        //�@�w�nunsinged�A�t�~�Q��٤��s�i�H��char�άOshort
         unsigned int indeces[] =
         {
             0, 1, 2,
@@ -62,8 +66,8 @@ int main(void)
         };
 
         // take source alpha value
-        GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-        GLCall(glEnable(GL_BLEND));
+		GLCall(glEnable(GL_BLEND));
+		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
         VertexArray va;
         VertexBuffer vb(position, 4 * 4 * sizeof(float));
@@ -74,11 +78,12 @@ int main(void)
 
 	    IndexBuffer ib(indeces, 6);
         Shader shader("res/shaders/Basic.shader");
+        shader.Bind();
+        shader.SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
 
-        Texture texture("res/textures/leaf.png");
+        Texture texture("res/textures/ChernoLogo.png");
         unsigned int slot = 0;
         texture.Bind(slot);
-
         shader.SetUniform1i("u_Texture", slot);
 
         va.Unbind();
@@ -98,6 +103,8 @@ int main(void)
             shader.Bind();
             shader.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
             
+            va.Bind();
+            ib.Bind();
             renderer.Draw(va, ib, shader);
 
             if (r >= 1) increment = -0.05f;
