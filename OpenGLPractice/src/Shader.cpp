@@ -57,7 +57,7 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
 {
 	unsigned int id = glCreateShader(type);
     const char* src = source.c_str();
-    glShaderSource(id, 1, &src, nullptr);// �ĤG�ӰѼƬOshader���ƶq
+    glShaderSource(id, 1, &src, nullptr);
     glCompileShader(id);
 
 	int result;
@@ -67,7 +67,7 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
     {
         int length;
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-        char* errMsg = (char*)alloca(length * sizeof(char)); // allocate�bstatck�W�ӽФ��s�A���ݭn�ۤv�R��
+        auto errMsg = (char*)alloca(length * sizeof(char));
         glGetShaderInfoLog(id, length, &length, errMsg);
         std::cout << "Failed to compile" << (type == GL_VERTEX_SHADER ? "Vertex" : "Fragment") << "shader!" << std::endl << errMsg << std::endl;
         glDeleteShader(id);
@@ -88,7 +88,6 @@ unsigned int Shader::CreateShader(const std::string& vertexShader, const std::st
     glLinkProgram(program);
     glValidateProgram(program);
 
-    // �s������i�H��shader��l�X�R��
     glDeleteShader(vs);
     glDeleteShader(fs);
 
@@ -116,6 +115,12 @@ void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2,
 {
     int location = GetUniformLocation(name);
     GLCall(glUniform4f(location, v0, v1, v2, v3));
+}
+
+void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix)
+{
+    int location = GetUniformLocation(name);
+    glUniformMatrix4fv(location, 1, GL_FALSE, &matrix[0][0]);
 }
 
 int Shader::GetUniformLocation(const std::string& name)
