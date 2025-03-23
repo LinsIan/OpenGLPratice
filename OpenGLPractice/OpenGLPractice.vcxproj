@@ -135,6 +135,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\3rdParty\imgui\imgui.cpp" />
+    <ClCompile Include="src\3rdParty\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\3rdParty\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\3rdParty\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\3rdParty\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\3rdParty\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\3rdParty\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\3rdParty\stb\stb_image.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -574,6 +581,15 @@
     <ClInclude Include="src\3rdParty\glm\vec3.hpp" />
     <ClInclude Include="src\3rdParty\glm\vec4.hpp" />
     <ClInclude Include="src\3rdParty\glm\vector_relational.hpp" />
+    <ClInclude Include="src\3rdParty\imgui\imconfig.h" />
+    <ClInclude Include="src\3rdParty\imgui\imgui.h" />
+    <ClInclude Include="src\3rdParty\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="src\3rdParty\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\3rdParty\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\3rdParty\imgui\imgui_internal.h" />
+    <ClInclude Include="src\3rdParty\imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\3rdParty\imgui\imstb_textedit.h" />
+    <ClInclude Include="src\3rdParty\imgui\imstb_truetype.h" />
     <ClInclude Include="src\3rdParty\stb\stb_image.h" />
     <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\Renderer.h" />
