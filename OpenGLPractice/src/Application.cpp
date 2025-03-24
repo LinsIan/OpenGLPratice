@@ -58,10 +58,10 @@ int main(void)
     {
         float position[] = 
         {
-            100.0f, 100.0f, 0.0f, 0.0f, // 0
-            200.0f, 100.0f, 1.0f, 0.0f, // 1
-            200.0f, 200.0f, 1.0f, 1.0f, // 2
-            100.0f, 200.0f, 0.0f, 1.0f  // 3
+            -50.0f, -50.0f, 0.0f, 0.0f, // 0
+             50.0f, -50.0f, 1.0f, 0.0f, // 1
+             50.0f,  50.0f, 1.0f, 1.0f, // 2
+            -50.0f,  50.0f, 0.0f, 1.0f  // 3
         };
 
         unsigned int indeces[] =
@@ -84,7 +84,7 @@ int main(void)
 	    IndexBuffer ib(indeces, 6);
 
 		glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f); // 正交投影
-        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0)); // move camera
+        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0)); // move camera
 
         Shader shader("res/shaders/Basic.shader");
         shader.Bind();
@@ -110,7 +110,8 @@ int main(void)
 
         float r = 0;
         float increment = 0.05f;
-        glm::vec3 translation(200, 200, 0);
+        glm::vec3 translationA(200, 200, 0);
+        glm::vec3 translationB(400, 200, 0);
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
@@ -121,25 +122,32 @@ int main(void)
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			glm::mat4 model = glm::translate(glm::mat4(1.0f), translation); // move model
-			glm::mat4 mvp = proj * view * model;
-
             shader.Bind();
-            shader.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
-			shader.SetUniformMat4f("u_MVP", mvp);
+
+            {
+                glm::mat4 model = glm::translate(glm::mat4(1.0f), translationA); // move model
+                glm::mat4 mvp = proj * view * model;
+                shader.SetUniformMat4f("u_MVP", mvp);
+
+                renderer.Draw(va, ib, shader);
+            }
             
-            va.Bind();
-            ib.Bind();
-            renderer.Draw(va, ib, shader);
+            {
+                glm::mat4 model = glm::translate(glm::mat4(1.0f), translationB); // move model
+                glm::mat4 mvp = proj * view * model;
+                shader.SetUniformMat4f("u_MVP", mvp);
+
+                renderer.Draw(va, ib, shader);
+            }
 
             if (r >= 1) increment = -0.05f;
             else if (r <= 0) increment = 0.05f;
 
             r += increment;
 
-
 			{
-                ImGui::SliderFloat3("Model translation:", &translation.x, 0.0f, 960.0f);
+                ImGui::SliderFloat3("Model translation A:", &translationA.x, 0.0f, 960.0f);
+                ImGui::SliderFloat3("Model translation B:", &translationB.x, 0.0f, 960.0f);
 				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 			}
 
