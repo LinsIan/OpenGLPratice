@@ -1,7 +1,7 @@
 #include "SampleClearColor.h"
 #include "GL/glew.h"
 #include "imgui/imgui.h"
-#include "../Renderer.h"
+#include "Renderer.h"
 
 namespace Sample
 {
@@ -12,6 +12,7 @@ namespace Sample
     
     SampleClearColor::~SampleClearColor()
     {
+        GLCall(glClearColor(0, 0, 0, 1));
     }
 
     void SampleClearColor::OnUpdate(float deltaTime)
@@ -21,7 +22,6 @@ namespace Sample
     void SampleClearColor::OnRender()
     {
         GLCall(glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]));
-        GLCall(glClear(GL_COLOR_BUFFER_BIT));
     }
     
     void SampleClearColor::OnImguiRender()

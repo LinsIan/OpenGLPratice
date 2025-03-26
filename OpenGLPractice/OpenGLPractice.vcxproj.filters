@@ -60,6 +60,15 @@
     <ClCompile Include="src\3rdParty\imgui\imgui_widgets.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\Samples\SampleClearColor.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Samples\SampleTexture2D.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SampleManager.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -1392,6 +1401,18 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\3rdParty\imgui\imgui_impl_opengl3_loader.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\Sample.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\SampleClearColor.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\SampleTexture2D.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SampleManager.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

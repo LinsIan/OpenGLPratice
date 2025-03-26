@@ -1,0 +1,39 @@
+#include "SampleManager.h"
+#include "imgui/imgui.h"
+#include "Samples/SampleTexture2D.h"
+#include "Samples/SampleClearColor.h"
+
+SampleManager::SampleManager()
+{
+}
+
+SampleManager::~SampleManager()
+{
+}
+
+void SampleManager::OnUpdate()
+{
+    if (ImGui::BeginMainMenuBar())
+    {
+        if (ImGui::BeginMenu("Samples"))
+        {
+            if (ImGui::MenuItem("ClearColor"))
+            {
+                sample = std::make_unique<Sample::SampleClearColor>();
+            }
+            if (ImGui::MenuItem("Texture2D"))
+            {
+                sample = std::make_unique<Sample::SampleTexture2D>();
+            }
+            ImGui::EndMenu();
+        }
+
+        ImGui::EndMainMenuBar();
+    }
+    
+    if (!sample) return;
+    
+    sample->OnUpdate(0);
+    sample->OnRender();
+    sample->OnImguiRender();
+}

@@ -4,19 +4,14 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <memory>
 
 #include "Renderer.h"
-#include "VertexBuffer.h"
-#include "VertexBufferLayout.h"
-#include "IndexBuffer.h"
-#include "VertexArray.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
+#include "SampleManager.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
+
 
 int main(void)
 {
@@ -36,8 +31,8 @@ int main(void)
     {
         glfwTerminate();
         return -1;
-    }
-
+    }    
+    
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
@@ -71,19 +66,22 @@ int main(void)
         float r = 0;
         float increment = 0.05f;
 
+        SampleManager manager;
+
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {
-
+            GLCall(glClear(GL_COLOR_BUFFER_BIT));
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
-
 
             if (r >= 1) increment = -0.05f;
             else if (r <= 0) increment = 0.05f;
 
             r += increment;
+
+            manager.OnUpdate();
 
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -9,7 +9,7 @@ namespace Sample
     private:
         float clearColor[4];
     public:
-        SampleClearColor(/* args */);
+        SampleClearColor();
         ~SampleClearColor();
 
         void OnUpdate(float deltaTime) override;

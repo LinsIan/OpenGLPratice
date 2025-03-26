@@ -33,12 +33,10 @@ namespace Sample
 		proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f); // 正交投影
         view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0)); // move camera
 
-        // Shader shader("res/shaders/Basic.shader");
         shader = std::make_unique<Shader>("res/shaders/Basic.shader");
         shader->Bind();
         shader->SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
 
-        // Texture texture("res/textures/ChernoLogo.png");
         texture = std::make_unique<Texture>("res/textures/ChernoLogo.png");
         unsigned int slot = 0;
         texture->Bind(slot);
@@ -63,7 +61,6 @@ namespace Sample
     
     void SampleTexture2D::OnRender()
     {
-        renderer->Clear();
         shader->Bind();
         glm::mat4 model = glm::translate(glm::mat4(1.0f), translation); // move model
         glm::mat4 mvp = proj * view * model;

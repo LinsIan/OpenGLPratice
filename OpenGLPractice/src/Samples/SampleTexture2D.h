@@ -15,7 +15,7 @@
 
 namespace Sample
 {
-    class SampleTexture2D : Sample
+    class SampleTexture2D : public Sample
     {
     private:
         std::unique_ptr<Renderer> renderer;
