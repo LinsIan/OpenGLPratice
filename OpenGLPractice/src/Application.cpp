@@ -51,20 +51,15 @@ int main(void)
 	std::cout << "Status: Using GL " << glVersion << std::endl;
 
     {
-
         // take source alpha value
 		GLCall(glEnable(GL_BLEND));
 		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
 
 		ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init("#version 330");
-
-        float r = 0;
-        float increment = 0.05f;
 
         SampleManager manager;
 
@@ -75,11 +70,6 @@ int main(void)
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
-
-            if (r >= 1) increment = -0.05f;
-            else if (r <= 0) increment = 0.05f;
-
-            r += increment;
 
             manager.OnUpdate();
 

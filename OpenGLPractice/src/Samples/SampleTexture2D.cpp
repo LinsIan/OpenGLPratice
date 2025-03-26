@@ -33,7 +33,7 @@ namespace Sample
 		proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f); // 正交投影
         view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0)); // move camera
 
-        shader = std::make_unique<Shader>("res/shaders/Basic.shader");
+        shader = std::make_unique<Shader>("res/shaders/Texture.shader");
         shader->Bind();
         shader->SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
 

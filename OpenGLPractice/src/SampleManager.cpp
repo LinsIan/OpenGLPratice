@@ -1,5 +1,6 @@
 #include "SampleManager.h"
 #include "imgui/imgui.h"
+#include "Samples/SampleRectangle.h"
 #include "Samples/SampleTexture2D.h"
 #include "Samples/SampleClearColor.h"
 
@@ -21,10 +22,18 @@ void SampleManager::OnUpdate()
             {
                 sample = std::make_unique<Sample::SampleClearColor>();
             }
+
+            if (ImGui::MenuItem("Rectangle"))
+            {
+                sample = std::make_unique<Sample::SampleRectangle>();
+            }
+
             if (ImGui::MenuItem("Texture2D"))
             {
                 sample = std::make_unique<Sample::SampleTexture2D>();
             }
+
+
             ImGui::EndMenu();
         }
 
@@ -33,7 +42,7 @@ void SampleManager::OnUpdate()
     
     if (!sample) return;
     
-    sample->OnUpdate(0);
+    sample->OnUpdate(0.05f);
     sample->OnRender();
     sample->OnImguiRender();
 }
