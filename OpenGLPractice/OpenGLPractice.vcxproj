@@ -148,6 +148,7 @@
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Samples\SampleClearColor.cpp" />
+    <ClCompile Include="src\Samples\SampleRectangle.cpp" />
     <ClCompile Include="src\Samples\SampleTexture2D.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
+    <None Include="res\shaders\Texture.shader" />
     <None Include="src\3rdParty\glm\detail\func_common.inl" />
     <None Include="src\3rdParty\glm\detail\func_common_simd.inl" />
     <None Include="src\3rdParty\glm\detail\func_exponential.inl" />
@@ -599,6 +601,7 @@
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Samples\Sample.h" />
     <ClInclude Include="src\Samples\SampleClearColor.h" />
+    <ClInclude Include="src\Samples\SampleRectangle.h" />
     <ClInclude Include="src\Samples\SampleTexture2D.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Texture.h" />

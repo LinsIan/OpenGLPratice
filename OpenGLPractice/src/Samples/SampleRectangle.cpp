@@ -5,7 +5,7 @@ namespace Sample
 {
     SampleRectangle::SampleRectangle()
     {
-        float poistion[] = 
+        float position[] = 
         {
             -0.5f, -0.5f,
              0.5f, -0.5f,
@@ -13,22 +13,23 @@ namespace Sample
             -0.5f,  0.5f,
         };
 
-        unsigned int indeies[] =
+        unsigned int indices[] =
         {
             0, 1, 2,
-            1, 2, 3
+            2, 3, 0
         };
 
         vertexArray = std::make_unique<VertexArray>();
-        vertexBuffer = std::make_unique<VertexBuffer>(poistion, 8);
+        vertexBuffer = std::make_unique<VertexBuffer>(position, 8 * sizeof(float));
         VertexBufferLayout layout;
         layout.Push<float>(2);
         vertexArray->AddBuffer(*vertexBuffer, layout);
 
-        indexBuffer = std::make_unique<IndexBuffer>(indeies, 6);
+        indexBuffer = std::make_unique<IndexBuffer>(indices, 6);
 
         shader = std::make_unique<Shader>("res/shaders/Basic.shader");
         shader->Bind();
+        shader->SetUniform4f("u_Color", r, 0.5f, 0.8f, 1.0f);
 
         renderer = std::make_unique<Renderer>();
     }

@@ -69,6 +69,9 @@
     <ClCompile Include="src\SampleManager.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\Samples\SampleRectangle.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -486,6 +489,7 @@
     <None Include="src\3rdParty\glm\gtx\wrap.inl">
       <Filter>標頭檔</Filter>
     </None>
+    <None Include="res\shaders\Texture.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer.h">
@@ -1413,6 +1417,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\SampleManager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\SampleRectangle.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
