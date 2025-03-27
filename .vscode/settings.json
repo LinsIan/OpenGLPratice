@@ -53,6 +53,9 @@
         "algorithm": "cpp",
         "type_traits": "cpp",
         "complex": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "__config": "cpp",
+        "__tree": "cpp",
+        "map": "cpp"
     }
 }
