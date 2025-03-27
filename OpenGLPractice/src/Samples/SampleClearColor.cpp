@@ -1,5 +1,4 @@
 #include "SampleClearColor.h"
-#include "GL/glew.h"
 #include "imgui/imgui.h"
 #include "Renderer.h"
 

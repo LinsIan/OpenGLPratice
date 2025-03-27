@@ -1,10 +1,6 @@
-#include <GL/glew.h>
+#include <GLAD/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <memory>
 
 #include "Renderer.h"
 #include "SampleManager.h"
@@ -12,6 +8,10 @@
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
 
 int main(void)
 {
@@ -24,11 +24,13 @@ int main(void)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); MAC OS
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(960, 540, "Hello World", NULL, NULL);
     if (!window)
     {
+        std::cout << "Filed to create GLFW winodw." << std::endl;
         glfwTerminate();
         return -1;
     }    
@@ -37,14 +39,14 @@ int main(void)
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-	GLenum err = glewInit();
-
-	if (GLEW_OK != err)
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-		std::cout << "Error: " << glewGetErrorString(err) << std::endl;
-	}
+        std::cout << "Failed to init GLAD" << std::endl;
+        return -1;
+    }
 
-	std::cout << "Status: Using GLEW " << glewGetString(GLEW_VERSION) << std::endl;
+    glViewport(0, 0, 960, 540);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	unsigned char* glVersion;
 	GLCall(glVersion = (unsigned char*)glGetString(GL_VERSION));
@@ -79,7 +81,7 @@ int main(void)
             /* Swap front and back buffers */
             glfwSwapBuffers(window);
 
-            /* Poll for and process events */
+            /* Poll for and process events (¿é¤J¨Æ¥ó) */
             glfwPollEvents();
         }
     }
