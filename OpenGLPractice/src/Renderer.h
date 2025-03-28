@@ -1,5 +1,5 @@
 #pragma once
-#include <GLAD/glad.h>
+#include <glad/glad.h>
 #include "VertexArray.h"
 #include "IndexBuffer.h"
 #include "Shader.h"
