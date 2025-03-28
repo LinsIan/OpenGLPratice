@@ -75,6 +75,9 @@
     <ClCompile Include="src\3rdParty\GLAD\glad.c">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\Samples\SamplePolygonTriangle.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -1429,6 +1432,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\SamplePolygonTriangle.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

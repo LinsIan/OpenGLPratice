@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Samples\SamplePolygonTriangle.cpp" />
     <ClCompile Include="src\3rdParty\GLAD\glad.c" />
     <ClCompile Include="src\SampleManager.cpp" />
     <ClCompile Include="src\3rdParty\imgui\imgui.cpp" />
@@ -301,6 +302,7 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\Samples\SamplePolygonTriangle.h" />
     <ClInclude Include="src\SampleManager.h" />
     <ClInclude Include="src\3rdParty\glm\common.hpp" />
     <ClInclude Include="src\3rdParty\glm\detail\compute_common.hpp" />
