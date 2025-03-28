@@ -25,7 +25,7 @@ namespace Sample
         layout.Push<float>(2);
         vertexArray->AddBuffer(*vertexBuffer, layout);
 
-        indexBuffer = std::make_unique<IndexBuffer>(indices, 6);
+        indexBuffer = std::make_unique<IndexBuffer>(indices, 6); // index buffer binding must be done after vertex buffer binding
 
         shader = std::make_unique<Shader>("res/shaders/Basic.shader");
         shader->Bind();

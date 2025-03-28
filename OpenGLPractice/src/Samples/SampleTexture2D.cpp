@@ -27,7 +27,7 @@ namespace Sample
         layout.Push<float>(2); // texture coordinate
         vertexArray->AddBuffer(*vertexBuffer, layout);
 
-        indexBuffer = std::make_unique<IndexBuffer>(indeces, 6);
+        indexBuffer = std::make_unique<IndexBuffer>(indeces, 6); // index buffer binding must be done after vertex buffer binding
 
         translation = glm::vec3(200, 200, 0);
 		proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f); // 正交投影
