@@ -21,21 +21,25 @@ void SampleManager::OnUpdate()
         {
             if (ImGui::MenuItem("ClearColor"))
             {
+                sample = nullptr;
                 sample = std::make_unique<Sample::SampleClearColor>();
             }
 
             if (ImGui::MenuItem("PolugonTriangle"))
             {
+                sample = nullptr;
                 sample = std::make_unique<Sample::SamplePolygonTriangle>();
             }
 
             if (ImGui::MenuItem("Rectangle"))
             {
+                sample = nullptr;
                 sample = std::make_unique<Sample::SampleRectangle>();
             }
 
             if (ImGui::MenuItem("Texture2D"))
             {
+                sample = nullptr;
                 sample = std::make_unique<Sample::SampleTexture2D>();
             }
 
