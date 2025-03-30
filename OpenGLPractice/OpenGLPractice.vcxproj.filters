@@ -78,6 +78,9 @@
     <ClCompile Include="src\Samples\SamplePolygonTriangle.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\Samples\SampleTextureMix.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -496,6 +499,7 @@
       <Filter>標頭檔</Filter>
     </None>
     <None Include="res\shaders\Texture.shader" />
+    <None Include="res\shaders\TextureMix.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer.h">
@@ -1437,9 +1441,18 @@
     <ClInclude Include="src\Samples\SamplePolygonTriangle.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="src\Samples\SampleTextureMix.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\ChernoLogo.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\awesomeface.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\container.jpg">
       <Filter>資源檔</Filter>
     </Image>
   </ItemGroup>

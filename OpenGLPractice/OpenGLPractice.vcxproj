@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Samples\SampleTextureMix.cpp" />
     <ClCompile Include="src\Samples\SamplePolygonTriangle.cpp" />
     <ClCompile Include="src\3rdParty\GLAD\glad.c" />
     <ClCompile Include="src\SampleManager.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
     <None Include="res\shaders\Texture.shader" />
+    <None Include="res\shaders\TextureMix.shader" />
     <None Include="src\3rdParty\glm\detail\func_common.inl" />
     <None Include="src\3rdParty\glm\detail\func_common_simd.inl" />
     <None Include="src\3rdParty\glm\detail\func_exponential.inl" />
@@ -302,6 +304,7 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\Samples\SampleTextureMix.h" />
     <ClInclude Include="src\Samples\SamplePolygonTriangle.h" />
     <ClInclude Include="src\SampleManager.h" />
     <ClInclude Include="src\3rdParty\glm\common.hpp" />
@@ -615,7 +618,9 @@
     <ClInclude Include="src\VertexBufferLayout.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\textures\awesomeface.png" />
     <Image Include="res\textures\ChernoLogo.png" />
+    <Image Include="res\textures\container.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

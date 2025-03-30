@@ -3,6 +3,7 @@
 #include "Samples/SamplePolygonTriangle.h"
 #include "Samples/SampleRectangle.h"
 #include "Samples/SampleTexture2D.h"
+#include "Samples/SampleTextureMix.h"
 #include "Samples/SampleClearColor.h"
 
 SampleManager::SampleManager()
@@ -41,6 +42,12 @@ void SampleManager::OnUpdate()
             {
                 sample = nullptr;
                 sample = std::make_unique<Sample::SampleTexture2D>();
+            }
+
+            if (ImGui::MenuItem("Texture2D Mix"))
+            {
+                sample = nullptr;
+                sample = std::make_unique<Sample::SampleTextureMix>();
             }
 
 

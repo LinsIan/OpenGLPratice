@@ -11,8 +11,10 @@ private:
     int width;
     int height;
     int bitPerPixel;
+    int filteringMode;
+    int wrappingMode;
 public:
-    Texture(const std::string& path);
+    Texture(const std::string& path, int filtering = GL_LINEAR, int wrapping = GL_CLAMP_TO_EDGE);
     ~Texture();
 
     void Bind(unsigned int slot = 0) const;
@@ -20,4 +22,6 @@ public:
 
     inline int GetWidth() const { return width; }
     inline int GetHeight() const { return height; }
+	inline void SetFilteringMode(int mode) { filteringMode = mode; }
+	inline void SetWrappingMode(int mode) { wrappingMode = mode; }
 };
