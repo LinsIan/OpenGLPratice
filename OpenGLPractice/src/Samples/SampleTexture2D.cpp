@@ -30,8 +30,11 @@ namespace Sample
         indexBuffer = std::make_unique<IndexBuffer>(indeces, 6); // index buffer binding must be done after vertex buffer binding
 
         translation = glm::vec3(200, 200, 0);
+        scale = glm::vec3(1.0f, 1.0f, 1.0f);
+        radians = 0.0f;
 		proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f); // 正交投影
         view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0)); // move camera
+        model = glm::mat4(1.0f);
 
         shader = std::make_unique<Shader>("res/shaders/Texture.shader");
         shader->Bind();
@@ -57,12 +60,25 @@ namespace Sample
     
     void SampleTexture2D::OnUpdate(float deltaTime)
     {
+        if (isRotation)
+        {
+            radians += deltaTime * 20;
+        }
     }
     
     void SampleTexture2D::OnRender()
     {
         shader->Bind();
-        glm::mat4 model = glm::translate(glm::mat4(1.0f), translation); // move model
+
+        model = glm::translate(glm::mat4(1.0f), translation); // translate model
+
+        if (isRotation)
+        {
+            model = glm::rotate(model, glm::radians(-radians), glm::vec3(0, 0, 1)); // rotate model
+        }
+
+        model = glm::scale(model, scale); // scale model
+
         glm::mat4 mvp = proj * view * model;
         shader->SetUniformMat4f("u_MVP", mvp);
 
@@ -72,6 +88,8 @@ namespace Sample
     void SampleTexture2D::OnImguiRender()
     {
         ImGui::SliderFloat3("Model translation A:", &translation.x, 0.0f, 960.0f);
+        ImGui::Checkbox("Model rotation", &isRotation);
+        ImGui::SliderFloat3("Model scale:", &scale.x, 0.1f, 5.0f);
         // ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
     }
 

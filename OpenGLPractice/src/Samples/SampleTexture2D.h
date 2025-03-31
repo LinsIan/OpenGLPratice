@@ -27,7 +27,12 @@ namespace Sample
 
         glm::mat4 proj;
         glm::mat4 view;
+        glm::mat4 model;
+
         glm::vec3 translation;
+        glm::vec3 scale;
+        float radians;
+        bool isRotation = false;
 
     public:
         SampleTexture2D();
