@@ -2,9 +2,7 @@
 #include "Sample.h"
 #include "Renderer.h"
 #include "Shader.h"
-#include "VertexArray.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
+#include "Triangle.h"
 
 #include <memory>
 
@@ -15,12 +13,8 @@ namespace Sample
     private:
         std::unique_ptr<Renderer> renderer;
         std::unique_ptr<Shader> shader;
-        std::unique_ptr<VertexArray> vertexArrayA;
-        std::unique_ptr<VertexArray> vertexArrayB;
-        std::unique_ptr<VertexBuffer> vertexBufferA;
-        std::unique_ptr<VertexBuffer> vertexBufferB;
-        std::unique_ptr<IndexBuffer> indexBufferA;
-        std::unique_ptr<IndexBuffer> indexBufferB;
+        std::unique_ptr<Model::Triangle> triangleA;
+        std::unique_ptr<Model::Triangle> triangleB;
 
     public:
         SamplePolygonTriangle();

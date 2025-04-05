@@ -3,9 +3,7 @@
 #include "Renderer.h"
 #include "Shader.h"
 #include "Texture.h"
-#include "VertexArray.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
+#include "Rectangle.h"
 
 #include <memory>
 
@@ -18,9 +16,7 @@ namespace Sample
         std::unique_ptr<Shader> shader;
         std::unique_ptr<Texture> textureSmile;
         std::unique_ptr<Texture> textureBox;
-        std::unique_ptr<VertexArray> vao;
-        std::unique_ptr<VertexBuffer> vbo;
-        std::unique_ptr<IndexBuffer> ibo;
+        std::unique_ptr<Model::Rectangle> rectangle;
 
         float mixValue;
         float filteringMode;

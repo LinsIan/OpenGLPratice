@@ -8,30 +8,9 @@ namespace Sample
 {
 	SampleTextureMix::SampleTextureMix()
 	{
-		float position[] = 
-		{
-			-0.5f, -0.5f, 0.0f, 0.0f,
-			 0.5f, -0.5f, 2.0f, 0.0f,
-			 0.5f,  0.5f, 2.0f, 2.0f,
-			-0.5f,  0.5f, 0.0f, 2.0f,
-		};
-
-		unsigned int indexes[] =
-		{
-			0, 1, 2,
-			2, 3, 0
-		};
-
 		mixValue = 0.8f;
 
-		vao = std::make_unique<VertexArray>();
-		vbo = std::make_unique<VertexBuffer>(position, 4 * 4 * sizeof(float));
-		VertexBufferLayout layout;
-		layout.Push<float>(2);
-		layout.Push<float>(2);
-		vao->AddBuffer(*vbo, layout);
-
-		ibo = std::make_unique<IndexBuffer>(indexes, 6);
+		rectangle = std::make_unique<Model::Rectangle>(1.0f, 1.0f, 2.0f, 2.0f);
 
 		filteringMode = GL_LINEAR; // GL_NEAREST
 		wrappingMode = GL_REPEAT; // GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT
@@ -57,7 +36,7 @@ namespace Sample
 	void SampleTextureMix::OnRender()
 	{
 		shader->SetUniform1f("u_Degree", mixValue);
-		renderer->Draw(*vao, *ibo, *shader);
+		renderer->Draw(rectangle->GetVertexArray(), rectangle->GetIndexBuffer(), *shader);
 	}
 
 	void SampleTextureMix::OnImguiRender()

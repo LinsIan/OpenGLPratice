@@ -3,47 +3,8 @@
 
 Sample::SamplePolygonTriangle::SamplePolygonTriangle()
 {
-    float positionsA[] = {
-         0.0f, -0.5f,
-         1.0f, -0.5f,
-         0.5f,  0.5f
-    };
-
-    unsigned int indicesA[] = {
-        0, 1, 2
-    };
-
-    vertexArrayA = std::make_unique<VertexArray>();
-    vertexBufferA = std::make_unique<VertexBuffer>(positionsA, 3 * 2 * sizeof(float));
-    VertexBufferLayout layoutA;
-    layoutA.Push<float>(2);
-    vertexArrayA->AddBuffer(*vertexBufferA, layoutA);
-    indexBufferA = std::make_unique<IndexBuffer>(indicesA, 3); // index buffer binding must be done after vertex buffer binding
-
-    vertexArrayA->Unbind();
-    vertexBufferA->Unbind();
-    indexBufferA->Unbind();
-
-    float positionsB[] = {
-        -1.0f, -0.5f,
-         0.0f, -0.5f,
-        -0.5f,  0.5f,
-    };
-
-    unsigned int indicesB[] = {
-        0, 1, 2
-    };
-
-    vertexArrayB = std::make_unique<VertexArray>();
-    vertexBufferB = std::make_unique<VertexBuffer>(positionsB, 3 * 2 * sizeof(float));
-    VertexBufferLayout layoutB;
-    layoutB.Push<float>(2);
-    vertexArrayB->AddBuffer(*vertexBufferB, layoutB);
-    indexBufferB = std::make_unique<IndexBuffer>(indicesB, 3);
-
-    vertexArrayB->Unbind();
-    vertexBufferB->Unbind();
-    indexBufferB->Unbind();
+    triangleA = std::make_unique<Model::Triangle>(0.0f, 1.0f, 1.0f);
+    triangleB = std::make_unique<Model::Triangle>(-1.0f, 0.0f, 1.0f);
 
     shader = std::make_unique<Shader>("res/shaders/Basic.shader");
     shader->Bind();
@@ -60,6 +21,6 @@ Sample::SamplePolygonTriangle::~SamplePolygonTriangle()
 
 void Sample::SamplePolygonTriangle::OnRender()
 {
-    renderer->Draw(*vertexArrayA, *indexBufferA, *shader);
-    renderer->Draw(*vertexArrayB, *indexBufferB, *shader);
+    renderer->Draw(triangleA->GetVertexArray(), triangleA->GetIndexBuffer(), *shader);
+    renderer->Draw(triangleB->GetVertexArray(), triangleB->GetIndexBuffer(), *shader);
 }
