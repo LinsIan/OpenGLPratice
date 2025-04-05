@@ -1,6 +1,5 @@
 #include "SampleTextureMix.h"
 
-#include "VertexBufferLayout.h"
 #include "imgui/imgui.h"
 
 
@@ -14,17 +13,13 @@ namespace Sample
 
 		filteringMode = GL_LINEAR; // GL_NEAREST
 		wrappingMode = GL_REPEAT; // GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT
-		textureSmile = std::make_unique<Texture>("res/textures/awesomeface.png", filteringMode, wrappingMode);
-		textureBox = std::make_unique<Texture>("res/textures/container.jpg", filteringMode, wrappingMode);
 
-		textureSmile->Bind(0);
-		textureBox->Bind(1);
+		material = std::make_unique<Material>("res/shaders/TextureMix.shader");
+		material->AddTexture("res/textures/awesomeface.png", 0, "u_TextureA", filteringMode, wrappingMode);
+		material->AddTexture("res/textures/container.jpg", 1, "u_TextureB", filteringMode, wrappingMode);
 
-		shader = std::make_unique<Shader>("res/shaders/TextureMix.shader");
-		shader->Bind();
-		shader->SetUniform1i("u_TextureA", 0);
-		shader->SetUniform1i("u_TextureB", 1);
-		shader->SetUniform1f("u_Degree", mixValue);
+		auto shader = material->GetShader();
+		shader.SetUniform1f("u_Degree", mixValue);
 		
 		renderer = std::make_unique<Renderer>();
 	}
@@ -35,8 +30,8 @@ namespace Sample
 
 	void SampleTextureMix::OnRender()
 	{
-		shader->SetUniform1f("u_Degree", mixValue);
-		renderer->Draw(rectangle->GetVertexArray(), rectangle->GetIndexBuffer(), *shader);
+		material->GetShader().SetUniform1f("u_Degree", mixValue);
+		renderer->Draw(rectangle->GetVertexArray(), rectangle->GetIndexBuffer(), material->GetShader());
 	}
 
 	void SampleTextureMix::OnImguiRender()

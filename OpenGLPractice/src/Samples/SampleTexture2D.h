@@ -2,9 +2,9 @@
 
 #include "Sample.h"
 #include "Renderer.h"
-#include "Shader.h"
-#include "Texture.h"
+#include "Material.h"
 #include "Rectangle.h"
+#include "Camera.h"
 
 #include <memory>
 /*
@@ -27,12 +27,10 @@ namespace Sample
     {
     private:
         std::unique_ptr<Renderer> renderer;
-        std::unique_ptr<Shader> shader;
-        std::unique_ptr<Texture> texture;
+        std::unique_ptr<Material> material;
         std::unique_ptr<Model::Rectangle> rectangle;
+        std::unique_ptr<Camera> camera;
         
-        glm::mat4 proj;
-        glm::mat4 view;
     public:
         SampleTexture2D();
         ~SampleTexture2D();

@@ -29,9 +29,6 @@ namespace Model
 
         void UpdateModelMatrix()
         {
-            if (!modelMatrixDirty)
-                return;
-                
             modelMatrix = glm::translate(glm::mat4(1.0f), *translation) *
                           glm::rotate(glm::mat4(1.0f), radians->x, glm::vec3(1, 0, 0)) *
                           glm::rotate(glm::mat4(1.0f), radians->y, glm::vec3(0, 1, 0)) *
@@ -61,7 +58,6 @@ namespace Model
             translation->x = x;
             translation->y = y;
             translation->z = z;
-            modelMatrixDirty = true;
         }
 
         void SetScale(float x, float y, float z)
@@ -69,7 +65,6 @@ namespace Model
             scale->x = x;
             scale->y = y;
             scale->z = z;
-            modelMatrixDirty = true;
         }
 
         void SetRotation(float x, float y, float z)
@@ -77,7 +72,6 @@ namespace Model
             radians->x = x;
             radians->y = y;
             radians->z = z;
-            modelMatrixDirty = true;
         }
 
         glm::vec3& GetTranslation() const { return *translation; }
