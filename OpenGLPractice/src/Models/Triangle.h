@@ -13,7 +13,7 @@ namespace Model
             {
                                leftX, -height / 2, // 0
                               rightX, -height / 2, // 1
-                (rightX - leftX) / 2,  height / 2, // 2
+                (rightX + leftX) / 2,  height / 2  // 2
             };
 
             unsigned int indices[] =
@@ -33,6 +33,6 @@ namespace Model
             indexBuffer->Unbind();
         };
 
-        ~Triangle();
+        ~Triangle() {}
     };
 } // namespace Model

@@ -15,11 +15,12 @@ namespace Sample
 		wrappingMode = GL_REPEAT; // GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT
 
 		material = std::make_unique<Material>("res/shaders/TextureMix.shader");
+		material->BindShader();
 		material->AddTexture("res/textures/awesomeface.png", 0, "u_TextureA", filteringMode, wrappingMode);
 		material->AddTexture("res/textures/container.jpg", 1, "u_TextureB", filteringMode, wrappingMode);
+		material->BindTextures();
 
-		auto shader = material->GetShader();
-		shader.SetUniform1f("u_Degree", mixValue);
+		material->GetShader().SetUniform1f("u_Degree", mixValue);
 		
 		renderer = std::make_unique<Renderer>();
 	}

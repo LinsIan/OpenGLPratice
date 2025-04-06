@@ -25,7 +25,6 @@ namespace Model
         std::unique_ptr<glm::vec3> radians;
 
         glm::mat4 modelMatrix;
-        bool modelMatrixDirty = true;
 
         void UpdateModelMatrix()
         {
@@ -34,7 +33,6 @@ namespace Model
                           glm::rotate(glm::mat4(1.0f), radians->y, glm::vec3(0, 1, 0)) *
                           glm::rotate(glm::mat4(1.0f), radians->z, glm::vec3(0, 0, 1)) *
                           glm::scale(glm::mat4(1.0f), *scale);
-            modelMatrixDirty = false;
         }
 
     public:
@@ -45,7 +43,7 @@ namespace Model
               modelMatrix(glm::mat4(1.0f))
         {}
 
-        virtual ~Model();
+        virtual ~Model() {}
 
         const glm::mat4 GetModelMatrix()
         {

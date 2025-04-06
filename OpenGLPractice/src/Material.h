@@ -11,7 +11,7 @@ class Material
 {
 private:
     std::unique_ptr<Shader> shader;
-    std::map<int, std::unique_ptr<Texture>> textures;    
+    std::map<unsigned int, std::unique_ptr<Texture>> textures;    
 public:
     Material(std::string shaderPath)
     {
@@ -27,6 +27,14 @@ public:
         shader->SetUniform1i(uniformName, slot);
     }
 
+	void BindTextures()
+	{
+		for (auto& texture : textures)
+		{
+			texture.second->Bind(texture.first);
+		}
+	}
+
     void BindShader()
     {
         shader->Bind();
@@ -37,5 +45,5 @@ public:
         shader->Unbind();
     }
 
-    inline Shader& GetShader() const { return *shader; }
+    inline Shader& GetShader() const { return *shader.get(); }
 };

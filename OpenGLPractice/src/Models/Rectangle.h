@@ -11,10 +11,10 @@ namespace Model
         {
             float position[] = 
             {
-                -width / 2, -height / 2, 0,      0,     // 0
-                 width / 2, -height / 2, coordX, 0,     // 1
-                 width / 2,  height / 2, coordX, coordY // 2
-                -width / 2,  height / 2, 0,      coordY // 3
+                -width / 2, -height / 2, 0,      0,      // 0
+                 width / 2, -height / 2, coordX, 0,      // 1
+                 width / 2,  height / 2, coordX, coordY, // 2
+                -width / 2,  height / 2, 0,      coordY  // 3
             };
 
             unsigned int indices[] =
@@ -36,7 +36,7 @@ namespace Model
             indexBuffer->Unbind();
         };
 
-        ~Rectangle();
+        ~Rectangle() {}
     };
 } // namespace name
 

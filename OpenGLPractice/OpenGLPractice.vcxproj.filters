@@ -81,6 +81,9 @@
     <ClCompile Include="src\Samples\SampleTextureMix.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -1442,6 +1445,21 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\Samples\SampleTextureMix.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Material.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\Model.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\Rectangle.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\Triangle.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src/Models;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src/Models;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Samples\SampleTextureMix.cpp" />
     <ClCompile Include="src\Samples\SamplePolygonTriangle.cpp" />
     <ClCompile Include="src\3rdParty\GLAD\glad.c" />
@@ -304,6 +305,11 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\Material.h" />
+    <ClInclude Include="src\Models\Model.h" />
+    <ClInclude Include="src\Models\Rectangle.h" />
+    <ClInclude Include="src\Models\Triangle.h" />
     <ClInclude Include="src\Samples\SampleTextureMix.h" />
     <ClInclude Include="src\Samples\SamplePolygonTriangle.h" />
     <ClInclude Include="src\SampleManager.h" />

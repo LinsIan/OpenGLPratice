@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
+#include <string>
 
 enum CameraType
 {
@@ -21,17 +22,22 @@ private:
 
     std::unique_ptr<glm::vec3> translation;
     std::unique_ptr<glm::vec3> radians;
+	std::unique_ptr<glm::vec3> scale;
 
     void UpdateView();
 
 public:
-    Camera(CameraType type = PERSPECTIVE, float screenWidth, float screenHeight); 
+    Camera(CameraType type, float screenWidth, float screenHeight); 
     ~Camera();
 
     void SetType(CameraType newType);
 
     inline const glm::mat4& GetViewMatrix() { UpdateView(); return view; }
     inline const glm::mat4& GetProjectionMatrix() const { return proj; }
+	inline const std::string GetCameraTypeString() const
+	{
+		return type == PERSPECTIVE ? "Perspective" : "Orthographic";
+	}
 
     glm::vec3& GetTranslation() { return *translation; }
     glm::vec3& GetRotation() { return *radians; }
