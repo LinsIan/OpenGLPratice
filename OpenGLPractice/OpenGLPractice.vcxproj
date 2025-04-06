@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Samples\SampleTexture3D.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Samples\SampleTextureMix.cpp" />
     <ClCompile Include="src\Samples\SamplePolygonTriangle.cpp" />
@@ -305,6 +306,8 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\Models\Cube.h" />
+    <ClInclude Include="src\Samples\SampleTexture3D.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Models\Model.h" />

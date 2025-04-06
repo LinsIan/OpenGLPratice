@@ -20,6 +20,7 @@ namespace Sample
 		material->AddTexture("res/textures/container.jpg", 1, "u_TextureB", filteringMode, wrappingMode);
 		material->BindTextures();
 
+		material->GetShader().SetUniformMat4f("u_MVP", glm::mat4(1.0f));
 		material->GetShader().SetUniform1f("u_Degree", mixValue);
 		
 		renderer = std::make_unique<Renderer>();

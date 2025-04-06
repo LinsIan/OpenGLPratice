@@ -1,7 +1,7 @@
 #include "Camera.h"
 Camera::Camera(CameraType type, float screenWidth, float screenHeight)
     : type(type), screenWidth(screenWidth), screenHeight(screenHeight),
-      translation(std::make_unique<glm::vec3>(0.0f, 0.0f, 0.0f)),
+      translation(std::make_unique<glm::vec3>(0.0f, 0.0f, -3.0f)),
       radians(std::make_unique<glm::vec3>(0.0f, 0.0f, 0.0f)),
       view(glm::mat4(1.0f)), proj(glm::mat4(1.0f))
 {
@@ -30,6 +30,6 @@ void Camera::SetType(CameraType newType)
     }
     else if (type == ORTHOGRAPHIC)
     {
-        proj = glm::ortho(0.0f, screenWidth, 0.0f, screenHeight, -1.0f, 1.0f);
+        proj = glm::ortho(0.0f, screenWidth, 0.0f, screenHeight, -1.0f, 100.0f);
     }
 }

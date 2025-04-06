@@ -84,6 +84,9 @@
     <ClCompile Include="src\Camera.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\Samples\SampleTexture3D.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -1460,6 +1463,12 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\Models\Triangle.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\SampleTexture3D.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\Cube.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

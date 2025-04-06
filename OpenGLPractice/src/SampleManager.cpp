@@ -1,10 +1,11 @@
 #include "SampleManager.h"
 #include "imgui/imgui.h"
+#include "Samples/SampleClearColor.h"
 #include "Samples/SamplePolygonTriangle.h"
 #include "Samples/SampleRectangle.h"
 #include "Samples/SampleTexture2D.h"
 #include "Samples/SampleTextureMix.h"
-#include "Samples/SampleClearColor.h"
+#include "Samples/SampleTexture3D.h"
 
 SampleManager::SampleManager()
 {
@@ -50,6 +51,11 @@ void SampleManager::OnUpdate()
                 sample = std::make_unique<Sample::SampleTextureMix>();
             }
 
+            if (ImGui::MenuItem("Texture3D"))
+            {
+                sample = nullptr;
+                sample = std::make_unique<Sample::SampleTexture3D>();
+            }
 
             ImGui::EndMenu();
         }

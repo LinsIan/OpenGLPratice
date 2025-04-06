@@ -37,26 +37,10 @@ namespace Sample
     
     void SampleTexture2D::OnImguiRender()
     {
+		ImGui::Text("Camera: Orthographic");
         ImGui::SliderFloat3("Model translation A:", &rectangle->GetTranslation().x, -3.0f, 960.0f);
         ImGui::SliderFloat3("Model rotation:", &rectangle->GetRotation().x, 0.0f, 360.0f);
         ImGui::SliderFloat3("Model scale:", &rectangle->GetScale().x, 0.1f, 5.0f);
-
-		// drop down menu to change camera type
-		//if (ImGui::BeginCombo("Camera Type", camera->GetCameraTypeString().c_str()))
-  //      {
-		//	if (ImGui::Selectable("Perspective"))
-		//	{
-		//		camera->SetType(CameraType::PERSPECTIVE);
-		//	}
-		//	if (ImGui::Selectable("Orthographic"))
-		//	{
-		//		camera->SetType(CameraType::ORTHOGRAPHIC);
-		//	}
-		//	ImGui::EndCombo();
-  //      }
-
-
-        // ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
     }
 
 }
