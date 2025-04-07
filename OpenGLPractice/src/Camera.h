@@ -17,12 +17,16 @@ private:
     CameraType type;
     float screenWidth;
     float screenHeight;
+    float moveSpeed;
+    float sensitivity;
+    float pitch;
+    float yaw;
     glm::mat4 view;
     glm::mat4 proj;
 
-    std::unique_ptr<glm::vec3> translation;
-    std::unique_ptr<glm::vec3> radians;
-	std::unique_ptr<glm::vec3> scale;
+    std::unique_ptr<glm::vec3> position;
+    std::unique_ptr<glm::vec3> forward;
+    std::unique_ptr<glm::vec3> up;
 
     void UpdateView();
 
@@ -31,6 +35,11 @@ public:
     ~Camera();
 
     void SetType(CameraType newType);
+    void MoveForward();
+    void MoveBackward();
+    void MoveLeft();
+    void MoveRight();
+    void Rotate(float xOffset, float yOffset);
 
     inline const glm::mat4& GetViewMatrix() { UpdateView(); return view; }
     inline const glm::mat4& GetProjectionMatrix() const { return proj; }
@@ -39,6 +48,6 @@ public:
 		return type == PERSPECTIVE ? "Perspective" : "Orthographic";
 	}
 
-    glm::vec3& GetTranslation() { return *translation; }
-    glm::vec3& GetRotation() { return *radians; }
+    glm::vec3& GetPosition() { return *position; }
+    glm::vec3& GetForward() { return *forward; }
 };

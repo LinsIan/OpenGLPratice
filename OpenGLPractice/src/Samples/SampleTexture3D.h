@@ -5,6 +5,7 @@
 #include "Cube.h"
 #include "Material.h"
 #include "Camera.h"
+#include "imgui/imgui.h"
 
 #include <memory>
 #include <vector>
@@ -17,10 +18,10 @@ namespace Sample
 		std::unique_ptr<Renderer> renderer;
 		std::unique_ptr<Material> material;
 		std::vector<std::unique_ptr<Model::Cube>> cubes;
-		//std::unique_ptr<Model::Cube> cube;
-		//std::unique_ptr<Model::Cube> cube2;
-		//std::unique_ptr<Model::Cube> cube3;
 		std::unique_ptr<Camera> camera;
+
+        ImVec2 lastMousePos;
+        bool isShowCursor = false;
 
 	public:
 		SampleTexture3D();
