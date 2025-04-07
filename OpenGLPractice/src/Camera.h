@@ -21,6 +21,7 @@ private:
     float sensitivity;
     float pitch;
     float yaw;
+    float fov;
     glm::mat4 view;
     glm::mat4 proj;
 
@@ -40,6 +41,7 @@ public:
     void MoveLeft();
     void MoveRight();
     void Rotate(float xOffset, float yOffset);
+	void SetFov(float newFov);
 
     inline const glm::mat4& GetViewMatrix() { UpdateView(); return view; }
     inline const glm::mat4& GetProjectionMatrix() const { return proj; }

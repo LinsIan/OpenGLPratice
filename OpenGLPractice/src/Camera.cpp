@@ -8,6 +8,7 @@ Camera::Camera(CameraType type, float screenWidth, float screenHeight)
     sensitivity = 0.05f;
     pitch = 0.0f;
     yaw = -90.0f; // Looking -z direction by default
+	fov = 45.0f; // Default field of view
 
     position = std::make_unique<glm::vec3>(0.0f, 0.0f, 3.0f);
     forward = std::make_unique<glm::vec3>(0.0f, 0.0f, -1.0f);
@@ -34,7 +35,7 @@ void Camera::SetType(CameraType newType)
 
     if (type == PERSPECTIVE)
     {
-        proj = glm::perspective(glm::radians(45.0f), screenWidth / screenHeight, 0.1f, 100.0f);
+        proj = glm::perspective(glm::radians(fov), screenWidth / screenHeight, 0.1f, 100.0f);
     }
     else if (type == ORTHOGRAPHIC)
     {
@@ -76,4 +77,17 @@ void Camera::Rotate(float xOffset, float yOffset)
     forward->y = sin(glm::radians(pitch));
     forward->z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     *forward = glm::normalize(*forward);
+}
+
+void Camera::SetFov(float v)
+{
+	fov -= v;
+
+	if (fov > 45.0f) fov = 45.0f;
+	else if (fov < 1.0f) fov = 1.0f;
+
+	if (type == PERSPECTIVE)
+	{
+		proj = glm::perspective(glm::radians(fov), screenWidth / screenHeight, 0.1f, 100.0f);
+	}
 }

@@ -59,22 +59,6 @@ namespace Sample
 		ImGui::SliderFloat3("Model rotation:", &cubes[0]->GetRotation().x, 0.0f, 360.0f);
 		ImGui::SliderFloat3("Model scale:", &cubes[0]->GetScale().x, 0.1f, 3.0f);
 
-		if (ImGui::IsKeyDown(ImGuiKey_W))
-		{
-			camera->MoveForward();
-		}
-        if (ImGui::IsKeyDown(ImGuiKey_S))
-        {
-            camera->MoveBackward();
-        }
-        if (ImGui::IsKeyDown(ImGuiKey_A))
-        {
-            camera->MoveLeft();
-        }
-        if (ImGui::IsKeyDown(ImGuiKey_D))
-        {
-            camera->MoveRight();
-        }
 
         if (ImGui::IsKeyPressed(ImGuiKey_F))
         {
@@ -93,6 +77,23 @@ namespace Sample
 
 		if (isShowCursor) return;
 
+		if (ImGui::IsKeyDown(ImGuiKey_W))
+		{
+			camera->MoveForward();
+		}
+		if (ImGui::IsKeyDown(ImGuiKey_S))
+		{
+			camera->MoveBackward();
+		}
+		if (ImGui::IsKeyDown(ImGuiKey_A))
+		{
+			camera->MoveLeft();
+		}
+		if (ImGui::IsKeyDown(ImGuiKey_D))
+		{
+			camera->MoveRight();
+		}
+
 		ImVec2 currentPos = ImGui::GetMousePos();
 
         if (currentPos.x != lastMousePos.x || currentPos.y != lastMousePos.y)
@@ -103,6 +104,14 @@ namespace Sample
 			camera->Rotate(xOffset, yOffset);
             lastMousePos = currentPos;
         }
+
+		float wheel = ImGui::GetIO().MouseWheel;
+
+		if (wheel != 0.0f)
+		{
+			camera->SetFov(wheel);
+		}
+
 
 	}
 }
