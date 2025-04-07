@@ -25,10 +25,6 @@ Camera::~Camera()
 
 void Camera::UpdateView()
 {
-    float radius = 10.0f;
-    float camX = sin(glfwGetTime()) * radius;
-    float camZ = cos(glfwGetTime()) * radius;
-
     view = glm::lookAt(*position, *position + *forward, *up);
 }
 
