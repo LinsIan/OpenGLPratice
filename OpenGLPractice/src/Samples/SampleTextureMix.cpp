@@ -1,6 +1,7 @@
 #include "SampleTextureMix.h"
 
 #include "imgui/imgui.h"
+#include "Rectangle.h"
 
 
 namespace Sample
@@ -9,12 +10,12 @@ namespace Sample
 	{
 		mixValue = 0.8f;
 
-		rectangle = std::make_unique<Model::Rectangle>(1.0f, 1.0f, 2.0f, 2.0f);
+		auto rect = std::make_shared<Model::Rectangle>(1.0f, 1.0f, 2.0f, 2.0f);
 
 		filteringMode = GL_LINEAR; // GL_NEAREST
 		wrappingMode = GL_REPEAT; // GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT
 
-		material = std::make_unique<Material>("res/shaders/TextureMix.shader");
+		auto material = std::make_shared<Material>("res/shaders/TextureMix.shader");
 		material->BindShader();
 		material->AddTexture("res/textures/awesomeface.png", 0, "u_TextureA", filteringMode, wrappingMode);
 		material->AddTexture("res/textures/container.jpg", 1, "u_TextureB", filteringMode, wrappingMode);
@@ -22,8 +23,8 @@ namespace Sample
 
 		material->GetShader().SetUniformMat4f("u_MVP", glm::mat4(1.0f));
 		material->GetShader().SetUniform1f("u_Degree", mixValue);
-		
-		renderer = std::make_unique<Renderer>();
+
+        rectangle = std::make_unique<GameObject>(rect, material);
 	}
 
 	SampleTextureMix::~SampleTextureMix()
@@ -32,8 +33,8 @@ namespace Sample
 
 	void SampleTextureMix::OnRender()
 	{
-		material->GetShader().SetUniform1f("u_Degree", mixValue);
-		renderer->Draw(rectangle->GetVertexArray(), rectangle->GetIndexBuffer(), material->GetShader());
+		rectangle->GetMaterial().GetShader().SetUniform1f("u_Degree", mixValue);
+        rectangle->OnRender();
 	}
 
 	void SampleTextureMix::OnImguiRender()

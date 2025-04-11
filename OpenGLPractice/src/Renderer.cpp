@@ -18,15 +18,20 @@ bool GLCheckError(const char* funcName, const char* file, int line)
     return false;
 }
 
-void Renderer::Clear() const
+void Renderer::Clear()
 {
     GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
-void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const
+void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader)
 {
     shader.Bind();
     va.Bind();
     ib.Bind();
     GLCall(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr));
+}
+
+void Renderer::SetPolygonMode(GLenum mode)
+{
+    GLCall(glPolygonMode(GL_FRONT_AND_BACK, mode));
 }

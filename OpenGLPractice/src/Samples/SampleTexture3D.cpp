@@ -1,5 +1,6 @@
 #include "SampleTexture3D.h"
 #include "GLFW/glfw3.h"
+#include "Cube.h"
 
 namespace Sample
 {
@@ -8,25 +9,27 @@ namespace Sample
         glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         isShowCursor = true;
 
-		cubes.push_back(std::make_unique<Model::Cube>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f));
+        auto material = std::make_shared<Material>("res/shaders/TextureMix.shader");
+        material->AddTexture("res/textures/awesomeface.png", 0, "u_TextureA");
+        material->AddTexture("res/textures/container.jpg", 1, "u_TextureB");
+        material->BindTextures();
+        material->GetShader().SetUniform1f("u_Degree", 0.8f);
 
-		cubes.push_back(std::make_unique<Model::Cube>(1.2f, 1.2f, 1.2f, -1.0f, -1.0f));
-		cubes[1]->SetTranslation(-1.3f, 0, -0.8f);
-		cubes[1]->SetRotation(30, 34, -13);
+		auto cube1 = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f), material);
+        auto cube2 = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.2f, 1.2f, 1.2f, -1.0f, -1.0f), material);
+        auto cube3 = std::make_unique<GameObject>(std::make_shared<Model::Cube>(0.6f, 0.8f, 1.4f, -1.0f, 1.0f), material);
 
-		cubes.push_back(std::make_unique<Model::Cube>(0.6f, 0.8f, 1.4f, -1.0f, 1.0f));
-		cubes[2]->SetTranslation(1.3f, 0, -0.6f);
-		cubes[2]->SetRotation(-38, 60, 34);
+        cubes.push_back(std::move(cube1));
+        cubes.push_back(std::move(cube2));
+        cubes.push_back(std::move(cube3));
+
+		cubes[1]->GetTransform().SetTranslation(-1.3f, 0, -0.8f);
+		cubes[1]->GetTransform().SetRotation(30, 34, -13);
+
+		cubes[2]->GetTransform().SetTranslation(1.3f, 0, -0.6f);
+		cubes[2]->GetTransform().SetRotation(-38, 60, 34);
 
 		camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960.0f, 540.0f);
-
-		material = std::make_unique<Material>("res/shaders/TextureMix.shader");
-		material->AddTexture("res/textures/awesomeface.png", 0, "u_TextureA");
-		material->AddTexture("res/textures/container.jpg", 1, "u_TextureB");
-		material->BindTextures();
-		material->GetShader().SetUniform1f("u_Degree", 0.8f);
-
-		renderer = std::make_unique<Renderer>();
 	}
 
 	SampleTexture3D::~SampleTexture3D()
@@ -35,8 +38,8 @@ namespace Sample
  	
 	void SampleTexture3D::OnUpdate(float deltaTime)
 	{
-		cubes[1]->GetRotation().y += 10 * deltaTime;
-		cubes[2]->GetRotation().x += 10 * deltaTime;
+		cubes[1]->GetTransform().GetRotation().y += 10 * deltaTime;
+		cubes[2]->GetTransform().GetRotation().x += 10 * deltaTime;
 	}
 
 	void SampleTexture3D::OnRender()
@@ -45,9 +48,7 @@ namespace Sample
 
 		for (auto& cube : cubes)
 		{
-			mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * cube->GetModelMatrix();
-			material->GetShader().SetUniformMat4f("u_MVP", mvp);
-			renderer->Draw(cube->GetVertexArray(), cube->GetIndexBuffer(), material->GetShader());
+			cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
 		}
 	}
 
@@ -55,9 +56,9 @@ namespace Sample
 	{
 		ImGui::Text("Camera: Perspective");
         ImGui::Text("Press F to toggle mouse cursor");
-		ImGui::SliderFloat3("Model translation A:", &cubes[0]->GetTranslation().x, -1.0f, 1.0f);
-		ImGui::SliderFloat3("Model rotation:", &cubes[0]->GetRotation().x, 0.0f, 360.0f);
-		ImGui::SliderFloat3("Model scale:", &cubes[0]->GetScale().x, 0.1f, 3.0f);
+		ImGui::SliderFloat3("Model translation A:", &cubes[0]->GetTransform().GetTranslation().x, -1.0f, 1.0f);
+		ImGui::SliderFloat3("Model rotation:", &cubes[0]->GetTransform().GetRotation().x, 0.0f, 360.0f);
+		ImGui::SliderFloat3("Model scale:", &cubes[0]->GetTransform().GetScale().x, 0.1f, 3.0f);
 
 
         if (ImGui::IsKeyPressed(ImGuiKey_F))

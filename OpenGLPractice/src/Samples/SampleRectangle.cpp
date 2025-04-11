@@ -1,15 +1,14 @@
 #include "SampleRectangle.h"
+#include "Rectangle.h"
 
 namespace Sample
 {
     SampleRectangle::SampleRectangle()
     {
-        rectangle = std::make_unique<Model::Rectangle>(1.0f, 1.0f, 1.0f, 1.0f);
+        auto rect = std::make_shared<Model::Rectangle>(1.0f, 1.0f, 1.0f, 1.0f);
+        rectangle = std::make_unique<GameObject>(rect, "res/shaders/Basic.shader");
         
-        material = std::make_unique<Material>("res/shaders/Basic.shader");
-        material->GetShader().SetUniform4f("u_Color", r, 0.5f, 0.8f, 1.0f);
-
-        renderer = std::make_unique<Renderer>();
+        rectangle->GetMaterial().GetShader().SetUniform4f("u_Color", r, 0.5f, 0.8f, 1.0f);
     }
     
     SampleRectangle::~SampleRectangle()
@@ -26,7 +25,7 @@ namespace Sample
 
     void SampleRectangle::OnRender()
 	{
-		material->GetShader().SetUniform4f("u_Color", r, 0.5f, 0.8f, 1.0f);
-        renderer->Draw(rectangle->GetVertexArray(), rectangle->GetIndexBuffer(), material->GetShader());
+        rectangle->GetMaterial().GetShader().SetUniform4f("u_Color", r, 0.5f, 0.8f, 1.0f);
+		rectangle->OnRender();
 	}
 }

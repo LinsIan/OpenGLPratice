@@ -306,6 +306,7 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Models\Cube.h" />
     <ClInclude Include="src\Samples\SampleTexture3D.h" />
     <ClInclude Include="src\Camera.h" />
@@ -622,6 +623,7 @@
     <ClInclude Include="src\Samples\SampleTexture2D.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\VertexBufferLayout.h" />

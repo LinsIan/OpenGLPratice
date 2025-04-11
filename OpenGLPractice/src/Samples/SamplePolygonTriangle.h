@@ -1,8 +1,6 @@
 #pragma once
 #include "Sample.h"
-#include "Renderer.h"
-#include "Material.h"
-#include "Triangle.h"
+#include "GameObject.h"
 
 #include <memory>
 
@@ -11,10 +9,9 @@ namespace Sample
     class SamplePolygonTriangle : public Sample
     {
     private:
+        std::unique_ptr<GameObject> triangleA;
+        std::unique_ptr<GameObject> triangleB;
         std::unique_ptr<Renderer> renderer;
-        std::unique_ptr<Material> material;
-        std::unique_ptr<Model::Triangle> triangleA;
-        std::unique_ptr<Model::Triangle> triangleB;
 
     public:
         SamplePolygonTriangle();

@@ -1471,6 +1471,12 @@
     <ClInclude Include="src\Models\Cube.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameObject.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Transform.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\ChernoLogo.png">
