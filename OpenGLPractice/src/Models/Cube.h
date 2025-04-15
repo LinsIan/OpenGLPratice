@@ -9,7 +9,7 @@ namespace Model
 	private:
 		
 	public:
-		Cube(float length, float width, float height, float coordX, float coordY) : Model()
+		Cube(float length, float width, float height) : Model()
 		{
 			float position[] =
 			{

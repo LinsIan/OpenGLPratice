@@ -28,6 +28,7 @@ public:
         translation = std::make_unique<glm::vec3>(0.0f, 0.0f, 0.0f);
         scale = std::make_unique<glm::vec3>(1.0f, 1.0f, 1.0f);
         radians = std::make_unique<glm::vec3>(0.0f, 0.0f, 0.0f);
+        matrix = glm::mat4(1.0f);
     }
 
 	~Transform() {}

@@ -15,9 +15,9 @@ namespace Sample
         material->BindTextures();
         material->GetShader().SetUniform1f("u_Degree", 0.8f);
 
-		auto cube1 = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f), material);
-        auto cube2 = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.2f, 1.2f, 1.2f, -1.0f, -1.0f), material);
-        auto cube3 = std::make_unique<GameObject>(std::make_shared<Model::Cube>(0.6f, 0.8f, 1.4f, -1.0f, 1.0f), material);
+		auto cube1 = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.0f, 1.0f, 1.0f), material);
+        auto cube2 = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.2f, 1.2f, 1.2f), material);
+        auto cube3 = std::make_unique<GameObject>(std::make_shared<Model::Cube>(0.6f, 0.8f, 1.4f), material);
 
         cubes.push_back(std::move(cube1));
         cubes.push_back(std::move(cube2));
@@ -44,12 +44,10 @@ namespace Sample
 
 	void SampleTexture3D::OnRender()
 	{
-		glm::mat4 mvp(1.0f);
-
-		for (auto& cube : cubes)
-		{
-			cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
-		}
+        for (auto& cube : cubes)
+        {
+            cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+        }
 	}
 
 	void SampleTexture3D::OnImguiRender()
