@@ -87,9 +87,11 @@
     <ClCompile Include="src\Samples\SampleTexture3D.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\Samples\SampleLightTest.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\shaders\Basic.shader" />
     <None Include="src\3rdParty\glm\detail\func_common.inl">
       <Filter>標頭檔</Filter>
     </None>
@@ -506,6 +508,9 @@
     </None>
     <None Include="res\shaders\Texture.shader" />
     <None Include="res\shaders\TextureMix.shader" />
+    <None Include="res\shaders\Basic2D.shader" />
+    <None Include="res\shaders\Basic3D.shader" />
+    <None Include="res\shaders\Light.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer.h">
@@ -1471,10 +1476,19 @@
     <ClInclude Include="src\Models\Cube.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObject.h">
+    <ClInclude Include="src\GameObjects\GameObject.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\Transform.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\SampleLightTest.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\Sphere.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Light.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

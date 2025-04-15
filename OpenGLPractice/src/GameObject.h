@@ -12,12 +12,19 @@
 
 class GameObject
 {
-private:
+protected:
     std::shared_ptr<Model::Model> model;
     std::shared_ptr<Material> material;
     std::unique_ptr<Transform> transform;
 
 public:
+    GameObject()
+    {
+        model = nullptr;
+        material = nullptr;
+        transform = std::make_unique<Transform>();
+    }
+
     GameObject(std::shared_ptr<Model::Model> modelptr, std::string shaderPath)
     {
         model = modelptr;
@@ -32,7 +39,7 @@ public:
         transform = std::make_unique<Transform>();
     }
 
-    ~GameObject() {}
+    virtual ~GameObject() {}
 
     void OnUpdate(float deltaTime) {}
 
@@ -43,6 +50,7 @@ public:
 
     void OnRender(const glm::mat4& proj, const glm::mat4& view)
     {
+        material->BindShader();
         material->GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
         Renderer::Draw(model->GetVertexArray(), model->GetIndexBuffer(), material->GetShader());
     }

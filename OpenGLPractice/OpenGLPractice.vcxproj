@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;src/Models;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src/GameObjects;src/Models;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;src/Models;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src/GameObjects;src/Models;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Samples\SampleLightTest.cpp" />
     <ClCompile Include="src\Samples\SampleTexture3D.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Samples\SampleTextureMix.cpp" />
@@ -161,7 +162,9 @@
     <ClCompile Include="src\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\shaders\Basic.shader" />
+    <None Include="res\shaders\Basic2D.shader" />
+    <None Include="res\shaders\Basic3D.shader" />
+    <None Include="res\shaders\Light.shader" />
     <None Include="res\shaders\Texture.shader" />
     <None Include="res\shaders\TextureMix.shader" />
     <None Include="src\3rdParty\glm\detail\func_common.inl" />
@@ -306,8 +309,11 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
-    <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\GameObjects\Light.h" />
+    <ClInclude Include="src\Samples\SampleLightTest.h" />
+    <ClInclude Include="src\GameObjects\GameObject.h" />
     <ClInclude Include="src\Models\Cube.h" />
+    <ClInclude Include="src\Models\Sphere.h" />
     <ClInclude Include="src\Samples\SampleTexture3D.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Material.h" />
