@@ -52,4 +52,5 @@ public:
 
     glm::vec3& GetPosition() { return *position; }
     glm::vec3& GetForward() { return *forward; }
+    CameraType GetCameraType() const { return type; }
 };

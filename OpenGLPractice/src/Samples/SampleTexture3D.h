@@ -3,7 +3,6 @@
 #include "Sample.h"
 #include "Camera.h"
 #include "GameObject.h"
-#include "imgui/imgui.h"
 
 #include <memory>
 #include <vector>
@@ -15,9 +14,6 @@ namespace Sample
     private:
 		std::vector<std::unique_ptr<GameObject>> cubes;
 		std::unique_ptr<Camera> camera;
-
-        ImVec2 lastMousePos;
-        bool isShowCursor = false;
 
 	public:
 		SampleTexture3D();

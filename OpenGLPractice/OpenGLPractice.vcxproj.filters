@@ -1476,7 +1476,7 @@
     <ClInclude Include="src\Models\Cube.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObjects\GameObject.h">
+    <ClInclude Include="src\GameObject.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\Transform.h">
@@ -1488,7 +1488,7 @@
     <ClInclude Include="src\Models\Sphere.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObjects\Light.h">
+    <ClInclude Include="src\UIManager.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
