@@ -39,6 +39,12 @@ public:
         return matrix;
     }
 
+    const glm::mat3 GetNormalMatrix()
+    {
+        UpdateModelMatrix();
+        return glm::transpose(glm::inverse(glm::mat3(matrix)));
+    }
+
     void SetTranslation(float x, float y, float z)
     {
         translation->x = x;

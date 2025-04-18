@@ -90,6 +90,9 @@
     <ClCompile Include="src\Samples\SampleLightTest.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\UIManager.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\3rdParty\glm\detail\func_common.inl">

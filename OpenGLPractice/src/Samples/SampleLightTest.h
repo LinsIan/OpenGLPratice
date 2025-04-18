@@ -18,8 +18,7 @@ namespace Sample
         std::unique_ptr<GameObject> cube;
         std::unique_ptr<Camera> camera;
 
-        ImVec2 lastMousePos;
-        bool isShowCursor = false;
+        void UpdatCubeMaterial();
 
     public:
         SampleLightTest();

@@ -7,11 +7,21 @@
 
 class UIManager
 {
-private:
-    static bool isShowCursor;
-    static ImVec2 lastMousePos;
+private:    
+    static UIManager* instance;
+    bool isShowCursor = true;
+    ImVec2 lastMousePos = ImVec2(0.0f, 0.0f);
     
 public:
+    static UIManager* GetInstance()
+    {
+        if (instance == nullptr)
+        {
+            instance = new UIManager();
+        }
+        return instance;
+    }
+
     static void ShowTransformUI(Transform &transform)
     {
         ImGui::SliderFloat3("Model translation A:", &transform.GetTranslation().x, -1.0f, 1.0f);
@@ -19,7 +29,7 @@ public:
         ImGui::SliderFloat3("Model scale:", &transform.GetScale().x, 0.1f, 3.0f);
     }
 
-    static void ShowCursorUI()
+    void ShowCursorUI()
     {
         ImGui::Text("Press F to toggle mouse cursor");
 
@@ -39,7 +49,7 @@ public:
         }
     }
 
-    static void ShowCameraUI(Camera& camera)
+    void ShowCameraUI(Camera& camera)
     {
         if (camera.GetCameraType() == CameraType::PERSPECTIVE)
             ImGui::Text("Camera: Perspective");
@@ -84,6 +94,3 @@ public:
         }
     }
 };
-
-bool UIManager::isShowCursor = true;
-ImVec2 UIManager::lastMousePos = ImVec2(0.0f, 0.0f);

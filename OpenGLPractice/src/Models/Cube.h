@@ -6,43 +6,45 @@ namespace Model
 {
 	class Cube : public Model
 	{
-	private:
-		
 	public:
 		Cube(float length, float width, float height) : Model()
 		{
-			float position[] =
-			{
-				-width / 2, -height / 2,  length / 2,  0.0f, 0.0f, // 0
-				 width / 2, -height / 2,  length / 2,  1.0f, 0.0f, // 1
-				 width / 2,  height / 2,  length / 2,  1.0f, 1.0f, // 2
-				-width / 2,  height / 2,  length / 2,  0.0f, 1.0f, // 3
+            float len = length / 2;
+            float wid = width / 2;
+            float hei = height / 2;
 
-				-width / 2, -height / 2, -length / 2,  1.0f, 0.0f, // 4
-				 width / 2, -height / 2, -length / 2,  0.0f, 0.0f, // 5
-				 width / 2,  height / 2, -length / 2,  0.0f, 1.0f, // 6
-				-width / 2,  height / 2, -length / 2,  1.0f, 1.0f, // 7
+            float position[] =
+            {
+				-wid, -hei,  len,  0.0f, 0.0f, 0.0f, 0.0f, 1.0f, // 0
+				 wid, -hei,  len,  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // 1
+				 wid,  hei,  len,  1.0f, 1.0f, 0.0f, 0.0f, 1.0f, // 2
+				-wid,  hei,  len,  0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // 3
 
-				-width / 2, -height / 2, -length / 2,  0.0f, 0.0f, // 8
-				-width / 2, -height / 2,  length / 2,  1.0f, 0.0f, // 9
-				-width / 2,  height / 2,  length / 2,  1.0f, 1.0f, // 10
-				-width / 2,  height / 2, -length / 2,  0.0f, 1.0f, // 11
+				-wid, -hei, -len,  1.0f, 0.0f, 0.0f, 0.0f, -1.0f, // 4
+				 wid, -hei, -len,  0.0f, 0.0f, 0.0f, 0.0f, -1.0f, // 5
+				 wid,  hei, -len,  0.0f, 1.0f, 0.0f, 0.0f, -1.0f, // 6
+				-wid,  hei, -len,  1.0f, 1.0f, 0.0f, 0.0f, -1.0f, // 7
 
-				 width / 2, -height / 2, -length / 2,  1.0f, 0.0f, // 12
-				 width / 2, -height / 2,  length / 2,  0.0f, 0.0f, // 13
-				 width / 2,  height / 2,  length / 2,  0.0f, 1.0f, // 14
-				 width / 2,  height / 2, -length / 2,  1.0f, 1.0f, // 15
+				-wid, -hei, -len,  0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // 8
+				-wid, -hei,  len,  1.0f, 0.0f, -1.0f, 0.0f, 0.0f, // 9
+				-wid,  hei,  len,  1.0f, 1.0f, -1.0f, 0.0f, 0.0f, // 10
+				-wid,  hei, -len,  0.0f, 1.0f, -1.0f, 0.0f, 0.0f, // 11
 
-				 -width / 2, -height / 2, -length / 2,  0.0f, 1.0f, // 16
-				  width / 2, -height / 2, -length / 2,  1.0f, 1.0f, // 17
-				  width / 2, -height / 2,  length / 2,  1.0f, 0.0f, // 18
-				 -width / 2, -height / 2,  length / 2,  0.0f, 0.0f, // 19
+				 wid, -hei, -len,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // 12
+				 wid, -hei,  len,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // 13
+				 wid,  hei,  len,  0.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 14
+				 wid,  hei, -len,  1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 15
 
-				 -width / 2,  height / 2, -length / 2,  0.0f, 0.0f, // 20
-				  width / 2,  height / 2, -length / 2,  1.0f, 0.0f, // 21
-				  width / 2,  height / 2,  length / 2,  1.0f, 1.0f, // 22
-				 -width / 2,  height / 2,  length / 2,  0.0f, 1.0f  // 23
-			};
+				-wid, -hei, -len,  0.0f, 1.0f, 0.0f, -1.0f, 0.0f, // 16
+				 wid, -hei, -len,  1.0f, 1.0f, 0.0f, -1.0f, 0.0f, // 17
+				 wid, -hei,  len,  1.0f, 0.0f, 0.0f, -1.0f, 0.0f, // 18
+				-wid, -hei,  len,  0.0f, 0.0f, 0.0f, -1.0f, 0.0f, // 19
+
+				-wid,  hei, -len,  0.0f, 0.0f, 0.0f, 1.0f, 0.0f, // 20
+				 wid,  hei, -len,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // 21
+				 wid,  hei,  len,  1.0f, 1.0f, 0.0f, 1.0f, 0.0f, // 22
+				-wid,  hei,  len,  0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // 23
+            };
 
 			unsigned int indices[] =
 			{
@@ -66,10 +68,11 @@ namespace Model
 			};
 
 			vertexArray = std::make_unique<VertexArray>();
-			vertexBuffer = std::make_unique<VertexBuffer>(position, 24 * 5 * sizeof(float));
+			vertexBuffer = std::make_unique<VertexBuffer>(position, 24 * 8 * sizeof(float));
 			VertexBufferLayout layout;
 			layout.Push<float>(3); // position
 			layout.Push<float>(2); // texture coordinate
+            layout.Push<float>(3); // normal
 			vertexArray->AddBuffer(*vertexBuffer, layout);
 			indexBuffer = std::make_unique<IndexBuffer>(indices, 36);
 

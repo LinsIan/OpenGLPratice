@@ -52,6 +52,7 @@ public:
     {
         material->BindShader();
         material->GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
+        material->GetShader().SetUniformMat4f("u_Model", transform->GetMatrix());
         Renderer::Draw(model->GetVertexArray(), model->GetIndexBuffer(), material->GetShader());
     }
 

@@ -1,101 +1,64 @@
 #include "SampleLightTest.h"
 #include "Sphere.h"
 #include "Cube.h"
-#include "glfw/glfw3.h"
+#include "UIManager.h"
 
 namespace Sample
 {
+
+    void SampleLightTest::UpdatCubeMaterial()
+    {
+        cube->GetMaterial().GetShader().Bind();
+        auto lightColor = ligthBall->GetMaterial().GetColor();
+        cube->GetMaterial().GetShader().SetUniform3f("u_LightColor", lightColor.r, lightColor.g, lightColor.b);
+        auto lightPos = ligthBall->GetTransform().GetTranslation();
+        cube->GetMaterial().GetShader().SetUniform3f("u_LightPos", lightPos.x, lightPos.y, lightPos.z);
+        auto viewPos = camera->GetPosition();
+        cube->GetMaterial().GetShader().SetUniform3f("u_ViewPos", viewPos.x, viewPos.y, viewPos.z);
+        cube->GetMaterial().GetShader().SetUniformMat3f("u_NormalMatrix", cube->GetTransform().GetNormalMatrix());
+    }
+
     SampleLightTest::SampleLightTest()
     {
+        camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960, 540);
 
         auto lightMaterial = std::make_shared<Material>("res/shaders/Basic3D.shader");
         lightMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         ligthBall = std::make_unique<GameObject>(std::make_shared<Model::Sphere>(0.2f, 20, 20), lightMaterial);
-        ligthBall->GetTransform().SetTranslation(1.5f, 1.2f, -2.0f);
+        ligthBall->GetTransform().SetTranslation(0.1f, 0.7f, 0.0f);
         
         auto cubeMaterial = std::make_shared<Material>("res/shaders/Light.shader");
         cubeMaterial->SetColor(1.0f, 0.5f, 0.31f, 1.0f);
-        auto lightColor = lightMaterial->GetColor();
-        cubeMaterial->GetShader().SetUniform4f("u_LightColor", lightColor.r, lightColor.g, lightColor.b, lightColor.a);
-
+        
         cube = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.0f, 1.0f, 1.0f), cubeMaterial);
-        cube->GetTransform().SetRotation(45, 45, 0);
-        cube->GetTransform().SetScale(0.5f, 0.5f, 0.5f);
+        cube->GetTransform().SetRotation(45, 0, 0);
+        cube->GetTransform().SetScale(0.6f, 0.6f, 0.6f);
 
-        camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960, 540);
+        UpdatCubeMaterial();
     }
 
     SampleLightTest::~SampleLightTest()
     {
-
     }
 
     void SampleLightTest::OnUpdate(float deltaTime)
     {
-
+    
     }
-
+    
     void SampleLightTest::OnRender()
     {
         ligthBall->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+        UpdatCubeMaterial();
         cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
     }
 
     void SampleLightTest::OnImguiRender()
     {
-        /*if (ImGui::IsKeyPressed(ImGuiKey_F))
-        {
-            isShowCursor = !isShowCursor;
-
-            if (isShowCursor)
-            {
-                glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-            }
-            else
-            {
-                glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-                lastMousePos = ImGui::GetMousePos();
-            }
-        }
-
-        if (isShowCursor) return;
-
-        if (ImGui::IsKeyDown(ImGuiKey_W))
-        {
-            camera->MoveForward();
-        }
-        if (ImGui::IsKeyDown(ImGuiKey_S))
-        {
-            camera->MoveBackward();
-        }
-        if (ImGui::IsKeyDown(ImGuiKey_A))
-        {
-            camera->MoveLeft();
-        }
-        if (ImGui::IsKeyDown(ImGuiKey_D))
-        {
-            camera->MoveRight();
-        }
-
-        ImVec2 currentPos = ImGui::GetMousePos();
-
-        if (currentPos.x != lastMousePos.x || currentPos.y != lastMousePos.y)
-        {
-            float xOffset = currentPos.x - lastMousePos.x;
-            float yOffset = lastMousePos.y - currentPos.y;
-
-            camera->Rotate(xOffset, yOffset);
-            lastMousePos = currentPos;
-        }
-
-        float wheel = ImGui::GetIO().MouseWheel;
-
-        if (wheel != 0.0f)
-        {
-            camera->SetFov(wheel);
-        }*/
-
+        UIManager::GetInstance()->ShowTransformUI(ligthBall->GetTransform());
+        UIManager::GetInstance()->ShowCursorUI();
+        UIManager::GetInstance()->ShowCameraUI(*camera);
     }
 
 }
