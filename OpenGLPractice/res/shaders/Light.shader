@@ -21,42 +21,55 @@ void main()
 #shader fragment
 #version 330 core
 
+struct Material
+{
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+    float shininess;
+};
+
+struct Light {
+    vec3 position;
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+
 in vec3 v_Normal;
 in vec3 v_FragPos;
 
 layout(location = 0) out vec4 color;
 
+uniform Material material;
+uniform Light light;
 uniform vec4 u_Color;
-uniform vec3 u_LightColor;
-uniform vec3 u_LightPos;
 uniform vec3 u_ViewPos;
 uniform mat3 u_NormalMatrix;
 
-float ambientStrength = 0.1f;
-float specularStrength = 0.5f;
 vec3 normal;
 vec3 lightDir;
 
 vec3 CalcAmbient()
 {
-    return ambientStrength * u_LightColor;
+    return light.ambient * material.ambient;
 }
 
 vec3 CalcDiffuse()
 {
     normal = normalize(u_NormalMatrix * v_Normal);
-    lightDir = normalize(u_LightPos - v_FragPos);
+    lightDir = normalize(light.position - v_FragPos);
 
     float diff = max(dot(normal, lightDir), 0.0);
-    return diff * u_LightColor;
+    return light.diffuse * (diff * material.diffuse);
 }
 
 vec3 CalcSpecular()
 {
     vec3 viewDir = normalize(u_ViewPos - v_FragPos);
     vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-    return specularStrength * spec * u_LightColor;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess *  128.0f);
+    return light.specular * (spec * material.specular);
 }
 
 void main()

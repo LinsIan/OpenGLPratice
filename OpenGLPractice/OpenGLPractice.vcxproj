@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\MaterialDatabase.cpp" />
     <ClCompile Include="src\Samples\SampleLightTest.cpp" />
     <ClCompile Include="src\Samples\SampleTexture3D.cpp" />
     <ClCompile Include="src\Camera.cpp" />
@@ -310,6 +311,7 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\MaterialDatabase.h" />
     <ClInclude Include="src\Samples\SampleLightTest.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Models\Cube.h" />

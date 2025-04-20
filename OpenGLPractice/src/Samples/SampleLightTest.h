@@ -3,8 +3,9 @@
 #include "Sample.h"
 #include "Camera.h"
 #include "GameObject.h"
-
+#include "glm/glm.hpp"
 #include "imgui/imgui.h"
+#include "MaterialDatabase.h"
 
 #include <memory>
 
@@ -18,7 +19,12 @@ namespace Sample
         std::unique_ptr<GameObject> cube;
         std::unique_ptr<Camera> camera;
 
+		glm::vec3 lightStrength;
+        MaterialProperties currentMaterial;
+        MaterialDatabase database;
+
         void UpdatCubeMaterial();
+		void OnCurrentMaterialChange();
 
     public:
         SampleLightTest();

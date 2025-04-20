@@ -93,6 +93,9 @@
     <ClCompile Include="src\UIManager.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\MaterialDatabase.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\3rdParty\glm\detail\func_common.inl">
@@ -1492,6 +1495,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\UIManager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MaterialDatabase.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
