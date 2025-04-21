@@ -7,6 +7,7 @@
 #include "Samples/SampleTextureMix.h"
 #include "Samples/SampleTexture3D.h"
 #include "Samples/SampleLightTest.h"
+#include "Samples/SampleLightingMaps.h"
 
 SampleManager::SampleManager()
 {
@@ -62,6 +63,12 @@ void SampleManager::OnUpdate()
             {
                 sample = nullptr;
                 sample = std::make_unique<Sample::SampleLightTest>();
+            }
+
+            if (ImGui::MenuItem("LightingMaps"))
+            {
+                sample = nullptr;
+                sample = std::make_unique<Sample::SampleLightingMaps>();
             }
 
             ImGui::EndMenu();

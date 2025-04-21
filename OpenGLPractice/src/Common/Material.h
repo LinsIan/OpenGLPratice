@@ -46,20 +46,33 @@ public:
         shader->SetUniform1f("material.shininess", material.shininess);
     }
 
-    void SetMaterialProperties(const glm::vec3& ambient, const glm::vec3& diffuse, const glm::vec3& specular, float shininess)
+    void SetMaterialAmbient(const glm::vec3& ambient)
     {
         shader->SetUniform3f("material.ambient", ambient.x, ambient.y, ambient.z);
+    }
+
+    void SetMaterialDiffuse(const glm::vec3& diffuse)
+    {
         shader->SetUniform3f("material.diffuse", diffuse.x, diffuse.y, diffuse.z);
+    }
+
+    void SetMaterialSpecular(const glm::vec3& specular)
+    {
         shader->SetUniform3f("material.specular", specular.x, specular.y, specular.z);
+    }
+
+    void SetMaterialShininess(float shininess)
+    {
         shader->SetUniform1f("material.shininess", shininess);
     }
+
 
     void SetLightPos(const glm::vec3& lightPos)
     {
         shader->SetUniform3f("light.position", lightPos.x, lightPos.y, lightPos.z);
     }
 
-    void SetLightColor(const glm::vec4 lightColor, glm::vec3 lightStrength)
+    void SetLightProperties(const glm::vec4 lightColor, glm::vec3 lightStrength)
     {
         shader->SetUniform3f("light.ambient", lightColor.r * lightStrength.x, lightColor.g * lightStrength.x, lightColor.b * lightStrength.x);
         shader->SetUniform3f("light.diffuse", lightColor.r * lightStrength.y, lightColor.g * lightStrength.y, lightColor.b * lightStrength.y);
