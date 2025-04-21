@@ -10,34 +10,17 @@ namespace Sample
 
     void SampleLightTest::UpdatCubeMaterial()
     {
-		lightStrength = glm::vec3(1.0f, 1.0f, 1.0f);
         cube->GetMaterial().GetShader().Bind();
-        auto lightColor = ligthBall->GetMaterial().GetColor();
-        cube->GetMaterial().GetShader().SetUniform3f("light.ambient", lightColor.r * lightStrength.x, lightColor.g * lightStrength.x, lightColor.b * lightStrength.x);
-        cube->GetMaterial().GetShader().SetUniform3f("light.diffuse", lightColor.r * lightStrength.y, lightColor.g * lightStrength.y, lightColor.b * lightStrength.y);
-        cube->GetMaterial().GetShader().SetUniform3f("light.specular", lightColor.r * lightStrength.z, lightColor.g * lightStrength.z, lightColor.b * lightStrength.z);
-        auto lightPos = ligthBall->GetTransform().GetTranslation();
-        cube->GetMaterial().GetShader().SetUniform3f("light.position", lightPos.x, lightPos.y, lightPos.z);
-        auto viewPos = camera->GetPosition();
-        cube->GetMaterial().GetShader().SetUniform3f("u_ViewPos", viewPos.x, viewPos.y, viewPos.z);
-        cube->GetMaterial().GetShader().SetUniformMat3f("u_NormalMatrix", cube->GetTransform().GetNormalMatrix());
+        cube->GetMaterial().SetLightColor(ligthBall->GetMaterial().GetColor(), lightStrength);
+        cube->GetMaterial().SetLightPos(ligthBall->GetTransform().GetTranslation());
+        cube->GetMaterial().SetViewPos(camera->GetPosition());
+        cube->GetMaterial().SetNormalMatrix(cube->GetTransform().GetNormalMatrix());
     }
-
-	void SampleLightTest::OnCurrentMaterialChange()
-	{
-		cube->GetMaterial().GetShader().SetUniform3f("material.ambient", currentMaterial.ambient.x, currentMaterial.ambient.y, currentMaterial.ambient.z);
-		cube->GetMaterial().GetShader().SetUniform3f("material.diffuse", currentMaterial.diffuse.x, currentMaterial.diffuse.y, currentMaterial.diffuse.z);
-		cube->GetMaterial().GetShader().SetUniform3f("material.specular", currentMaterial.specular.x, currentMaterial.specular.y, currentMaterial.specular.z);
-		cube->GetMaterial().GetShader().SetUniform1f("material.shininess", currentMaterial.shininess);
-
-		currentMaterial = database.GetMaterialProperties(MaterialType::Emerald);
-
-		UpdatCubeMaterial();
-	}
 
     SampleLightTest::SampleLightTest()
     {
         camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960, 540);
+        lightStrength = glm::vec3(1.0f, 1.0f, 1.0f);
 
         auto lightMaterial = std::make_shared<Material>("res/shaders/Basic3D.shader");
         lightMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -53,8 +36,8 @@ namespace Sample
         cube->GetTransform().SetScale(0.6f, 0.6f, 0.6f);
 
         currentMaterial = database.GetMaterialProperties(MaterialType::Emerald);
+        cube->GetMaterial().SetMaterialProperties(currentMaterial);
         UpdatCubeMaterial();
-        OnCurrentMaterialChange();
     }
 
     SampleLightTest::~SampleLightTest()
@@ -87,7 +70,7 @@ namespace Sample
 			if (ImGui::Button(MaterialTypeToString(materialProperties.first).c_str()))
             {
 				currentMaterial = materialProperties.second;
-                OnCurrentMaterialChange();
+                cube->GetMaterial().SetMaterialProperties(currentMaterial);
             }
 
 			buttonCount++;

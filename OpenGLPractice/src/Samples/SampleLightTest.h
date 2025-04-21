@@ -4,7 +4,6 @@
 #include "Camera.h"
 #include "GameObject.h"
 #include "glm/glm.hpp"
-#include "imgui/imgui.h"
 #include "MaterialDatabase.h"
 
 #include <memory>
@@ -24,7 +23,6 @@ namespace Sample
         MaterialDatabase database;
 
         void UpdatCubeMaterial();
-		void OnCurrentMaterialChange();
 
     public:
         SampleLightTest();
