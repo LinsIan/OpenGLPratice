@@ -8,14 +8,6 @@
 namespace Sample
 {
 
-    void SampleLightTest::UpdatCubeMaterial()
-    {
-        cube->GetMaterial().GetShader().Bind();
-        cube->GetMaterial().SetLightProperties(light->GetLightProperties());
-        cube->GetMaterial().SetViewPos(camera->GetPosition());
-        cube->GetMaterial().SetNormalMatrix(cube->GetTransform().GetNormalMatrix());
-    }
-
     SampleLightTest::SampleLightTest()
     {
         camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960, 540);
@@ -37,7 +29,6 @@ namespace Sample
 
         currentMaterial = database.GetMaterialProperties(MaterialType::Emerald);
         cube->GetMaterial().SetMaterialProperties(currentMaterial);
-        UpdatCubeMaterial();
     }
 
     SampleLightTest::~SampleLightTest()
@@ -55,7 +46,7 @@ namespace Sample
     void SampleLightTest::OnRender()
     {
         light->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
-        UpdatCubeMaterial();
+		cube->GetMaterial().UpdateBasicLightingUniforms(light->GetLightProperties(), camera->GetPosition(), cube->GetTransform().GetNormalMatrix());
         cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
     }
 

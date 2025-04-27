@@ -110,6 +110,14 @@ public:
         shader->SetUniform3f("u_ViewPos", viewPos.x, viewPos.y, viewPos.z);
     }
 
+	void UpdateBasicLightingUniforms(const LightProperties lightProperties, const glm::vec3& viewPos, const glm::mat4& normalMatrix)
+    {
+		shader->Bind();
+        SetLightProperties(lightProperties);
+        SetViewPos(viewPos);
+        SetNormalMatrix(normalMatrix);
+	}
+
     void SetNormalMatrix(const glm::mat3& normalMatrix)
     {
         shader->SetUniformMat3f("u_NormalMatrix", normalMatrix);

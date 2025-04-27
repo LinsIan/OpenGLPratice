@@ -5,14 +5,6 @@
 
 namespace Sample
 { 
-    void SampleLightingMaps::UpdateCubeMaterial()
-    {
-        cube->GetMaterial().GetShader().Bind();
-		cube->GetMaterial().SetLightProperties(light->GetLightProperties());
-        cube->GetMaterial().SetViewPos(camera->GetPosition());
-        cube->GetMaterial().SetNormalMatrix(cube->GetTransform().GetNormalMatrix());
-    }
-
     SampleLightingMaps::SampleLightingMaps()
     {
         camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960, 540);
@@ -36,7 +28,6 @@ namespace Sample
 
         cube->GetMaterial().GetShader().Bind();
         cube->GetMaterial().SetMaterialShininess(64.0f);
-        UpdateCubeMaterial();
     }
 
     SampleLightingMaps::~SampleLightingMaps()
@@ -55,7 +46,7 @@ namespace Sample
     void SampleLightingMaps::OnRender()
     {
         light->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
-        UpdateCubeMaterial();
+        cube->GetMaterial().UpdateBasicLightingUniforms(light->GetLightProperties(), camera->GetPosition(), cube->GetTransform().GetNormalMatrix());
         cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
     }
 

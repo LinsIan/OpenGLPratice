@@ -23,8 +23,6 @@ namespace Sample
         MaterialProperties currentMaterial;
         MaterialDatabase database;
 
-        void UpdatCubeMaterial();
-
     public:
         SampleLightTest();
         ~SampleLightTest();

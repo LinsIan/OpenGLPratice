@@ -1,5 +1,4 @@
 #include "MaterialDatabase.h"
-#include <iostream>
 
 std::string MaterialTypeToString(MaterialType type)
 {
@@ -60,7 +59,6 @@ MaterialDatabase::MaterialDatabase()
 	materialProperties[MaterialType::RedRubber] = { {0.05f, 0.0f, 0.0f}, {0.5f, 0.4f, 0.4f}, {0.7f, 0.04f, 0.04f}, 0.078125f };
 	materialProperties[MaterialType::WhiteRubber] = { {0.05f, 0.05f, 0.05f}, {0.5f, 0.5f, 0.5f}, {0.7f, 0.7f, 0.7f}, 0.078125f };
 	materialProperties[MaterialType::YellowRubber] = { {0.05f, 0.05f, 0.0f}, {0.5f, 0.5f, 0.4f}, {0.7f, 0.7f, 0.04f}, 0.078125f };
-	std::cout << materialProperties.size() << std::endl;
 }
 
 MaterialDatabase::~MaterialDatabase()

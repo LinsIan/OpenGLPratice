@@ -17,8 +17,6 @@ namespace Sample
 		std::unique_ptr<Light> light;
         std::unique_ptr<GameObject> cube;
 
-        void UpdateCubeMaterial();
-
     public:
         SampleLightingMaps();
         ~SampleLightingMaps();
