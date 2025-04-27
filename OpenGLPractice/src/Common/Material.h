@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "glm/glm.hpp"
 #include "MaterialDatabase.h"
+#include "LightProperties.h"
 
 #include <memory>
 #include <map>
@@ -38,6 +39,12 @@ public:
         shader->SetUniform4f("u_Color", color.r, color.g, color.b, color.a);
     }
 
+	void SetColor(const glm::vec3& color, float a = 1.0f)
+	{
+		this->color = glm::vec4(color, a);
+		shader->SetUniform4f("u_Color", color.r, color.g, color.b, a);
+	}
+
     void SetMaterialProperties(const MaterialProperties& material)
     {
         shader->SetUniform3f("material.ambient", material.ambient.x, material.ambient.y, material.ambient.z);
@@ -66,17 +73,36 @@ public:
         shader->SetUniform1f("material.shininess", shininess);
     }
 
+	void SetDirLightProperties(const LightProperties& lightProperties)
+    {
+		shader->SetUniform3f("light.direction", lightProperties.direction);
+		shader->SetUniform3f("light.ambient", lightProperties.ambient);
+		shader->SetUniform3f("light.diffuse", lightProperties.diffuse);
+		shader->SetUniform3f("light.specular", lightProperties.specular);
+    }
+
+	void SetPointLightProperties(const LightProperties& lightProperties)
+	{
+		shader->SetUniform3f("light.position", lightProperties.position);
+		shader->SetUniform3f("light.ambient", lightProperties.ambient);
+		shader->SetUniform3f("light.diffuse", lightProperties.diffuse);
+		shader->SetUniform3f("light.specular", lightProperties.specular);
+		//shader->SetUniform1f("light.constant", lightProperties.constant);
+		//shader->SetUniform1f("light.linear", lightProperties.linear);
+		//shader->SetUniform1f("light.quadratic", lightProperties.quadratic);
+	}
 
     void SetLightPos(const glm::vec3& lightPos)
     {
         shader->SetUniform3f("light.position", lightPos.x, lightPos.y, lightPos.z);
     }
 
-    void SetLightProperties(const glm::vec4 lightColor, glm::vec3 lightStrength)
+    void SetLightProperties(const LightProperties& lightProperties)
     {
-        shader->SetUniform3f("light.ambient", lightColor.r * lightStrength.x, lightColor.g * lightStrength.x, lightColor.b * lightStrength.x);
-        shader->SetUniform3f("light.diffuse", lightColor.r * lightStrength.y, lightColor.g * lightStrength.y, lightColor.b * lightStrength.y);
-        shader->SetUniform3f("light.specular", lightColor.r * lightStrength.z, lightColor.g * lightStrength.z, lightColor.b * lightStrength.z);
+		shader->SetUniform3f("light.position", lightProperties.position);
+		shader->SetUniform3f("light.ambient", lightProperties.ambient);
+		shader->SetUniform3f("light.diffuse", lightProperties.diffuse);
+		shader->SetUniform3f("light.specular", lightProperties.specular);
     }
 
     void SetViewPos(const glm::vec3& viewPos)

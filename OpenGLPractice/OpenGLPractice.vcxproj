@@ -313,6 +313,8 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\Common\Light.h" />
+    <ClInclude Include="src\Common\LightProperties.h" />
     <ClInclude Include="src\Common\MaterialDatabase.h" />
     <ClInclude Include="src\Samples\SampleLightingMaps.h" />
     <ClInclude Include="src\Samples\SampleLightTest.h" />
@@ -646,6 +648,7 @@
     <Image Include="res\textures\container.jpg" />
     <Image Include="res\textures\container2.png" />
     <Image Include="res\textures\container2_specular.png" />
+    <Image Include="res\textures\matrix.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,7 +8,7 @@ namespace Sample
     void SampleLightingMaps::UpdateCubeMaterial()
     {
         cube->GetMaterial().GetShader().Bind();
-        cube->GetMaterial().SetLightPos(ligthBall->GetTransform().GetTranslation());
+		cube->GetMaterial().SetLightProperties(light->GetLightProperties());
         cube->GetMaterial().SetViewPos(camera->GetPosition());
         cube->GetMaterial().SetNormalMatrix(cube->GetTransform().GetNormalMatrix());
     }
@@ -17,10 +17,12 @@ namespace Sample
     {
         camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960, 540);
 
-        auto lightMaterial = std::make_shared<Material>("res/shaders/Basic3D.shader");
-        lightMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
-        ligthBall = std::make_unique<GameObject>(std::make_shared<Model::Sphere>(0.2f, 20, 20), lightMaterial);
-        ligthBall->GetTransform().SetTranslation(0.12f, 1.0f, 0.2f);
+		LightProperties lightProperties;
+		lightProperties.position = glm::vec3(0.12f, 1.0f, 0.2f);
+		lightProperties.ambient = glm::vec3(0.2f, 0.2f, 0.2f);
+		lightProperties.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+		lightProperties.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+		light = std::make_unique<Light>(LightType::POINT, lightProperties);
 
         auto cubeMaterial = std::make_shared<Material>("res/shaders/LightMaps.shader");
         cubeMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -34,7 +36,6 @@ namespace Sample
 
         cube->GetMaterial().GetShader().Bind();
         cube->GetMaterial().SetMaterialShininess(64.0f);
-        cube->GetMaterial().SetLightProperties(lightMaterial->GetColor(), {0.2f, 0.5f, 1.0f});
         UpdateCubeMaterial();
     }
 
@@ -47,18 +48,20 @@ namespace Sample
         cube->GetTransform().GetRotation().x += 6 * deltaTime;
         cube->GetTransform().GetRotation().y += 10 * deltaTime;
         cube->GetTransform().GetRotation().z += 8 * deltaTime;
+
+		light->OnUpdate(deltaTime);
     }
 
     void SampleLightingMaps::OnRender()
     {
-        ligthBall->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+        light->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
         UpdateCubeMaterial();
         cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
     }
 
     void SampleLightingMaps::OnImguiRender()
     {
-        UIManager::GetInstance()->ShowTransformUI(ligthBall->GetTransform());
+        UIManager::GetInstance()->ShowTransformUI(light->GetTransform());
         UIManager::GetInstance()->ShowCursorUI();
         UIManager::GetInstance()->ShowCameraUI(*camera);
     }

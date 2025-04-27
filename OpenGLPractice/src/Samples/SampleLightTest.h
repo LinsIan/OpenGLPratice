@@ -3,6 +3,7 @@
 #include "Sample.h"
 #include "Camera.h"
 #include "GameObject.h"
+#include "Light.h"
 #include "glm/glm.hpp"
 #include "MaterialDatabase.h"
 
@@ -14,9 +15,9 @@ namespace Sample
         public Sample
     {
     private:
-        std::unique_ptr<GameObject> ligthBall;
         std::unique_ptr<GameObject> cube;
         std::unique_ptr<Camera> camera;
+		std::unique_ptr<Light> light;
 
 		glm::vec3 lightStrength;
         MaterialProperties currentMaterial;

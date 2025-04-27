@@ -11,6 +11,7 @@ namespace Sample
     void SampleLightTest::UpdatCubeMaterial()
     {
         cube->GetMaterial().GetShader().Bind();
+        cube->GetMaterial().SetLightProperties(light->GetLightProperties());
         cube->GetMaterial().SetViewPos(camera->GetPosition());
         cube->GetMaterial().SetNormalMatrix(cube->GetTransform().GetNormalMatrix());
     }
@@ -20,12 +21,13 @@ namespace Sample
         camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960, 540);
         lightStrength = glm::vec3(1.0f, 1.0f, 1.0f);
 
-        auto lightMaterial = std::make_shared<Material>("res/shaders/Basic3D.shader");
-        lightMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+		LightProperties lightProperties;
+		lightProperties.position = glm::vec3(0.12f, 1.0f, 0.2f);
+		lightProperties.ambient = glm::vec3(1.0f, 1.0f, 1.0f);
+		lightProperties.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+		lightProperties.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+		light = std::make_unique<Light>(LightType::POINT, lightProperties);
 
-        ligthBall = std::make_unique<GameObject>(std::make_shared<Model::Sphere>(0.2f, 20, 20), lightMaterial);
-        ligthBall->GetTransform().SetTranslation(0.12f, 1.0f, 0.2f);
-        
         auto cubeMaterial = std::make_shared<Material>("res/shaders/Light.shader");
         cubeMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
         
@@ -35,8 +37,6 @@ namespace Sample
 
         currentMaterial = database.GetMaterialProperties(MaterialType::Emerald);
         cube->GetMaterial().SetMaterialProperties(currentMaterial);
-        cube->GetMaterial().SetLightProperties(ligthBall->GetMaterial().GetColor(), lightStrength);
-        cube->GetMaterial().SetLightPos(ligthBall->GetTransform().GetTranslation());
         UpdatCubeMaterial();
     }
 
@@ -48,18 +48,20 @@ namespace Sample
     {
         cube->GetTransform().GetRotation().y += 10 * deltaTime;
         cube->GetTransform().GetRotation().z += 8 * deltaTime;
+
+		light->OnUpdate(deltaTime);
     }
     
     void SampleLightTest::OnRender()
     {
-        ligthBall->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+        light->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
         UpdatCubeMaterial();
         cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
     }
 
     void SampleLightTest::OnImguiRender()
     {
-        UIManager::GetInstance()->ShowTransformUI(ligthBall->GetTransform());
+        UIManager::GetInstance()->ShowTransformUI(light->GetTransform());
         UIManager::GetInstance()->ShowCursorUI();
         UIManager::GetInstance()->ShowCameraUI(*camera);
 

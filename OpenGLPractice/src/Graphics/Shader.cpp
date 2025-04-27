@@ -123,6 +123,12 @@ void Shader::SetUniform3f(const std::string& name, float v0, float v1, float v2)
     GLCall(glUniform3f(location, v0, v1, v2));
 }
 
+void Shader::SetUniform3f(const std::string& name, glm::vec3 vector)
+{
+	int location = GetUniformLocation(name);
+	GLCall(glUniform3f(location, vector.x, vector.y, vector.z));
+}
+
 void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
 {
     int location = GetUniformLocation(name);

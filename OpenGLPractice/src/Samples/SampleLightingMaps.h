@@ -3,6 +3,7 @@
 #include "Sample.h"
 #include "Camera.h"
 #include "GameObject.h"
+#include "Light.h"
 #include "Material.h"
 
 #include <memory>
@@ -13,7 +14,7 @@ namespace Sample
     {
     private:
         std::unique_ptr<Camera> camera;
-        std::unique_ptr<GameObject> ligthBall;
+		std::unique_ptr<Light> light;
         std::unique_ptr<GameObject> cube;
 
         void UpdateCubeMaterial();

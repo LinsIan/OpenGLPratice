@@ -1507,6 +1507,9 @@
     <ClInclude Include="src\Samples\SampleLightingMaps.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="src\Common\Light.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\ChernoLogo.png">
@@ -1522,6 +1525,9 @@
       <Filter>資源檔</Filter>
     </Image>
     <Image Include="res\textures\container2_specular.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\matrix.jpg">
       <Filter>資源檔</Filter>
     </Image>
   </ItemGroup>

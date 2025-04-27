@@ -41,7 +41,7 @@ public:
 
     virtual ~GameObject() {}
 
-    void OnUpdate(float deltaTime) {}
+    virtual void OnUpdate(float deltaTime) {}
 
     void OnRender() 
     {
@@ -61,4 +61,3 @@ public:
     inline Transform& GetTransform() const { return *transform; }
 
 };
-
