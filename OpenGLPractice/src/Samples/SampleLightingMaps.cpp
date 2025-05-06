@@ -46,7 +46,7 @@ namespace Sample
     void SampleLightingMaps::OnRender()
     {
         light->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
-        cube->GetMaterial().UpdateBasicLightingUniforms(light->GetLightProperties(), camera->GetPosition(), cube->GetTransform().GetNormalMatrix());
+        cube->GetMaterial().UpdateBasicLightUniforms(light->GetLightProperties(), camera->GetPosition(), cube->GetTransform().GetNormalMatrix());
         cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
     }
 

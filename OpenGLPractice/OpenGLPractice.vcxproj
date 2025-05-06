@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Samples\SampleMultiLight.cpp" />
     <ClCompile Include="src\Common\MaterialDatabase.cpp" />
     <ClCompile Include="src\Samples\SampleLightingMaps.cpp" />
     <ClCompile Include="src\Samples\SampleLightTest.cpp" />
@@ -169,6 +170,7 @@
     <None Include="res\shaders\Basic3D.shader" />
     <None Include="res\shaders\Light.shader" />
     <None Include="res\shaders\LightMaps.shader" />
+    <None Include="res\shaders\MultiLights.shader" />
     <None Include="res\shaders\Texture.shader" />
     <None Include="res\shaders\TextureMix.shader" />
     <None Include="src\3rdParty\glm\detail\func_common.inl" />
@@ -313,6 +315,7 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\Samples\SampleMultiLight.h" />
     <ClInclude Include="src\Common\Light.h" />
     <ClInclude Include="src\Common\LightProperties.h" />
     <ClInclude Include="src\Common\MaterialDatabase.h" />

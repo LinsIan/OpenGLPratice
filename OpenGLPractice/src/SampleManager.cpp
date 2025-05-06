@@ -8,6 +8,7 @@
 #include "Samples/SampleTexture3D.h"
 #include "Samples/SampleLightTest.h"
 #include "Samples/SampleLightingMaps.h"
+#include "Samples/SampleMultiLight.h"
 
 SampleManager::SampleManager()
 {
@@ -69,6 +70,12 @@ void SampleManager::OnUpdate()
             {
                 sample = nullptr;
                 sample = std::make_unique<Sample::SampleLightingMaps>();
+            }
+
+            if (ImGui::MenuItem("MultiLight"))
+            {
+                sample = nullptr;
+                sample = std::make_unique<Sample::SampleMultiLight>();
             }
 
             ImGui::EndMenu();
