@@ -30,7 +30,8 @@ struct Material
     float shininess;
 };
 
-struct DirLight {
+struct DirLight
+{
     vec3 direction;
     vec3 ambient;
     vec3 diffuse;
@@ -50,16 +51,19 @@ uniform mat3 u_NormalMatrix;
 
 vec3 CalDirLight(DirLight light, vec3 normal, vec3 viewDir)
 {
-    vec3 ambient = light.ambient * texture(material.diffuse, v_TexCoord).rgb;
+    vec3 diffTex = texture(material.diffuse, v_TexCoord).rgb;
+    vec3 specTex = texture(material.specular, v_TexCoord).rgb;
+
+    vec3 ambient = light.ambient * diffTex;
 
     vec3 lightDir = normalize(-light.direction);
 
     float diff = max(dot(normal, lightDir), 0.0);
-    vec3 diffuse = light.diffuse * (diff * texture(material.diffuse, v_TexCoord).rgb);
+    vec3 diffuse = light.diffuse * (diff * diffTex);
 
     vec3 reflectDir = reflect(-lightDir, normal);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 specular = light.specular * (spec * texture(material.specular, v_TexCoord).rgb);
+    vec3 specular = light.specular * (spec * specTex);
 
     return ambient + diffuse + specular;
 }
