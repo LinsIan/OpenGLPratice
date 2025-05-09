@@ -36,7 +36,7 @@ private:
 
     void InitImpl(position_light_tag)
     {
-		material->SetColor(lightProperties.diffuse);
+		material->SetColor(lightProperties.specular);
 		transform->SetTranslation(lightProperties.position.x, lightProperties.position.y, lightProperties.position.z);
     }
 

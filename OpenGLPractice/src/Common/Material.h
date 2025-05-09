@@ -127,6 +127,14 @@ public:
         SetNormalMatrix(normalMatrix);
     }
 
+    void UpdatePointLightUniforms(const PointLightProperties& lightProperties, const glm::vec3& viewPos, const glm::mat4& normalMatrix)
+    {
+        shader->Bind();
+        SetPointLightProperties(lightProperties);
+        SetViewPos(viewPos);
+        SetNormalMatrix(normalMatrix);
+    }
+
     void SetNormalMatrix(const glm::mat3& normalMatrix)
     {
         shader->SetUniformMat3f("u_NormalMatrix", normalMatrix);
