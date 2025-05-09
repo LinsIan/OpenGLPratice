@@ -14,7 +14,7 @@ namespace Sample
     {
     private:
         std::unique_ptr<Camera> camera;
-		std::unique_ptr<Light> light;
+		std::unique_ptr<Light<BaseLightProperties>> light;
         std::unique_ptr<GameObject> cube;
 
     public:

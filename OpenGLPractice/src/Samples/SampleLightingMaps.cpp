@@ -9,12 +9,12 @@ namespace Sample
     {
         camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960, 540);
 
-		LightProperties lightProperties;
+		BaseLightProperties lightProperties;
 		lightProperties.position = glm::vec3(0.12f, 1.0f, 0.2f);
 		lightProperties.ambient = glm::vec3(0.2f, 0.2f, 0.2f);
 		lightProperties.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
 		lightProperties.specular = glm::vec3(1.0f, 1.0f, 1.0f);
-		light = std::make_unique<Light>(LightType::POINT, lightProperties);
+		light = std::make_unique<Light<BaseLightProperties>>(LightType::POINT, lightProperties);
 
         auto cubeMaterial = std::make_shared<Material>("res/shaders/LightMaps.shader");
         cubeMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);

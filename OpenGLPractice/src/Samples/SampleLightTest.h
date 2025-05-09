@@ -17,7 +17,7 @@ namespace Sample
     private:
         std::unique_ptr<GameObject> cube;
         std::unique_ptr<Camera> camera;
-		std::unique_ptr<Light> light;
+		std::unique_ptr<Light<BaseLightProperties>> light;
 
 		glm::vec3 lightStrength;
         MaterialProperties currentMaterial;

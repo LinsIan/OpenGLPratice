@@ -7,13 +7,13 @@ namespace Sample
     {
         camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960, 540);
 
-        LightProperties lightProperties;
+        DirLightProperties lightProperties;
         lightProperties.direction = { -0.2f, -1.0f, -0.3f };
         lightProperties.ambient = { 0.2f, 0.2f, 0.2f };
         lightProperties.diffuse = { 1.0f, 1.0f, 1.0f };
         lightProperties.specular = { 1.0f, 1.0f, 1.0f };
 
-        dirLight = std::make_unique<Light>(LightType::DIRECTIONAL, lightProperties);
+        dirLight = std::make_unique<Light<DirLightProperties>>(LightType::DIRECTIONAL, lightProperties);
 
         auto cubeMaterial = std::make_shared<Material>("res/shaders/MultiLights.shader");
         cubeMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);

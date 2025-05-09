@@ -4,6 +4,7 @@
 #include "LightProperties.h"
 
 #include <memory>
+#include <type_traits>
 
 enum class LightType
 {
@@ -12,40 +13,39 @@ enum class LightType
 	SPOT
 };
 
+template<typename T>
+struct is_valid_light_type : std::false_type {};
+
+template<> struct is_valid_light_type<BaseLightProperties> : std::true_type {};
+template<> struct is_valid_light_type<DirLightProperties> : std::true_type {};
+template<> struct is_valid_light_type<PointLightProperties> : std::true_type {};
+
+template<typename T, typename = typename std::enable_if<is_valid_light_type<T>::value>::type>
 class Light : public GameObject
 {
 private: 
 	LightType lightType;
-	LightProperties lightProperties;
+	T lightProperties;
 
 	void Init()
 	{
-		switch (lightType)
-		{
-		case LightType::DIRECTIONAL:
-			break;
-		case LightType::POINT:
-		case LightType::SPOT:
-			material = std::make_shared<Material>("res/shaders/Basic3D.shader");
-			model = std::make_shared<Model::Sphere>(0.2f, 20, 20);
-			material->SetColor(lightProperties.diffuse);
-			break;
-		default:
-			break;
-		}
-
-		transform->SetTranslation(lightProperties.position.x, lightProperties.position.y, lightProperties.position.z);
+		material = std::make_shared<Material>("res/shaders/Basic3D.shader");
+		model = std::make_shared<Model::Sphere>(0.2f, 20, 20);
+        InitImpl(typename light_type<T>::tag());
 	}
+
+    void InitImpl(position_light_tag)
+    {
+		material->SetColor(lightProperties.diffuse);
+		transform->SetTranslation(lightProperties.position.x, lightProperties.position.y, lightProperties.position.z);
+    }
+
+    void InitImpl(dir_light_tag)
+    {
+    }
 
 public:
-	Light(LightType type, const glm::vec3& position, const glm::vec3& direction,
-		const glm::vec3& ambient, const glm::vec3& diffuse, const glm::vec3& specular)
-		: lightType(type), lightProperties{ position, direction, ambient, diffuse, specular }
-	{
-		Init();
-	}
-
-	Light(LightType type, LightProperties properties)
+	Light(LightType type, T properties)
 		: lightType(type), lightProperties(properties)
 	{
 		Init();
@@ -54,12 +54,17 @@ public:
 	~Light() {}
 
 	void OnUpdate(float deltaTime) override
-	{
-		lightProperties.position = transform->GetTranslation();
+	{ 
+        OnUpdateImpl(typename light_type<T>::tag());
 	}
 
+    void OnUpdateImpl(position_light_tag)
+    {
+		lightProperties.position = transform->GetTranslation();
+    }
+
+	void OnUpdateImpl(dir_light_tag){}
+
 	LightType GetLightType() const { return lightType; }
-	LightProperties& GetLightProperties() { return lightProperties; }
-
+    T& GetLightProperties() { return lightProperties; }
 };
-

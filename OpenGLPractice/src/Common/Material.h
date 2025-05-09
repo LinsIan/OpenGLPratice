@@ -6,6 +6,7 @@
 #include "MaterialDatabase.h"
 #include "LightProperties.h"
 
+#include <iostream>
 #include <memory>
 #include <map>
 #include <string>
@@ -73,7 +74,7 @@ public:
         shader->SetUniform1f("material.shininess", shininess);
     }
 
-	void SetDirLightProperties(const LightProperties& lightProperties)
+	void SetDirLightProperties(const DirLightProperties& lightProperties)
     {
 		shader->SetUniform3f("dirLight.direction", lightProperties.direction);
 		shader->SetUniform3f("dirLight.ambient", lightProperties.ambient);
@@ -81,15 +82,15 @@ public:
 		shader->SetUniform3f("dirLight.specular", lightProperties.specular);
     }
 
-	void SetPointLightProperties(const LightProperties& lightProperties)
+	void SetPointLightProperties(const PointLightProperties& lightProperties)
 	{
-		shader->SetUniform3f("light.position", lightProperties.position);
-		shader->SetUniform3f("light.ambient", lightProperties.ambient);
-		shader->SetUniform3f("light.diffuse", lightProperties.diffuse);
-		shader->SetUniform3f("light.specular", lightProperties.specular);
-		//shader->SetUniform1f("light.constant", lightProperties.constant);
-		//shader->SetUniform1f("light.linear", lightProperties.linear);
-		//shader->SetUniform1f("light.quadratic", lightProperties.quadratic);
+		shader->SetUniform3f("pointLight.position", lightProperties.position);
+		shader->SetUniform3f("pointLight.ambient", lightProperties.ambient);
+		shader->SetUniform3f("pointLight.diffuse", lightProperties.diffuse);
+		shader->SetUniform3f("pointLight.specular", lightProperties.specular);
+		shader->SetUniform1f("pointLight.constant", lightProperties.constant);
+		shader->SetUniform1f("pointLight.linear", lightProperties.linear);
+		shader->SetUniform1f("pointLight.quadratic", lightProperties.quadratic);
 	}
 
     void SetLightPos(const glm::vec3& lightPos)
@@ -97,7 +98,7 @@ public:
         shader->SetUniform3f("light.position", lightPos.x, lightPos.y, lightPos.z);
     }
 
-    void SetLightProperties(const LightProperties& lightProperties)
+    void SetLightProperties(const BaseLightProperties& lightProperties)
     {
 		shader->SetUniform3f("light.position", lightProperties.position);
 		shader->SetUniform3f("light.ambient", lightProperties.ambient);
@@ -110,15 +111,15 @@ public:
         shader->SetUniform3f("u_ViewPos", viewPos.x, viewPos.y, viewPos.z);
     }
 
-	void UpdateBasicLightUniforms(const LightProperties lightProperties, const glm::vec3& viewPos, const glm::mat4& normalMatrix)
+	void UpdateBasicLightUniforms(const BaseLightProperties lightProperties, const glm::vec3& viewPos, const glm::mat4& normalMatrix)
     {
 		shader->Bind();
         SetLightProperties(lightProperties);
         SetViewPos(viewPos);
         SetNormalMatrix(normalMatrix);
-	}
+	}   
 
-    void UpdateDirLightUniforms(const LightProperties lightProperties, const glm::vec3& viewPos, const glm::mat4& normalMatrix)
+    void UpdateDirLightUniforms(const DirLightProperties &lightProperties, const glm::vec3& viewPos, const glm::mat4& normalMatrix)
     {
         shader->Bind();
         SetDirLightProperties(lightProperties);
