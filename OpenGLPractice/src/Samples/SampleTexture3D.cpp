@@ -49,7 +49,7 @@ namespace Sample
 
 	void SampleTexture3D::OnImguiRender()
 	{
-		UIManager::GetInstance()->ShowTransformUI(cubes[0]->GetTransform());
+		UIManager::GetInstance()->ShowTransformUI("first cube", cubes[0]->GetTransform());
         UIManager::GetInstance()->ShowCursorUI();
         UIManager::GetInstance()->ShowCameraUI(*camera);
 	}

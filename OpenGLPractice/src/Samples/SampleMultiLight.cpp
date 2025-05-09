@@ -66,6 +66,6 @@ namespace Sample
     
     void SampleMultiLight::OnImguiRender()
     {
-        
+        UIManager::ShowTransformUI("Point Light", pointLight->GetTransform(), 2.5f);
     }
 }

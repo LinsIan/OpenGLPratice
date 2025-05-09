@@ -52,7 +52,7 @@ namespace Sample
 
     void SampleLightTest::OnImguiRender()
     {
-        UIManager::GetInstance()->ShowTransformUI(light->GetTransform());
+        UIManager::GetInstance()->ShowTransformUI("light", light->GetTransform());
         UIManager::GetInstance()->ShowCursorUI();
         UIManager::GetInstance()->ShowCameraUI(*camera);
 
