@@ -45,7 +45,7 @@ public:
 
     void OnRender() 
     {
-        Renderer::Draw(model->GetVertexArray(), model->GetIndexBuffer(), material->GetShader());
+        Renderer::Draw(model->GetVertexArray(),  material->GetShader(), model->GetIndexBuffer().GetCount());
     }
 
     void OnRender(const glm::mat4& proj, const glm::mat4& view)
@@ -53,11 +53,12 @@ public:
         material->BindShader();
         material->GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
         material->GetShader().SetUniformMat4f("u_Model", transform->GetMatrix());
-        Renderer::Draw(model->GetVertexArray(), model->GetIndexBuffer(), material->GetShader());
+        Renderer::Draw(model->GetVertexArray(), material->GetShader(), GetIndexCount());
     }
 
     inline Model::Model& GetModel() const { return *model; }
     inline Material& GetMaterial() const { return *material; }
     inline Transform& GetTransform() const { return *transform; }
+    inline unsigned int GetIndexCount() const { return model->GetIndexBuffer().GetCount(); }
 
 };

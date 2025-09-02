@@ -73,8 +73,8 @@ namespace Model
 			layout.Push<float>(3); // position
 			layout.Push<float>(2); // texture coordinate
             layout.Push<float>(3); // normal
-			vertexArray->AddBuffer(*vertexBuffer, layout);
 			indexBuffer = std::make_unique<IndexBuffer>(indices, 36);
+			vertexArray->AddBuffer(*vertexBuffer, layout, *indexBuffer);
 
 			vertexArray->Unbind();
 			vertexBuffer->Unbind();

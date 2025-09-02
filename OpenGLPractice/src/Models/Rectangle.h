@@ -28,8 +28,8 @@ namespace Model
             VertexBufferLayout layout;
             layout.Push<float>(2); // position
             layout.Push<float>(2); // texture coordinate
-            vertexArray->AddBuffer(*vertexBuffer, layout);
             indexBuffer = std::make_unique<IndexBuffer>(indices, 6); // index buffer binding must be done after vertex buffer binding
+            vertexArray->AddBuffer(*vertexBuffer, layout, *indexBuffer);
             
             vertexArray->Unbind();
             vertexBuffer->Unbind();

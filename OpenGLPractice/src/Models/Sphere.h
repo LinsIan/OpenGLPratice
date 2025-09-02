@@ -64,8 +64,8 @@ namespace Model
             VertexBufferLayout layout;
             layout.Push<float>(3); // position
             layout.Push<float>(2); // texture coordinate
-            vertexArray->AddBuffer(*vertexBuffer, layout);
             indexBuffer = std::make_unique<IndexBuffer>(indices.data(), indices.size());
+            vertexArray->AddBuffer(*vertexBuffer, layout, *indexBuffer);
 
             vertexArray->Unbind();
             vertexBuffer->Unbind();

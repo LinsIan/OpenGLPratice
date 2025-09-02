@@ -25,8 +25,8 @@ namespace Model
             vertexBuffer = std::make_unique<VertexBuffer>(position, 2 * 3 * sizeof(float));
             VertexBufferLayout layout;
             layout.Push<float>(2); // position
-            vertexArray->AddBuffer(*vertexBuffer, layout);
             indexBuffer = std::make_unique<IndexBuffer>(indices, 3); // index buffer binding must be done after vertex buffer binding
+            vertexArray->AddBuffer(*vertexBuffer, layout, *indexBuffer);
             
             vertexArray->Unbind();
             vertexBuffer->Unbind();
