@@ -99,6 +99,12 @@
     <ClCompile Include="src\Samples\SampleLightingMaps.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\Samples\SampleMultiLight.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Samples\SampleLightCaster.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\3rdParty\glm\detail\func_common.inl">
@@ -521,6 +527,7 @@
     <None Include="res\shaders\Basic3D.shader" />
     <None Include="res\shaders\Light.shader" />
     <None Include="res\shaders\LightMaps.shader" />
+    <None Include="res\shaders\MultiLights.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\3rdParty\stb\stb_image.h">
@@ -1508,6 +1515,15 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\Common\Light.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\SampleMultiLight.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\LightProperties.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\SampleLightCaster.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
