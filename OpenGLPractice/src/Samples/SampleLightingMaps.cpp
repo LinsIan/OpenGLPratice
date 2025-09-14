@@ -26,7 +26,6 @@ namespace Sample
         cube->GetTransform().SetRotation(45, 0, 0);
         cube->GetTransform().SetScale(0.6f, 0.6f, 0.6f);
 
-        cube->GetMaterial().GetShader().Bind();
         cube->GetMaterial().SetMaterialShininess(64.0f);
     }
 
