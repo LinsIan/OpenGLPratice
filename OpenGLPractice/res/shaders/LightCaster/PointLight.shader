@@ -49,11 +49,27 @@ in vec3 v_FragPos;
 uniform Material material;
 uniform PointLight pointLight;
 uniform vec3 u_ViewPos;
-uniform mat3 u_NormalMatrix
+uniform mat3 u_NormalMatrix;
 
 vec3 CalPointLight(vec3 normal, vec3 lightDir, vec3 viewDir)
 {
+    // Ambient
+    vec3 ambient = pointLight.ambient * texture(material.diffuse, v_TexCoord).rgb;
 
+    // Diffuse
+    float diff = max(dot(normal, lightDir), 0.0);
+    vec3 diffuse = pointLight.diffuse * diff * texture(material.diffuse, v_TexCoord).rgb;
+
+    // Specular
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    vec3 specular = pointLight.specular * spec * texture(material.specular, v_TexCoord).rgb;
+
+    // Attenuation
+    float distance = length(pointLight.position - v_FragPos);
+    float attenuation = 1.0 / (pointLight.constant + pointLight.linear * distance + pointLight.quadratic * (distance * distance));
+
+    return (ambient + diffuse + specular) * attenuation;
 }
 
 void main()
@@ -62,5 +78,5 @@ void main()
     vec3 lightDir = normalize(pointLight.position - v_FragPos);
     vec3 viewDir = normalize(u_ViewPos - v_FragPos);
 
-    corlo = vec4(CalPointLight(normal, lightDir, viewDir), 1.0);
+    color = vec4(CalPointLight(normal, lightDir, viewDir), 1.0);
 }

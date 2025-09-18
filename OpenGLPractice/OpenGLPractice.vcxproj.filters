@@ -529,6 +529,7 @@
     <None Include="res\shaders\LightMaps.shader" />
     <None Include="res\shaders\MultiLights.shader" />
     <None Include="res\shaders\LightCaster\DirLight.shader" />
+    <None Include="res\shaders\LightCaster\PointLight.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\3rdParty\stb\stb_image.h">
