@@ -93,6 +93,20 @@ public:
 		shader->SetUniform1f("pointLight.quadratic", lightProperties.quadratic);
 	}
 
+    void SetSpotLightProperties(const SpotLightProperties& lightProperties)
+	{
+		shader->SetUniform3f("spotLight.position", lightProperties.position);
+		shader->SetUniform3f("spotLight.direction", lightProperties.direction);
+		shader->SetUniform3f("spotLight.ambient", lightProperties.ambient);
+		shader->SetUniform3f("spotLight.diffuse", lightProperties.diffuse);
+		shader->SetUniform3f("spotLight.specular", lightProperties.specular);
+		shader->SetUniform1f("spotLight.constant", lightProperties.constant);
+		shader->SetUniform1f("spotLight.linear", lightProperties.linear);
+		shader->SetUniform1f("spotLight.quadratic", lightProperties.quadratic);
+		shader->SetUniform1f("spotLight.cutOff", lightProperties.cutOff);
+		shader->SetUniform1f("spotLight.outerCutOff", lightProperties.outerCutOff);
+	}
+
     void SetLightPos(const glm::vec3& lightPos)
     {
         shader->SetUniform3f("light.position", lightPos.x, lightPos.y, lightPos.z);
@@ -133,6 +147,14 @@ public:
         SetPointLightProperties(lightProperties);
         SetViewPos(viewPos);
         SetNormalMatrix(normalMatrix);
+    }
+
+    void UpdateSpotLightUniforms(const SpotLightProperties& lightProperties, const glm::vec3& viewPos, const glm::mat4& normalMatrix)
+    {
+		shader->Bind();
+		SetSpotLightProperties(lightProperties);
+        SetViewPos(viewPos);
+		SetNormalMatrix(normalMatrix);
     }
 
     void SetNormalMatrix(const glm::mat3& normalMatrix)

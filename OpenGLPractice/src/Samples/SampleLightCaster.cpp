@@ -24,10 +24,24 @@ namespace Sample
         pointLightProperties.linear = 0.09f;
         pointLightProperties.quadratic = 0.032f;
         pointLight = std::make_unique<Light<PointLightProperties>>(LightType::POINT, pointLightProperties);
+
+		SpotLightProperties spotLightProperties;
+		spotLightProperties.position = camera->GetPosition();
+		spotLightProperties.direction = camera->GetForward();
+		spotLightProperties.cutOff = glm::cos(glm::radians(6.25f));
+		spotLightProperties.outerCutOff = glm::cos(glm::radians(8.75f));
+		spotLightProperties.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+		spotLightProperties.diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
+		spotLightProperties.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+        spotLightProperties.constant = 1.0f;
+        spotLightProperties.linear = 0.09f;
+        spotLightProperties.quadratic = 0.032f;
+		spotLight = std::make_unique<Light<SpotLightProperties>>(LightType::SPOT, spotLightProperties);
             
         CreateCube(dirCube, LightType::DIRECTIONAL);
         CreateCube(pointCube, LightType::POINT);
-        currentLightType = LightType::POINT;
+		CreateCube(spotCube, LightType::SPOT);
+        currentLightType = LightType::SPOT;
     }
 
     SampleLightCaster::~SampleLightCaster()
@@ -36,13 +50,9 @@ namespace Sample
 
     void SampleLightCaster::OnUpdate(float deltaTime)
     {
-        dirCube->GetTransform().GetRotation().x += 6 * deltaTime;
-        dirCube->GetTransform().GetRotation().y += 10 * deltaTime;
-        dirCube->GetTransform().GetRotation().z += 8 * deltaTime;
-
-        pointCube->GetTransform().GetRotation().x += 6 * deltaTime;
-        pointCube->GetTransform().GetRotation().y += 10 * deltaTime;
-        pointCube->GetTransform().GetRotation().z += 8 * deltaTime;
+		RotateCube(*dirCube, deltaTime);
+		RotateCube(*pointCube, deltaTime);
+        RotateCube(*spotCube, deltaTime);
     }
 
     void SampleLightCaster::OnRender()
@@ -58,6 +68,8 @@ namespace Sample
             pointCube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
             break;
         case LightType::SPOT:
+			spotCube->GetMaterial().UpdateSpotLightUniforms(spotLight->GetLightProperties(), camera->GetPosition(), spotCube->GetTransform().GetNormalMatrix());
+			spotCube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
             break;
         default:
             break;
@@ -93,6 +105,9 @@ namespace Sample
             case LightType::POINT:
                 cubeMaterial = std::make_shared<Material>("res/shaders/LightCaster/PointLight.shader");
                 break;
+            case LightType::SPOT:
+                cubeMaterial = std::make_shared<Material>("res/shaders/LightCaster/SpotLight.shader");
+				break;
         }
 
         cubeMaterial->AddTexture("res/textures/container2.png", 0, "material.diffuse");
@@ -100,6 +115,13 @@ namespace Sample
         cubeMaterial->BindTextures();
         cubeMaterial->SetMaterialShininess(64.0f);
         cube = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.0f, 1.0f, 1.0f), cubeMaterial);
-        cube->GetTransform().SetScale(0.6f, 0.6f, 0.6f);
+        cube->GetTransform().SetScale(0.8f, 0.8f, 0.8f);
     }
+
+    void SampleLightCaster::RotateCube(GameObject &cube, float deltaTime)
+    {
+        cube.GetTransform().GetRotation().x += 6 * deltaTime;
+        cube.GetTransform().GetRotation().y += 10 * deltaTime;
+        cube.GetTransform().GetRotation().z += 8 * deltaTime;
+	}
 }

@@ -19,6 +19,7 @@ struct is_valid_light_type : std::false_type {};
 template<> struct is_valid_light_type<BaseLightProperties> : std::true_type {};
 template<> struct is_valid_light_type<DirLightProperties> : std::true_type {};
 template<> struct is_valid_light_type<PointLightProperties> : std::true_type {};
+template<> struct is_valid_light_type<SpotLightProperties> : std::true_type {};
 
 template<typename T, typename = typename std::enable_if<is_valid_light_type<T>::value>::type>
 class Light : public GameObject
