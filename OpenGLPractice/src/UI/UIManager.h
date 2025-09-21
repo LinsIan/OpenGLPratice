@@ -24,10 +24,12 @@ public:
 
     static void ShowTransformUI(std::string Name, Transform &transform, float maxTranslation = 1.0f)
     {
+		ImGui::PushID(&transform);
         ImGui::Text("%s :", Name.c_str());
         ImGui::SliderFloat3("translation:",  &transform.GetTranslation().x, -maxTranslation, maxTranslation);
         ImGui::SliderFloat3("rotation:", &transform.GetRotation().x, 0.0f, 360.0f);
         ImGui::SliderFloat3("scale:", &transform.GetScale().x, 0.1f, 3.0f);
+		ImGui::PopID();
     }
 
     void ShowCursorUI()
