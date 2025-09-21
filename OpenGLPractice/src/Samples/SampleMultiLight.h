@@ -6,6 +6,7 @@
 #include "GameObject.h"
 
 #include <memory>
+#include <vector>
 
 namespace Sample
 {
@@ -15,8 +16,9 @@ namespace Sample
     private:
         std::unique_ptr<Camera> camera;
         std::unique_ptr<Light<DirLightProperties>> dirLight;
-        std::unique_ptr<Light<PointLightProperties>> pointLight;
-        std::unique_ptr<GameObject> cube;
+        std::vector<std::unique_ptr<Light<PointLightProperties>>> pointLights;
+        std::unique_ptr<Light<SpotLightProperties>> spotLight;
+        std::vector<std::unique_ptr<GameObject>> cubes;
 
     public:
         SampleMultiLight();

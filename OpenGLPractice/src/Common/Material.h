@@ -93,6 +93,23 @@ public:
 		shader->SetUniform1f("pointLight.quadratic", lightProperties.quadratic);
 	}
 
+    void SetPointLightProperties(int index, const PointLightProperties& lightProperties)
+    {
+        std::string str = "pointLights[" + std::to_string(index) + "].";
+        shader->SetUniform3f(str + "position", lightProperties.position);
+        shader->SetUniform3f(str + "ambient", lightProperties.ambient);
+        shader->SetUniform3f(str + "diffuse", lightProperties.diffuse);
+        shader->SetUniform3f(str + "specular", lightProperties.specular);
+        shader->SetUniform1f(str + "constant", lightProperties.constant);
+        shader->SetUniform1f(str + "linear", lightProperties.linear);
+        shader->SetUniform1f(str + "quadratic", lightProperties.quadratic);
+    }
+
+    void SetPointLightsNum(int num)
+    {
+        shader->SetUniform1i("numPointLights", num);
+    }
+
     void SetSpotLightProperties(const SpotLightProperties& lightProperties)
 	{
 		shader->SetUniform3f("spotLight.position", lightProperties.position);
@@ -147,6 +164,12 @@ public:
         SetPointLightProperties(lightProperties);
         SetViewPos(viewPos);
         SetNormalMatrix(normalMatrix);
+    }
+
+    void UpdatePointLightUniforms(int index, const PointLightProperties& lightProperties)
+    {
+        shader->Bind();
+        SetPointLightProperties(index, lightProperties);
     }
 
     void UpdateSpotLightUniforms(const SpotLightProperties& lightProperties, const glm::vec3& viewPos, const glm::mat4& normalMatrix)

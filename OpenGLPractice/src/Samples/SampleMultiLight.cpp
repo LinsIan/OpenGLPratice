@@ -11,34 +11,64 @@ namespace Sample
 
         DirLightProperties lightProperties;
         lightProperties.direction = { -0.2f, -1.0f, -0.3f };
-        lightProperties.ambient = { 0.2f, 0.2f, 0.2f };
-        lightProperties.diffuse = { 0.5f, 0.5f, 0.5f };
-        lightProperties.specular = { 1.0f, 1.0f, 1.0f };
-
+        lightProperties.ambient = { 0.05f, 0.05f, 0.05f };
+        lightProperties.diffuse = { 0.4f, 0.4f, 0.4f };
+        lightProperties.specular = { 0.5f, 0.5f, 0.5f };
         dirLight = std::make_unique<Light<DirLightProperties>>(LightType::DIRECTIONAL, lightProperties);
 
-        PointLightProperties pointLightProperties;
-        pointLightProperties.position = { 1.0f, 1.0f, 1.0f };
-        pointLightProperties.ambient = { 0.2f, 0.2f, 0.2f };
-        pointLightProperties.diffuse = { 0.5f, 0.5f, 0.5f };
-        pointLightProperties.specular = { 1.0f, 1.0f, 1.0f };
-        pointLightProperties.constant = 1.0f;
-        pointLightProperties.linear = 0.09f;
-        pointLightProperties.quadratic = 0.032f;
+  
+        PointLightProperties bluePointLightProperties;
+        bluePointLightProperties.position = { 2.0f, 0.5f, 1.5f };
+        bluePointLightProperties.ambient = { 0.0f, 0.0f, 0.05f };
+        bluePointLightProperties.diffuse = { 0.0f, 0.0f, 0.8f };
+        bluePointLightProperties.specular = { 0.0f, 0.0f, 1.0f };
+        bluePointLightProperties.constant = 1.0f;
+        bluePointLightProperties.linear = 0.09f;
+        bluePointLightProperties.quadratic = 0.032f;
+		pointLights.emplace_back(std::make_unique<Light<PointLightProperties>>(LightType::POINT, bluePointLightProperties));
 
-        pointLight = std::make_unique<Light<PointLightProperties>>(LightType::POINT, pointLightProperties);
+        PointLightProperties greenPointLightProperties;
+        greenPointLightProperties.position = { -2.0f, 0.5f, 1.5f };
+        greenPointLightProperties.ambient = { 0.0f, 0.05f, 0.0f };
+        greenPointLightProperties.diffuse = { 0.0f, 0.8f, 0.0f };
+        greenPointLightProperties.specular = { 0.0f, 1.0f, 0.0f };
+        greenPointLightProperties.constant = 1.0f;
+        greenPointLightProperties.linear = 0.09f;
+        greenPointLightProperties.quadratic = 0.032f;
+        pointLights.emplace_back(std::make_unique<Light<PointLightProperties>>(LightType::POINT, greenPointLightProperties));
 
-        auto cubeMaterial = std::make_shared<Material>("res/shaders/MultiLights.shader");
-        cubeMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
-        cubeMaterial->AddTexture("res/textures/container2.png", 0, "material.diffuse");
-        cubeMaterial->AddTexture("res/textures/container2_specular.png", 1, "material.specular");
-        cubeMaterial->BindTextures();
+        SpotLightProperties spotLightProperties;
+        spotLightProperties.position = camera->GetPosition();
+		spotLightProperties.position.z -= 3.0f;
+        spotLightProperties.direction = camera->GetForward();
+        spotLightProperties.cutOff = glm::cos(glm::radians(6.25f));
+        spotLightProperties.outerCutOff = glm::cos(glm::radians(8.75f));
+        spotLightProperties.ambient = glm::vec3(0.0f, 0.0f, 0.0f);
+        spotLightProperties.diffuse = glm::vec3(0.8f, 0.0f, 0.0f);
+        spotLightProperties.specular = glm::vec3(1.0f, 0.0f, 0.0f);
+        spotLightProperties.constant = 1.0f;
+        spotLightProperties.linear = 0.09f;
+        spotLightProperties.quadratic = 0.032f;
+        spotLight = std::make_unique<Light<SpotLightProperties>>(LightType::SPOT, spotLightProperties);
 
-        cube = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.0f, 1.0f, 1.0f), cubeMaterial);
-        cube->GetTransform().SetRotation(45, 0, 0);
-        cube->GetTransform().SetScale(0.6f, 0.6f, 0.6f);
-        cube->GetMaterial().GetShader().Bind();
-        cube->GetMaterial().SetMaterialShininess(64.0f);
+        for (int i = 0; i < 2; ++i)
+        {
+            auto cubeMaterial = std::make_shared<Material>("res/shaders/MultiLights.shader");
+            cubeMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+            cubeMaterial->AddTexture("res/textures/container2.png", 0, "material.diffuse");
+            cubeMaterial->AddTexture("res/textures/container2_specular.png", 1, "material.specular");
+            cubeMaterial->BindTextures();
+
+            cubes.emplace_back(std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.0f, 1.0f, 1.0f), cubeMaterial));
+            cubes[i]->GetTransform().SetRotation(45, 0, 0);
+            cubes[i]->GetTransform().SetScale(0.8f, 0.8f, 0.8f);
+            cubes[i]->GetMaterial().GetShader().Bind();
+            cubes[i]->GetMaterial().SetMaterialShininess(64.0f);
+            cubes[i]->GetMaterial().SetPointLightsNum(pointLights.size());
+		}
+        
+		cubes[0]->GetTransform().SetTranslation(-.5f, 0.0f, 0.0f);
+        cubes[1]->GetTransform().SetTranslation(0.5f, 0.0f, 0.0f);
     }
     
     SampleMultiLight::~SampleMultiLight()
@@ -47,25 +77,46 @@ namespace Sample
 
     void SampleMultiLight::OnUpdate(float deltaTime)
     {
-        cube->GetTransform().GetRotation().x += 6 * deltaTime;
-        cube->GetTransform().GetRotation().y += 10 * deltaTime;
-        cube->GetTransform().GetRotation().z += 8 * deltaTime;
-
-        dirLight->OnUpdate(deltaTime);
-        pointLight->OnUpdate(deltaTime);
+        for (auto& cube : cubes)
+        {
+            cube->GetTransform().GetRotation().x += 6 * deltaTime;
+            cube->GetTransform().GetRotation().y += 10 * deltaTime;
+            cube->GetTransform().GetRotation().z += 8 * deltaTime;
+		}
+        
+        for (auto& pointLight : pointLights)
+        {
+            pointLight->OnUpdate(deltaTime);
+        }
     }
 
     void SampleMultiLight::OnRender()
     {
-        cube->GetMaterial().UpdateDirLightUniforms(dirLight->GetLightProperties(), camera->GetPosition(), cube->GetTransform().GetNormalMatrix());
-        cube->GetMaterial().SetPointLightProperties(pointLight->GetLightProperties());
-        cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+        for (auto& cube : cubes)
+        {
+            cube->GetMaterial().UpdateDirLightUniforms(dirLight->GetLightProperties(), camera->GetPosition(), cube->GetTransform().GetNormalMatrix());
 
-        pointLight->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+            for (size_t i = 0; i < pointLights.size(); ++i)
+            {
+                cube->GetMaterial().UpdatePointLightUniforms(i, pointLights[i]->GetLightProperties());
+            }
+
+            cube->GetMaterial().UpdateSpotLightUniforms(spotLight->GetLightProperties(), camera->GetPosition(), cube->GetTransform().GetNormalMatrix());
+
+            cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+		}
+
+        for (auto& pointLight : pointLights)
+        {
+            pointLight->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+        }
     }
     
     void SampleMultiLight::OnImguiRender()
     {
-        UIManager::ShowTransformUI("Point Light", pointLight->GetTransform(), 2.5f);
+        for (size_t i = 0; i < pointLights.size(); ++i)
+        {
+            UIManager::GetInstance()->ShowTransformUI("Point Light " + std::to_string(i + 1), pointLights[i]->GetTransform(), 2.5f);
+        }
     }
 }
