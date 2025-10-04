@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/Graphics",
+                "${workspaceFolder}/src/Common",
+                "${workspaceFolder}/src/UI",
+                "${workspaceFolder}/src/Models",
+                "${workspaceFolder}/src/3rdParty",
+                "${workspaceFolder}/Dependencies/GLAD/include",
+                "${workspaceFolder}/Dependencies/GLFW/include",
+                "/opt/homebrew/opt/assimp/include"
+            ],
+            "defines": [
+                "GL_SILENCE_DEPRECATION"
+            ],
+            "compilerPath": "/usr/bin/clang++",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-clang-arm64",
+            "configurationProvider": "ms-vscode.cmake-tools"
+        }
+    ],
+    "version": 4
+}

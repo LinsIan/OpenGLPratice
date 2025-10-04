@@ -15,6 +15,9 @@ if(APPLE)
     set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0")
     # 添加macOS特定的编译器标志
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated")
+
+    # 讓 CMake 能找到 Homebrew 安裝在 /opt/homebrew 下的套件（Assimp 等）
+    list(PREPEND CMAKE_PREFIX_PATH "/opt/homebrew")
 endif()
 
 # 添加编译器标志 - 添加调试符号
@@ -40,6 +43,9 @@ find_package(OpenGL REQUIRED)
 if(APPLE)
     # 在macOS上使用Homebrew安装的GLFW
     find_package(glfw3 REQUIRED)
+
+    # 使用Homebrew的 Assimp（提供 assimp::assimp 目標）
+    find_package(assimp CONFIG REQUIRED)
 else()
     # 使用项目中的GLFW库
     set(GLFW_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLFW/include")
@@ -77,6 +83,7 @@ if(APPLE)
     target_link_libraries(${PROJECT_NAME} 
         OpenGL::GL
         glfw
+        assimp::assimp
         "-framework Cocoa"
         "-framework IOKit"
         "-framework CoreVideo"
