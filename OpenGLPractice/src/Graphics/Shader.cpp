@@ -20,7 +20,13 @@ Shader::~Shader()
 
 ShaderSource Shader::ParseShader(const std::string& filepath)
 {
-    std::ifstream stream(filepath);
+#ifdef __APPLE__
+    std::string fullPath = "../" + filepath;
+#else
+    std::string fullPath = filepath;
+#endif
+
+    std::ifstream stream(fullPath);
 
 	enum class ShaderType
 	{
@@ -77,26 +83,63 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
     return id;
 }
 
+// ...existing code...
 unsigned int Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
 {
     unsigned int program = glCreateProgram();
-	unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
-	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+    unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
+    unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
 
     glAttachShader(program, vs);
     glAttachShader(program, fs);
     glLinkProgram(program);
-    glValidateProgram(program);
+
+    // 僅檢查 Link 狀態
+    GLint linkOk = GL_FALSE;
+    glGetProgramiv(program, GL_LINK_STATUS, &linkOk);
+    if (!linkOk)
+    {
+        GLint logLen = 0;
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLen);
+        if (logLen > 1)
+        {
+            std::vector<char> log(logLen);
+            glGetProgramInfoLog(program, logLen, nullptr, log.data());
+            std::cerr << "Shader link error:\n" << log.data() << std::endl;
+        }
+        glDeleteShader(vs);
+        glDeleteShader(fs);
+        glDeleteProgram(program);
+        return 0;
+    }
 
     glDeleteShader(vs);
     glDeleteShader(fs);
-
     return program;
-};
-
+}
 
 void Shader::Bind() const
 {
+    // 添加错误检查
+    if (rendererID == 0) {
+        std::cerr << "Error: Shader program not created or compilation failed!" << std::endl;
+        return;
+    }
+
+    // 检查着色器程序是否有效
+    GLint isValid;
+    glGetProgramiv(rendererID, GL_LINK_STATUS, &isValid);
+    if (!isValid) {
+        GLint logLength;
+        glGetProgramiv(rendererID, GL_INFO_LOG_LENGTH, &logLength);
+        if (logLength > 0) {
+            std::vector<char> log(logLength);
+            glGetProgramInfoLog(rendererID, logLength, nullptr, log.data());
+            std::cerr << "Shader program link error: " << log.data() << std::endl;
+        }
+        return;
+    }
+
     GLCall(glUseProgram(rendererID));
 }
 

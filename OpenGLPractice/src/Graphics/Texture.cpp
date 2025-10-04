@@ -8,6 +8,10 @@
 Texture::Texture(const std::string& path, int filtering /*= GL_LINEAR*/, int wrapping /*= GL_CLAMP_TO_EDGE*/)
 	: rendererID(0), filePath(path), localBuffer(nullptr), width(0), height(0), bitPerPixel(0), filteringMode(filtering), wrappingMode(wrapping)
 {
+#ifdef __APPLE__
+	filePath = "../" + filePath;
+#endif
+
 	stbi_set_flip_vertically_on_load(1);
 	// desired_channels for RGBA is 4
 	localBuffer = stbi_load(filePath.c_str(), &width, &height, &bitPerPixel, 4);

@@ -24,8 +24,9 @@ int main(void)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); MAC OS
-
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(960, 540, "Hello World", NULL, NULL);
     if (!window)
@@ -45,7 +46,12 @@ int main(void)
         return -1;
     }
 
-    glViewport(0, 0, 960, 540);
+    // 输出OpenGL版本信息
+    std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+    std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+    std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
+
+    glViewport(0, 0, 1920, 1080);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	unsigned char* glVersion;
