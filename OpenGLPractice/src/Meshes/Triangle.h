@@ -2,12 +2,12 @@
 
 #include "Model.h"
 
-namespace Model
+namespace Mesh
 {
-    class Triangle : public Model
+    class Triangle : public Mesh
     {
     public:
-        Triangle(float leftX, float rightX, float height) : Model()
+        Triangle(float leftX, float rightX, float height) : Mesh()
         {
             float position[] =
             {

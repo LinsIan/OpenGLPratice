@@ -5,8 +5,8 @@
 
 Sample::SamplePolygonTriangle::SamplePolygonTriangle()
 {
-    auto triA = std::make_shared<Model::Triangle>(0.0f, 1.0f, 1.0f);
-    auto triB = std::make_shared<Model::Triangle>(-1.0f, 0.0f, 1.0f);
+    auto triA = std::make_shared<Mesh::Triangle>(0.0f, 1.0f, 1.0f);
+    auto triB = std::make_shared<Mesh::Triangle>(-1.0f, 0.0f, 1.0f);
     auto material = std::make_shared<Material>("res/shaders/Basic2D.shader");
 
     triangleA = std::make_unique<GameObject>(triA, material);

@@ -2,12 +2,12 @@
 
 #include "Model.h"
 
-namespace Model
+namespace Mesh
 {
-	class Cube : public Model
+	class Cube : public Mesh
 	{
 	public:
-		Cube(float length, float width, float height) : Model()
+		Cube(float length, float width, float height) : Mesh()
 		{
             float len = length / 2;
             float wid = width / 2;

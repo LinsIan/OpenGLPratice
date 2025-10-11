@@ -1479,25 +1479,25 @@
     <ClInclude Include="src\Samples\SampleTextureMix.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="src\Models\Model.h">
+    <ClInclude Include="src\Meshes\Model.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="src\Models\Rectangle.h">
+    <ClInclude Include="src\Meshes\Rectangle.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="src\Models\Triangle.h">
+    <ClInclude Include="src\Meshes\Triangle.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\Samples\SampleTexture3D.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="src\Models\Cube.h">
+    <ClInclude Include="src\Meshes\Cube.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\Samples\SampleLightTest.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="src\Models\Sphere.h">
+    <ClInclude Include="src\Meshes\Sphere.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\Common\MaterialDatabase.h">

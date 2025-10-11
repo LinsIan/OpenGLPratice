@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;src/Graphics;src/Common;src/UI;src/Models;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src/Graphics;src/Common;src/UI;src/Meshes;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\assimp\include</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;src/Graphics;src/Common;src/UI;src/Models;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src/Graphics;src/Common;src/UI;src/Meshes;src/3rdParty;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\assimp\include</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -420,14 +420,14 @@
     <ClInclude Include="src\Samples\SampleLightingMaps.h" />
     <ClInclude Include="src\Samples\SampleLightTest.h" />
     <ClInclude Include="src\Common\GameObject.h" />
-    <ClInclude Include="src\Models\Cube.h" />
-    <ClInclude Include="src\Models\Sphere.h" />
+    <ClInclude Include="src\Meshes\Cube.h" />
+    <ClInclude Include="src\Meshes\Sphere.h" />
     <ClInclude Include="src\Samples\SampleTexture3D.h" />
     <ClInclude Include="src\Common\Camera.h" />
     <ClInclude Include="src\Common\Material.h" />
-    <ClInclude Include="src\Models\Model.h" />
-    <ClInclude Include="src\Models\Rectangle.h" />
-    <ClInclude Include="src\Models\Triangle.h" />
+    <ClInclude Include="src\Meshes\Model.h" />
+    <ClInclude Include="src\Meshes\Rectangle.h" />
+    <ClInclude Include="src\Meshes\Triangle.h" />
     <ClInclude Include="src\Samples\SampleTextureMix.h" />
     <ClInclude Include="src\Samples\SamplePolygonTriangle.h" />
     <ClInclude Include="src\SampleManager.h" />

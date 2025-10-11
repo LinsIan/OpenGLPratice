@@ -31,7 +31,7 @@ private:
 	void Init()
 	{
 		material = std::make_shared<Material>("res/shaders/Basic3D.shader");
-		model = std::make_shared<Model::Sphere>(0.2f, 20, 20);
+		model = std::make_shared<Mesh::Sphere>(0.2f, 20, 20);
         InitImpl(typename light_type<T>::tag());
 	}
 

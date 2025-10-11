@@ -22,7 +22,7 @@ namespace Sample
         cubeMaterial->AddTexture("res/textures/container2_specular.png", 1, "material.specular");
         cubeMaterial->BindTextures();
 
-        cube = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.0f, 1.0f, 1.0f), cubeMaterial);
+        cube = std::make_unique<GameObject>(std::make_shared<Mesh::Cube>(1.0f, 1.0f, 1.0f), cubeMaterial);
         cube->GetTransform().SetRotation(45, 0, 0);
         cube->GetTransform().SetScale(0.6f, 0.6f, 0.6f);
 

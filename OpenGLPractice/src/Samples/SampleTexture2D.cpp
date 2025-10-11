@@ -7,7 +7,7 @@ namespace Sample
 {
     SampleTexture2D::SampleTexture2D()
     {
-        auto rect = std::make_shared<Model::Rectangle>(100, 100, 1.0f, 1.0f);
+        auto rect = std::make_shared<Mesh::Rectangle>(100, 100, 1.0f, 1.0f);
         rectangle = std::make_unique<GameObject>(rect, "res/shaders/Texture.shader");
 
         rectangle->GetTransform().SetTranslation(200, 200, 0);

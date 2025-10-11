@@ -10,7 +10,7 @@ namespace Sample
 	{
 		mixValue = 0.8f;
 
-		auto rect = std::make_shared<Model::Rectangle>(1.0f, 1.0f, 2.0f, 2.0f);
+		auto rect = std::make_shared<Mesh::Rectangle>(1.0f, 1.0f, 2.0f, 2.0f);
 
 		filteringMode = GL_LINEAR; // GL_NEAREST
 		wrappingMode = GL_REPEAT; // GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT

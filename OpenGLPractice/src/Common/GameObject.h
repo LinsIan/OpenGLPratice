@@ -13,7 +13,7 @@
 class GameObject
 {
 protected:
-    std::shared_ptr<Model::Model> model;
+    std::shared_ptr<Mesh::Mesh> model;
     std::shared_ptr<Material> material;
     std::unique_ptr<Transform> transform;
 
@@ -25,14 +25,14 @@ public:
         transform = std::make_unique<Transform>();
     }
 
-    GameObject(std::shared_ptr<Model::Model> modelptr, std::string shaderPath)
+    GameObject(std::shared_ptr<Mesh::Mesh> modelptr, std::string shaderPath)
     {
         model = modelptr;
         material = std::make_shared<Material>(shaderPath);
         transform = std::make_unique<Transform>();
     }
 
-    GameObject(std::shared_ptr<Model::Model> modelptr, std::shared_ptr<Material> materialPtr)
+    GameObject(std::shared_ptr<Mesh::Mesh> modelptr, std::shared_ptr<Material> materialPtr)
     {
         model = modelptr;
         material = materialPtr;
@@ -56,7 +56,7 @@ public:
         Renderer::Draw(model->GetVertexArray(), material->GetShader(), GetIndexCount());
     }
 
-    inline Model::Model& GetModel() const { return *model; }
+    inline Mesh::Mesh& GetModel() const { return *model; }
     inline Material& GetMaterial() const { return *material; }
     inline Transform& GetTransform() const { return *transform; }
     inline unsigned int GetIndexCount() const { return model->GetIndexBuffer().GetCount(); }

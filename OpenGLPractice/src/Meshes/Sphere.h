@@ -3,12 +3,12 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/constants.hpp"
 
-namespace Model
+namespace Mesh
 {
-    class Sphere : public Model
+    class Sphere : public Mesh
     {
     public:
-        Sphere(float radius, unsigned int stacks, unsigned int slices) : Model()
+        Sphere(float radius, unsigned int stacks, unsigned int slices) : Mesh()
         {
             std::vector<float> positions;
             std::vector<unsigned int> indices;

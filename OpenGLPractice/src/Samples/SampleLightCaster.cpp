@@ -114,7 +114,7 @@ namespace Sample
         cubeMaterial->AddTexture("res/textures/container2_specular.png", 1, "material.specular");
         cubeMaterial->BindTextures();
         cubeMaterial->SetMaterialShininess(64.0f);
-        cube = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.0f, 1.0f, 1.0f), cubeMaterial);
+        cube = std::make_unique<GameObject>(std::make_shared<Mesh::Cube>(1.0f, 1.0f, 1.0f), cubeMaterial);
         cube->GetTransform().SetScale(0.8f, 0.8f, 0.8f);
     }
 

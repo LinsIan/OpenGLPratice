@@ -5,7 +5,7 @@ namespace Sample
 {
     SampleRectangle::SampleRectangle()
     {
-        auto rect = std::make_shared<Model::Rectangle>(1.0f, 1.0f, 1.0f, 1.0f);
+        auto rect = std::make_shared<Mesh::Rectangle>(1.0f, 1.0f, 1.0f, 1.0f);
         rectangle = std::make_unique<GameObject>(rect, "res/shaders/Basic2D.shader");
         
         rectangle->GetMaterial().GetShader().SetUniform4f("u_Color", r, 0.5f, 0.8f, 1.0f);

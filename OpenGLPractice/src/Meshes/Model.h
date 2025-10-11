@@ -9,9 +9,9 @@
 
 
 
-namespace Model
+namespace Mesh
 {
-    class Model
+    class Mesh
     {
     protected:
         std::unique_ptr<VertexArray> vertexArray;
@@ -19,8 +19,8 @@ namespace Model
         std::unique_ptr<IndexBuffer> indexBuffer;
 
     public:
-        Model() {}
-        virtual ~Model() {}
+        Mesh() {}
+        virtual ~Mesh() {}
 
         inline const VertexArray& GetVertexArray() const { return *vertexArray; }
         inline const IndexBuffer& GetIndexBuffer() const { return *indexBuffer; }

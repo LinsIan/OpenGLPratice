@@ -23,7 +23,7 @@ namespace Sample
         auto cubeMaterial = std::make_shared<Material>("res/shaders/Light.shader");
         cubeMaterial->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
         
-        cube = std::make_unique<GameObject>(std::make_shared<Model::Cube>(1.0f, 1.0f, 1.0f), cubeMaterial);
+        cube = std::make_unique<GameObject>(std::make_shared<Mesh::Cube>(1.0f, 1.0f, 1.0f), cubeMaterial);
         cube->GetTransform().SetRotation(45, 0, 0);
         cube->GetTransform().SetScale(0.6f, 0.6f, 0.6f);
 
