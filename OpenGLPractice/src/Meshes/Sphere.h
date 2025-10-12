@@ -1,5 +1,5 @@
 #pragma once
-#include "Model.h"
+#include "Mesh.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/constants.hpp"
 
@@ -17,22 +17,22 @@ namespace Mesh
             {
 
                 auto pi = glm::pi<float>();
-                float theta = i * pi / stacks; // ½n«×¨¤
+                float theta = i * pi / stacks; // ï¿½nï¿½×¨ï¿½
 
                 for (unsigned int j = 0; j <= slices; ++j)
                 {
-                    float phi = j * 2 * pi / slices; // ¸g«×¨¤
+                    float phi = j * 2 * pi / slices; // ï¿½gï¿½×¨ï¿½
 
-                    // ­pºâ³»ÂI¦ì¸m
+                    // ï¿½pï¿½â³»ï¿½Iï¿½ï¿½m
                     float x = radius * sin(theta) * cos(phi);
                     float y = radius * cos(theta);
                     float z = radius * sin(theta) * sin(phi);
 
-                    // ­pºâ¯¾²z®y¼Ð
+                    // ï¿½pï¿½â¯¾ï¿½zï¿½yï¿½ï¿½
                     float u = (float)j / slices;
                     float v = (float)i / stacks;
 
-                    // ²K¥[³»ÂIÄÝ©Ê
+                    // ï¿½Kï¿½[ï¿½ï¿½ï¿½Iï¿½Ý©ï¿½
                     positions.push_back(x);
                     positions.push_back(y);
                     positions.push_back(z);
@@ -48,7 +48,7 @@ namespace Mesh
                     unsigned int first = i * (slices + 1) + j;
                     unsigned int second = first + slices + 1;
 
-                    // ²K¥[¯Á¤Þ
+                    // ï¿½Kï¿½[ï¿½ï¿½ï¿½ï¿½
                     indices.push_back(first);
                     indices.push_back(second);
                     indices.push_back(first + 1);

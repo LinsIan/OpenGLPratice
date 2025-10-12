@@ -8,7 +8,7 @@
                 "${workspaceFolder}/src/Graphics",
                 "${workspaceFolder}/src/Common",
                 "${workspaceFolder}/src/UI",
-                "${workspaceFolder}/src/Models",
+                "${workspaceFolder}/src/Meshes",
                 "${workspaceFolder}/src/3rdParty",
                 "${workspaceFolder}/Dependencies/GLAD/include",
                 "${workspaceFolder}/Dependencies/GLFW/include",

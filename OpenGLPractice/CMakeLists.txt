@@ -30,7 +30,7 @@ include_directories(
     src/Graphics
     src/Common
     src/UI
-    src/Models
+    src/Meshes
     src/3rdParty
     Dependencies/GLAD/include
     Dependencies/GLFW/include
