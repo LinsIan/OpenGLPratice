@@ -412,6 +412,7 @@
     <ClInclude Include="Dependencies\assimp\include\assimp\ZipArchiveIOSystem.h" />
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\Meshes\Mesh.h" />
     <ClInclude Include="src\Samples\SampleLightCaster.h" />
     <ClInclude Include="src\Samples\SampleMultiLight.h" />
     <ClInclude Include="src\Common\Light.h" />
@@ -425,7 +426,6 @@
     <ClInclude Include="src\Samples\SampleTexture3D.h" />
     <ClInclude Include="src\Common\Camera.h" />
     <ClInclude Include="src\Common\Material.h" />
-    <ClInclude Include="src\Meshes\Model.h" />
     <ClInclude Include="src\Meshes\Rectangle.h" />
     <ClInclude Include="src\Meshes\Triangle.h" />
     <ClInclude Include="src\Samples\SampleTextureMix.h" />

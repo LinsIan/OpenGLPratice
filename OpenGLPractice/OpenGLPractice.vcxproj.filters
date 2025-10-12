@@ -1479,9 +1479,6 @@
     <ClInclude Include="src\Samples\SampleTextureMix.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="src\Meshes\Model.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
     <ClInclude Include="src\Meshes\Rectangle.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
@@ -1804,6 +1801,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Dependencies\assimp\include\assimp\ZipArchiveIOSystem.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meshes\Mesh.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
