@@ -135,6 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Common\Model.cpp" />
+    <ClCompile Include="src\Samples\SampleImportModel.cpp" />
     <ClCompile Include="src\Samples\SampleLightCaster.cpp" />
     <ClCompile Include="src\Samples\SampleMultiLight.cpp" />
     <ClCompile Include="src\Common\MaterialDatabase.cpp" />
@@ -412,6 +414,8 @@
     <ClInclude Include="Dependencies\assimp\include\assimp\ZipArchiveIOSystem.h" />
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\Common\Model.h" />
+    <ClInclude Include="src\Samples\SampleImportModel.h" />
     <ClInclude Include="src\Meshes\Mesh.h" />
     <ClInclude Include="src\Samples\SampleLightCaster.h" />
     <ClInclude Include="src\Samples\SampleMultiLight.h" />

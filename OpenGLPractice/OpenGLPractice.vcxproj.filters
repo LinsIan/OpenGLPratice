@@ -105,6 +105,12 @@
     <ClCompile Include="src\Samples\SampleLightCaster.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\Samples\SampleImportModel.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Model.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\3rdParty\glm\detail\func_common.inl">
@@ -1804,6 +1810,12 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\Meshes\Mesh.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\SampleImportModel.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Model.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
