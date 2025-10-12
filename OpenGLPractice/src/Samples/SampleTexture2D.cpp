@@ -8,12 +8,13 @@ namespace Sample
     SampleTexture2D::SampleTexture2D()
     {
         auto rect = std::make_shared<Mesh::Rectangle>(100, 100, 1.0f, 1.0f);
-        rectangle = std::make_unique<GameObject>(rect, "res/shaders/Texture.shader");
+
+        auto material = std::make_shared<Material>("res/shaders/Texture.shader");
+        material->AddTexture("res/textures/ChernoLogo.png", 0, "u_Texture");
+        material->BindTextures();
+        rectangle = std::make_unique<GameObject>(rect, material);
 
         rectangle->GetTransform().SetTranslation(200, 200, 0);
-        rectangle->GetMaterial().AddTexture("res/textures/ChernoLogo.png", 0, "u_Texture");
-        rectangle->GetMaterial().GetShader().SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
-
         camera = std::make_unique<Camera>(CameraType::ORTHOGRAPHIC, 960.0f, 540.0f);
     }
     

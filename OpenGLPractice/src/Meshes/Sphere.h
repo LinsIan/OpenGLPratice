@@ -10,12 +10,11 @@ namespace Mesh
     public:
         Sphere(float radius, unsigned int stacks, unsigned int slices) : Mesh()
         {
-            std::vector<float> positions;
-            std::vector<unsigned int> indices;
+            vertices.clear();
+            vertices.reserve((stacks + 1) * (slices + 1));
 
             for (unsigned int i = 0; i <= stacks; ++i)
             {
-
                 auto pi = glm::pi<float>();
                 float theta = i * pi / stacks; // �n�ר�
 
@@ -29,18 +28,17 @@ namespace Mesh
                     float z = radius * sin(theta) * sin(phi);
 
                     // �p�⯾�z�y��
-                    float u = (float)j / slices;
-                    float v = (float)i / stacks;
+                    float u = static_cast<float>(j) / slices;
+                    float v = static_cast<float>(i) / stacks;
 
-                    // �K�[���I�ݩ�
-                    positions.push_back(x);
-                    positions.push_back(y);
-                    positions.push_back(z);
-                    positions.push_back(u);
-                    positions.push_back(v);
+                    glm::vec3 pos(x, y, z);
+                    glm::vec3 nrm = glm::normalize(pos);
+
+                    vertices.push_back(Vertex{ pos, nrm, glm::vec2(u, v) });
                 }
             }
 
+            indices.clear();
             for (unsigned int i = 0; i < stacks; ++i)
             {
                 for (unsigned int j = 0; j < slices; ++j)
@@ -59,17 +57,7 @@ namespace Mesh
                 }
             }
 
-            vertexArray = std::make_unique<VertexArray>();
-            vertexBuffer = std::make_unique<VertexBuffer>(positions.data(), positions.size() * sizeof(float));
-            VertexBufferLayout layout;
-            layout.Push<float>(3); // position
-            layout.Push<float>(2); // texture coordinate
-            indexBuffer = std::make_unique<IndexBuffer>(indices.data(), indices.size());
-            vertexArray->AddBuffer(*vertexBuffer, layout, *indexBuffer);
-
-            vertexArray->Unbind();
-            vertexBuffer->Unbind();
-            indexBuffer->Unbind();
+            SetupMesh();
         }
 
         ~Sphere() {}

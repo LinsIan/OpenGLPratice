@@ -9,34 +9,23 @@ namespace Mesh
     public:
         Rectangle(float width, float height, float coordX, float coordY) : Mesh()
         {
-            float position[] = 
-            {
-                -width / 2, -height / 2, 0,      0,      // 0
-                 width / 2, -height / 2, coordX, 0,      // 1
-                 width / 2,  height / 2, coordX, coordY, // 2
-                -width / 2,  height / 2, 0,      coordY  // 3
+            vertices = {
+                { {-width / 2, -height / 2, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f} }, // 0
+                { { width / 2, -height / 2, 0.0f}, {0.0f, 0.0f, 1.0f}, {coordX, 1.0f} }, // 1
+                { { width / 2,  height / 2, 0.0f}, {0.0f, 0.0f, 1.0f}, {coordX, coordY} }, // 2
+                { {-width / 2,  height / 2, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, coordY} }, // 3
             };
 
-            unsigned int indices[] =
+            indices =
             {
                 0, 1, 2,
                 2, 3, 0
             };
 
-            vertexArray = std::make_unique<VertexArray>();
-            vertexBuffer = std::make_unique<VertexBuffer>(position, 4 * 4 * sizeof(float));
-            VertexBufferLayout layout;
-            layout.Push<float>(2); // position
-            layout.Push<float>(2); // texture coordinate
-            indexBuffer = std::make_unique<IndexBuffer>(indices, 6); // index buffer binding must be done after vertex buffer binding
-            vertexArray->AddBuffer(*vertexBuffer, layout, *indexBuffer);
-            
-            vertexArray->Unbind();
-            vertexBuffer->Unbind();
-            indexBuffer->Unbind();
+            SetupMesh();
         };
 
         ~Rectangle() {}
     };
-} // namespace name
+} // namespace Mesh
 
