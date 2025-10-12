@@ -77,11 +77,11 @@ namespace Sample
 
     void SampleMultiLight::OnUpdate(float deltaTime)
     {
-        for (auto& cube : cubes)
+        for (size_t i = 0; i < cubes.size(); ++i)
         {
-            cube->GetTransform().GetRotation().x += 6 * deltaTime;
-            cube->GetTransform().GetRotation().y += 10 * deltaTime;
-            cube->GetTransform().GetRotation().z += 8 * deltaTime;
+            cubes[i]->GetTransform().GetRotation().x += (6 + i) * deltaTime;
+            cubes[i]->GetTransform().GetRotation().y += (10 + i) * deltaTime;
+            cubes[i]->GetTransform().GetRotation().z += (8 + i) * deltaTime;
 		}
         
         for (auto& pointLight : pointLights)
