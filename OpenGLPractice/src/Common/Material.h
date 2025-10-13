@@ -14,14 +14,14 @@
 class Material
 {
 private:
-    std::unique_ptr<Shader> shader;
-    std::map<unsigned int, std::unique_ptr<Texture>> textures;
+    std::shared_ptr<Shader> shader;
+    std::map<unsigned int, std::shared_ptr<Texture>> textures;
 
     glm::vec4 color;
 public:
     Material(std::string shaderPath)
     {
-        shader = std::make_unique<Shader>(shaderPath);
+        shader = std::make_shared<Shader>(shaderPath);
         shader->Bind();
         SetColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
@@ -187,7 +187,14 @@ public:
 
     void AddTexture(const std::string& path, unsigned int slot, std::string uniformName, int filtering = GL_LINEAR, int wrapping = GL_CLAMP_TO_EDGE)
     {
-        textures[slot] = std::make_unique<Texture>(path, filtering, wrapping);
+        textures[slot] = std::make_shared<Texture>(path, filtering, wrapping);
+        textures[slot]->Bind(slot);
+        shader->SetUniform1i(uniformName, slot);
+    }
+
+    void AddTexture(std::shared_ptr<Texture> texture, unsigned int slot, std::string uniformName)
+    {
+        textures[slot] = texture;
         textures[slot]->Bind(slot);
         shader->SetUniform1i(uniformName, slot);
     }

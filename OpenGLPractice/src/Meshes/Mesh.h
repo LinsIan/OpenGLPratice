@@ -6,8 +6,7 @@
 #include "VertexBufferLayout.h"
 
 #include <memory>
-
-
+#include <vector>
 
 namespace Mesh
 {
@@ -23,14 +22,14 @@ namespace Mesh
     protected:
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
-        std::unique_ptr<VertexArray> vertexArray;
-        std::unique_ptr<VertexBuffer> vertexBuffer;
-        std::unique_ptr<IndexBuffer> indexBuffer;
+        std::shared_ptr<VertexArray> vertexArray;
+        std::shared_ptr<VertexBuffer> vertexBuffer;
+        std::shared_ptr<IndexBuffer> indexBuffer;
 
     public:
         Mesh() {}
-        Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
-            : vertices(vertices), indices(indices)
+        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
+            : vertices(std::move(vertices)), indices(std::move(indices))
         {
             SetupMesh();
         }
@@ -42,13 +41,13 @@ namespace Mesh
     protected:
         void SetupMesh()
         {
-            vertexArray = std::make_unique<VertexArray>();
-            vertexBuffer = std::make_unique<VertexBuffer>(vertices.data(), vertices.size() * sizeof(Vertex));
+            vertexArray = std::make_shared<VertexArray>();
+            vertexBuffer = std::make_shared<VertexBuffer>(vertices.data(), vertices.size() * sizeof(Vertex));
             VertexBufferLayout layout;
             layout.Push<float>(3); // position
             layout.Push<float>(3); // normal
             layout.Push<float>(2); // texture coordinate
-            indexBuffer = std::make_unique<IndexBuffer>(indices.data(), indices.size());
+            indexBuffer = std::make_shared<IndexBuffer>(indices.data(), indices.size());
             vertexArray->AddBuffer(*vertexBuffer, layout, *indexBuffer);
 
             vertexArray->Unbind();

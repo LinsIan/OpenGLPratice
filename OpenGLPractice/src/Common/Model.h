@@ -26,11 +26,12 @@ protected:
 	std::string directory;
 	std::vector<Mesh::Mesh> meshes;
 	std::vector<Material> materials;
-	std::unique_ptr<Transform> transform;
+	std::vector<Texture> textures_loaded;
+	std::shared_ptr<Transform> transform;
 
 	void LoadModel(std::string path);
 	void ProcessNode(aiNode* node, const aiScene* scene);
 	Mesh::Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-	void LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+	std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 };
 

@@ -3,14 +3,14 @@
 
 #include <iostream>
 
-
-
-Texture::Texture(const std::string& path, int filtering /*= GL_LINEAR*/, int wrapping /*= GL_CLAMP_TO_EDGE*/)
+Texture::Texture(const std::string& path, const std::string& typeName /*= ""*/, int filtering /*= GL_LINEAR*/, int wrapping /*= GL_CLAMP_TO_EDGE*/)
 	: rendererID(0), filePath(path), localBuffer(nullptr), width(0), height(0), bitPerPixel(0), filteringMode(filtering), wrappingMode(wrapping)
 {
 #ifdef __APPLE__
 	filePath = "../" + filePath;
 #endif
+
+	this->typeName = typeName;
 
 	stbi_set_flip_vertically_on_load(1);
 	// desired_channels for RGBA is 4
