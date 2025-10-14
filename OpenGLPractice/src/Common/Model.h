@@ -15,23 +15,28 @@
 #include <string>
 #include <vector>
 
+using std::string;
+using std::vector;
+using std::shared_ptr;
+using std::make_shared;
+
 class Model
 {
 public:
-	Model(char *path);
+	Model(string const &path);
 	~Model();
-	void OnRender(const glm::mat4& proj, const glm::mat4& view, const glm::vec3& camPos);
+	void OnRender(const glm::mat4& proj, const glm::mat4& view);
 
 protected:
-	std::string directory;
-	std::vector<Mesh::Mesh> meshes;
-	std::vector<Material> materials;
-	std::vector<Texture> textures_loaded;
-	std::shared_ptr<Transform> transform;
+	string directory;
+	vector<Mesh::Mesh> meshes;
+	vector<Material> materials;
+	vector<shared_ptr<Texture>> textures_loaded;
+	shared_ptr<Transform> transform;
 
-	void LoadModel(std::string path);
+	void LoadModel(string const &path);
 	void ProcessNode(aiNode* node, const aiScene* scene);
 	Mesh::Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-	std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+	vector<shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
 };
 

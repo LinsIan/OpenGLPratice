@@ -1,14 +1,16 @@
 #include "Model.h"
 
-Model::Model(char* path)
+Model::Model(string const &path)
 {
+    transform = std::make_unique<Transform>();
+    LoadModel(path);
 }
 
 Model::~Model()
 {
 }
 
-void Model::OnRender(const glm::mat4& proj, const glm::mat4& view, const glm::vec3& camPos)
+void Model::OnRender(const glm::mat4& proj, const glm::mat4& view)
 {
     for (unsigned int i = 0; i < meshes.size(); i++)
     {
@@ -19,7 +21,7 @@ void Model::OnRender(const glm::mat4& proj, const glm::mat4& view, const glm::ve
 	}
 }
 
-void Model::LoadModel(std::string path)
+void Model::LoadModel(string const &path)
 {
 	Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -31,7 +33,8 @@ void Model::LoadModel(std::string path)
 		return;
     }
 
-	directory = path.substr(0, std::string(path).find_last_of('/'));
+	directory = path.substr(0, string(path).find_last_of('/'));
+    std::cout << "Model directory: " << directory << std::endl;
 
 	// process ASSIMP's root node recursively
 	ProcessNode(scene->mRootNode, scene);
@@ -53,8 +56,8 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
 
 Mesh::Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
-    std::vector<Mesh::Vertex> vertices;
-    std::vector<unsigned int> indices;
+    vector<Mesh::Vertex> vertices;
+    vector<unsigned int> indices;
 
     // vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -96,47 +99,50 @@ Mesh::Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     if (mesh->mMaterialIndex >= 0)
     {
         aiMaterial *aimaterial = scene->mMaterials[mesh->mMaterialIndex];
-        std::vector<Texture> diffTextures = LoadMaterialTextures(aimaterial, aiTextureType_DIFFUSE, "texture_diffuse");
-        std::vector<Texture> specTextures = LoadMaterialTextures(aimaterial, aiTextureType_SPECULAR, "texture_specular");
+        vector<shared_ptr<Texture>> diffTextures = LoadMaterialTextures(aimaterial, aiTextureType_DIFFUSE, "texture_diffuse");
+        vector<shared_ptr<Texture>> specTextures = LoadMaterialTextures(aimaterial, aiTextureType_SPECULAR, "texture_specular");
         Material material("res/shaders/LightCaster/DirLight.shader");
         unsigned int slot = 0;
         for (auto& texture : diffTextures)
-            material.AddTexture(std::make_shared<Texture>(texture), slot++, "u_DiffuseTexture");
+            material.AddTexture(texture, slot++, "material.diffuse");
         for (auto& texture : specTextures)
-            material.AddTexture(std::make_shared<Texture>(texture), slot++, "u_SpecsularTexture");
+            material.AddTexture(texture, slot++, "material.specular");
+
+        material.BindTextures();
+        material.SetMaterialShininess(64.0f);
         materials.emplace_back(material);
     }
 
     return Mesh::Mesh();
 }
 
-std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+vector<shared_ptr<Texture>> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
 {
-    std::vector<Texture> textures;
+    vector<shared_ptr<Texture>> textures;
 
     for (int i = 0; i < mat->GetTextureCount(type); i++)
     {
         aiString str;
         mat->GetTexture(type, i, &str);
-        str = directory + str.C_Str();
+        str = directory + '/' + str.C_Str();
         bool skip = false;
 
-        // TODO: 我的texture會初始化，所以texture相關vector和物件要改成用shared_ptr處理
-        // for (auto& texture : textures_loaded)
-        // {
-        //     if (std::strcmp(texture.GetFilePath().c_str(), str.C_Str()) == 0)
-        //     {
-        //         textures.emplace_back(texture);
-        //         skip = true;
-        //         break;
-        //     }
-        // }
+        for (auto texture : textures_loaded)
+        {
+            if (strcmp(texture->GetFilePath().c_str(), str.C_Str()) == 0)
+            {
+                textures.emplace_back(texture);
+                skip = true;
+                break;
+            }
+        }
 
         if (!skip)
         {
-            std::cout << "Texture loaded: " << directory + str.C_Str() << std::endl;
-            Texture texture(directory + str.C_Str(), typeName);
+            std::cout << "Texture loaded: " << str.C_Str() << std::endl;
+            auto texture = make_shared<Texture>(str.C_Str(), true, typeName);
             textures.emplace_back(texture);
+            textures_loaded.emplace_back(texture);
         }
     }
     

@@ -187,7 +187,7 @@ public:
 
     void AddTexture(const std::string& path, unsigned int slot, std::string uniformName, int filtering = GL_LINEAR, int wrapping = GL_CLAMP_TO_EDGE)
     {
-        textures[slot] = std::make_shared<Texture>(path, filtering, wrapping);
+        textures[slot] = std::make_shared<Texture>(path, false, "", filtering, wrapping);
         textures[slot]->Bind(slot);
         shader->SetUniform1i(uniformName, slot);
     }

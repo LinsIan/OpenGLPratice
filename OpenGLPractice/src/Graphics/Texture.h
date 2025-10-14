@@ -15,7 +15,7 @@ private:
     int filteringMode;
     int wrappingMode;
 public:
-    Texture(const std::string& path, const std::string& typeName = "", int filtering = GL_LINEAR, int wrapping = GL_CLAMP_TO_EDGE);
+    Texture(const std::string& path, bool isFullPath = false, const std::string& typeName = "", int filtering = GL_LINEAR, int wrapping = GL_CLAMP_TO_EDGE);
     ~Texture();
 
     void Bind(unsigned int slot = 0) const;

@@ -3,10 +3,14 @@
 #include "Light.h"
 #include "Camera.h"
 #include "Material.h"
-#include "GameObject.h"
+#include "Model.h"
 
 #include <memory>
 #include <vector>
+
+using std::unique_ptr;
+using std::vector;
+using std::shared_ptr;
 
 namespace Sample
 {
@@ -16,6 +20,7 @@ namespace Sample
     private:
         std::unique_ptr<Camera> camera;
         std::unique_ptr<Light<DirLightProperties>> dirLight;
+        std::unique_ptr<Model> backpackModel;
 
     public:
         SampleImportModel();

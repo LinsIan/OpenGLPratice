@@ -10,6 +10,7 @@
 #include "Samples/SampleLightingMaps.h"
 #include "Samples/SampleLightCaster.h"
 #include "Samples/SampleMultiLight.h"
+#include "Samples/SampleImportModel.h"
 
 SampleManager::SampleManager()
 {
@@ -83,6 +84,12 @@ void SampleManager::OnUpdate()
             {
                 sample = nullptr;
                 sample = std::make_unique<Sample::SampleMultiLight>();
+            }
+
+            if (ImGui::MenuItem("ImportModel"))
+            {
+                sample = nullptr;
+                sample = std::make_unique<Sample::SampleImportModel>();
             }
 
             ImGui::EndMenu();
