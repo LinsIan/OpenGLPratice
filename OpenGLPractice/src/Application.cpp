@@ -28,7 +28,7 @@ int main(void)
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1920, 1080, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
     if (!window)
     {
         std::cout << "Filed to create GLFW winodw." << std::endl;
@@ -51,7 +51,7 @@ int main(void)
     std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
     std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
 
-    glViewport(0, 0, 1920, 1080);
+    glViewport(0, 0, 1280, 720);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	unsigned char* glVersion;

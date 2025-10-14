@@ -85,6 +85,8 @@ Mesh::Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
             texCoords.y = mesh->mTextureCoords[0][i].y;
             vertex.texCoords = texCoords;
         }
+
+        vertices.emplace_back(vertex);
     }
 
     // indices
@@ -101,7 +103,7 @@ Mesh::Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         aiMaterial *aimaterial = scene->mMaterials[mesh->mMaterialIndex];
         vector<shared_ptr<Texture>> diffTextures = LoadMaterialTextures(aimaterial, aiTextureType_DIFFUSE, "texture_diffuse");
         vector<shared_ptr<Texture>> specTextures = LoadMaterialTextures(aimaterial, aiTextureType_SPECULAR, "texture_specular");
-        Material material("res/shaders/LightCaster/DirLight.shader");
+        Material material("res/shaders/MultiLights.shader");
         unsigned int slot = 0;
         for (auto& texture : diffTextures)
             material.AddTexture(texture, slot++, "material.diffuse");
@@ -113,7 +115,7 @@ Mesh::Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         materials.emplace_back(material);
     }
 
-    return Mesh::Mesh();
+    return Mesh::Mesh(vertices, indices);
 }
 
 vector<shared_ptr<Texture>> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)

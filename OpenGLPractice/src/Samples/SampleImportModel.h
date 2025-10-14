@@ -20,6 +20,8 @@ namespace Sample
     private:
         std::unique_ptr<Camera> camera;
         std::unique_ptr<Light<DirLightProperties>> dirLight;
+        std::unique_ptr<Light<PointLightProperties>> pointLight;
+        std::unique_ptr<Light<SpotLightProperties>> spotLight;
         std::unique_ptr<Model> backpackModel;
 
     public:

@@ -27,6 +27,9 @@ public:
 	~Model();
 	void OnRender(const glm::mat4& proj, const glm::mat4& view);
 
+	inline Transform& GetTransform() const { return *transform; }
+	inline vector<Material> GetMaterials() const { return materials; }
+
 protected:
 	string directory;
 	vector<Mesh::Mesh> meshes;
