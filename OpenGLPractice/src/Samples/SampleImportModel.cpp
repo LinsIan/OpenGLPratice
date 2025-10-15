@@ -49,10 +49,10 @@ namespace Sample
 
         backpackModel = std::make_unique<Model>(path);
         backpackModel->GetTransform().SetScale(0.3f, 0.3f, 0.3f);
-        for (auto& material : backpackModel->GetMaterials())
+        for (auto& [index, material] : backpackModel->GetMaterialMap())
         {
-            material.BindShader();
-            material.SetPointLightsNum(1);
+            material->BindShader();
+            material->SetPointLightsNum(1);
         }
     }
     
@@ -68,12 +68,12 @@ namespace Sample
     
     void SampleImportModel::OnRender()
     {
-        for (auto& material : backpackModel->GetMaterials())
+        for (auto& [index, material] : backpackModel->GetMaterialMap())
         {
-            material.BindShader();
-            material.UpdateDirLightUniforms(dirLight->GetLightProperties(), camera->GetPosition(), backpackModel->GetTransform().GetNormalMatrix());
-            material.UpdatePointLightUniforms(0, pointLight->GetLightProperties());
-            material.UpdateSpotLightUniforms(spotLight->GetLightProperties(), camera->GetPosition(), backpackModel->GetTransform().GetNormalMatrix());
+            material->BindShader();
+            material->UpdateDirLightUniforms(dirLight->GetLightProperties(), camera->GetPosition(), backpackModel->GetTransform().GetNormalMatrix());
+            material->UpdatePointLightUniforms(0, pointLight->GetLightProperties());
+            material->UpdateSpotLightUniforms(spotLight->GetLightProperties(), camera->GetPosition(), backpackModel->GetTransform().GetNormalMatrix());
         }
 
         backpackModel->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());

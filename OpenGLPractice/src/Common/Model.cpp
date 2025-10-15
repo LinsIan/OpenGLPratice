@@ -14,17 +14,18 @@ void Model::OnRender(const glm::mat4& proj, const glm::mat4& view)
 {
     for (unsigned int i = 0; i < meshes.size(); i++)
     {
-        materials[i].BindShader();
-        materials[i].GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
-        materials[i].GetShader().SetUniformMat4f("u_Model", transform->GetMatrix());
-        Renderer::Draw(meshes[i].GetVertexArray(), materials[i].GetShader(), meshes[i].GetIndexBuffer().GetCount());
+        int materialIndex = meshToMaterialIndex[i];
+        materialMap[materialIndex]->BindShader();
+        materialMap[materialIndex]->GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
+        materialMap[materialIndex]->GetShader().SetUniformMat4f("u_Model", transform->GetMatrix());
+        Renderer::Draw(meshes[i].GetVertexArray(), materialMap[materialIndex]->GetShader(), meshes[i].GetIndexBuffer().GetCount());
 	}
 }
 
 void Model::LoadModel(string const &path)
 {
 	Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_OptimizeMeshes);
 
 	// check for errors
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -100,19 +101,26 @@ Mesh::Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     // materials
     if (mesh->mMaterialIndex >= 0)
     {
-        aiMaterial *aimaterial = scene->mMaterials[mesh->mMaterialIndex];
-        vector<shared_ptr<Texture>> diffTextures = LoadMaterialTextures(aimaterial, aiTextureType_DIFFUSE, "texture_diffuse");
-        vector<shared_ptr<Texture>> specTextures = LoadMaterialTextures(aimaterial, aiTextureType_SPECULAR, "texture_specular");
-        Material material("res/shaders/MultiLights.shader");
-        unsigned int slot = 0;
-        for (auto& texture : diffTextures)
-            material.AddTexture(texture, slot++, "material.diffuse");
-        for (auto& texture : specTextures)
-            material.AddTexture(texture, slot++, "material.specular");
+        int materialIndex = mesh->mMaterialIndex;
+        if (materialMap.find(materialIndex) == materialMap.end())
+        {
+            std::cout << "create new material, index: " << materialIndex << std::endl;
+            aiMaterial *aimaterial = scene->mMaterials[materialIndex];
+            vector<shared_ptr<Texture>> diffTextures = LoadMaterialTextures(aimaterial, aiTextureType_DIFFUSE, "texture_diffuse");
+            vector<shared_ptr<Texture>> specTextures = LoadMaterialTextures(aimaterial, aiTextureType_SPECULAR, "texture_specular");
+            auto material = make_shared<Material>("res/shaders/MultiLights.shader");
+            unsigned int slot = 0;
+            for (auto& texture : diffTextures)
+                material->AddTexture(texture, slot++, "material.diffuse");
+            for (auto& texture : specTextures)
+                material->AddTexture(texture, slot++, "material.specular");
 
-        material.BindTextures();
-        material.SetMaterialShininess(64.0f);
-        materials.emplace_back(material);
+            material->BindTextures();
+            material->SetMaterialShininess(64.0f);
+            materialMap[materialIndex] = material;
+        }
+
+        meshToMaterialIndex.emplace_back(materialIndex);
     }
 
     return Mesh::Mesh(vertices, indices);

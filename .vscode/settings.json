@@ -56,6 +56,12 @@
         "memory": "cpp",
         "__config": "cpp",
         "__tree": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "charconv": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "filesystem": "cpp"
     }
 }

@@ -14,9 +14,11 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <map>
 
 using std::string;
 using std::vector;
+using std::map;
 using std::shared_ptr;
 using std::make_shared;
 
@@ -28,12 +30,13 @@ public:
 	void OnRender(const glm::mat4& proj, const glm::mat4& view);
 
 	inline Transform& GetTransform() const { return *transform; }
-	inline vector<Material> GetMaterials() const { return materials; }
+	inline map<int, shared_ptr<Material>> GetMaterialMap() const { return materialMap; }
 
 protected:
 	string directory;
 	vector<Mesh::Mesh> meshes;
-	vector<Material> materials;
+	map<int, shared_ptr<Material>> materialMap;
+	vector<int> meshToMaterialIndex;
 	vector<shared_ptr<Texture>> textures_loaded;
 	shared_ptr<Transform> transform;
 
