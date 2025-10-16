@@ -42,7 +42,7 @@ protected:
 
 	void LoadModel(string const &path);
 	void ProcessNode(aiNode* node, const aiScene* scene);
-	Mesh::Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+	void processMesh(aiMesh* mesh, const aiScene* scene);
 	vector<shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
 };
 

@@ -28,17 +28,20 @@ namespace Mesh
 
     public:
         Mesh() {}
-        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
+        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, bool setup = true)
             : vertices(std::move(vertices)), indices(std::move(indices))
         {
-            SetupMesh();
+            if (setup)
+                SetupMesh();
         }
         virtual ~Mesh() {}
-
+        
+        inline std::vector<Vertex>& GetVertices() { return vertices; }
+        inline std::vector<unsigned int>& GetIndices() { return indices; }
         inline const VertexArray& GetVertexArray() const { return *vertexArray; }
         inline const IndexBuffer& GetIndexBuffer() const { return *indexBuffer; }
 
-    protected:
+    public:
         void SetupMesh()
         {
             vertexArray = std::make_shared<VertexArray>();

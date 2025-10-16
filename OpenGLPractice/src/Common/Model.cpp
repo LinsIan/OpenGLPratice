@@ -39,6 +39,9 @@ void Model::LoadModel(string const &path)
 
 	// process ASSIMP's root node recursively
 	ProcessNode(scene->mRootNode, scene);
+
+    for (auto& mesh : meshes)
+        mesh.SetupMesh();
 }
 
 void Model::ProcessNode(aiNode* node, const aiScene* scene)
@@ -46,7 +49,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
     for (int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.emplace_back(processMesh(mesh, scene));
+        processMesh(mesh, scene);
     }
 
     for (int i = 0; i < node->mNumChildren; i++)
@@ -55,10 +58,11 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
     }
 }
 
-Mesh::Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
+void Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
     vector<Mesh::Vertex> vertices;
     vector<unsigned int> indices;
+    int reuseMeshIndex = -1;
 
     // vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -119,11 +123,34 @@ Mesh::Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
             material->SetMaterialShininess(64.0f);
             materialMap[materialIndex] = material;
         }
+        else 
+        {
+            for (int i = 0; i < meshes.size(); i++)
+            {
+                if (meshToMaterialIndex[i] == materialIndex)
+                {
+                    reuseMeshIndex = i;
+                    break;
+                }
+            }
+        }
 
         meshToMaterialIndex.emplace_back(materialIndex);
     }
 
-    return Mesh::Mesh(vertices, indices);
+    if (reuseMeshIndex == -1)
+    {
+        std::cout << "create new mesh, total: " << meshes.size() + 1 << std::endl;
+        meshes.emplace_back(Mesh::Mesh(vertices, indices, false));
+    }
+    else
+    {
+        auto& mesh = meshes[reuseMeshIndex];
+        mesh.GetVertices().insert(mesh.GetVertices().end(), vertices.begin(), vertices.end());
+        for (int i = 0; i < indices.size(); i++)
+            indices[i] += mesh.GetVertices().size();
+        mesh.GetIndices().insert(mesh.GetIndices().end(), indices.begin(), indices.end());
+    }
 }
 
 vector<shared_ptr<Texture>> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
