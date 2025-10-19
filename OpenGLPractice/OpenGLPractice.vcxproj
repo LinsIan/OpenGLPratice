@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Samples\SampleDepthTesting.cpp" />
     <ClCompile Include="src\Common\Model.cpp" />
     <ClCompile Include="src\Samples\SampleImportModel.cpp" />
     <ClCompile Include="src\Samples\SampleLightCaster.cpp" />
@@ -190,6 +191,7 @@
     <None Include="res\shaders\MultiLights.shader" />
     <None Include="res\shaders\Texture.shader" />
     <None Include="res\shaders\TextureMix.shader" />
+    <None Include="res\shaders\DepthTest.shader" />
     <None Include="src\3rdParty\glm\detail\func_common.inl" />
     <None Include="src\3rdParty\glm\detail\func_common_simd.inl" />
     <None Include="src\3rdParty\glm\detail\func_exponential.inl" />
@@ -416,6 +418,7 @@
     <ClInclude Include="Dependencies\assimp\include\assimp\ZipArchiveIOSystem.h" />
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\Samples\SampleDepthTesting.h" />
     <ClInclude Include="src\Common\Model.h" />
     <ClInclude Include="src\Samples\SampleImportModel.h" />
     <ClInclude Include="src\Meshes\Mesh.h" />

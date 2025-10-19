@@ -11,6 +11,7 @@
 #include "Samples/SampleLightCaster.h"
 #include "Samples/SampleMultiLight.h"
 #include "Samples/SampleImportModel.h"
+#include "Samples/SampleDepthTesting.h"
 
 SampleManager::SampleManager()
 {
@@ -91,6 +92,12 @@ void SampleManager::OnUpdate()
                 sample = nullptr;
                 sample = std::make_unique<Sample::SampleImportModel>();
             }
+
+            if (ImGui::MenuItem("DepthTesting"))
+            {
+                sample = nullptr;
+                sample = std::make_unique<Sample::SampleDepthTesting>();
+			}
 
             ImGui::EndMenu();
         }
