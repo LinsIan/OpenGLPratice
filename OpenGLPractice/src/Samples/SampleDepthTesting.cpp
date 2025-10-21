@@ -11,9 +11,16 @@ namespace Sample
 		material->BindTextures();
 		material->GetShader().SetUniform1f("u_Degree", 0.8f);
 
+		auto outlineMaterial = std::make_shared<Material>("res/shaders/SingleColor.shader");
+		outlineMaterial->SetColor(0.04f, 0.28f, 0.26f, 1.0f);
+
 		auto cube1 = std::make_unique<GameObject>(std::make_shared<Mesh::Cube>(0.1f, 1.2f, 1.2f), material);
 		auto cube2 = std::make_unique<GameObject>(std::make_shared<Mesh::Cube>(1.2f, 1.2f, 1.2f), material);
 		auto cube3 = std::make_unique<GameObject>(std::make_shared<Mesh::Cube>(0.6f, 0.8f, 1.4f), material);
+
+		cube1->SetOutlineMaterial(outlineMaterial);
+		cube2->SetOutlineMaterial(outlineMaterial);
+		cube3->SetOutlineMaterial(outlineMaterial);
 
 		cubes.push_back(std::move(cube1));
 		cubes.push_back(std::move(cube2));
@@ -21,9 +28,11 @@ namespace Sample
 
 		cubes[1]->GetTransform().SetTranslation(-2.6f, 0, -5.8f);
 		cubes[1]->GetTransform().SetRotation(30, 34, -13);
+		cubes[1]->SetIsSelected(true);
 
 		cubes[2]->GetTransform().SetTranslation(2.6f, 0, -2.6f);
 		cubes[2]->GetTransform().SetRotation(-38, 60, 34);
+		cubes[2]->SetIsSelected(true);
 
 		camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960.0f, 540.0f);
 	}
@@ -56,6 +65,7 @@ namespace Sample
 		{
 			for (auto& cube : cubes)
 			{
+				cube->GetMaterial().BindShader();
 				cube->GetMaterial().GetShader().SetUniform1i("u_DepthTestEnabled", depthTestEnabled ? 1 : 0);
 			}
 		}
@@ -64,8 +74,14 @@ namespace Sample
 		{
 			for (auto& cube : cubes)
 			{
+				cube->GetMaterial().BindShader();
 				cube->GetMaterial().GetShader().SetUniform1i("u_LinearizedDepth", isLinerizedDepth ? 1 : 0);
 			}
+		}
+
+		if (ImGui::Checkbox("Select Left Cube", &isCubeLeftSelected))
+		{
+			cubes[1]->SetIsSelected(isCubeLeftSelected);
 		}
 	}
 }

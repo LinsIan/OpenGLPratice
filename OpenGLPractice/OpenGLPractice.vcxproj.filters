@@ -565,6 +565,8 @@
     <None Include="Dependencies\assimp\include\assimp\vector3.inl">
       <Filter>標頭檔</Filter>
     </None>
+    <None Include="res\shaders\DepthTest.shader" />
+    <None Include="res\shaders\SingleColor.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\3rdParty\stb\stb_image.h">

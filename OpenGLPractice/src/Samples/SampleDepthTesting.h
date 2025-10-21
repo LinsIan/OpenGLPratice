@@ -16,6 +16,7 @@ namespace Sample
         std::unique_ptr<Camera> camera;
 		bool depthTestEnabled = false;
 		bool isLinerizedDepth = false;
+		bool isCubeLeftSelected = true;
 
     public:
         SampleDepthTesting();

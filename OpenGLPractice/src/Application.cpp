@@ -63,6 +63,8 @@ int main(void)
 		GLCall(glEnable(GL_BLEND));
 		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
         GLCall(glEnable(GL_DEPTH_TEST));
+        GLCall(glEnable(GL_STENCIL_TEST));
+        GLCall(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
 
 		ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
@@ -75,7 +77,7 @@ int main(void)
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {
-            GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+            GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
