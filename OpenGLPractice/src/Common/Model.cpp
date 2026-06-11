@@ -146,9 +146,13 @@ void Model::processMesh(aiMesh* mesh, const aiScene* scene)
     else
     {
         auto& mesh = meshes[reuseMeshIndex];
-        mesh.GetVertices().insert(mesh.GetVertices().end(), vertices.begin(), vertices.end());
+        
+        int vertexOffset = mesh.GetVertices().size();
+
         for (int i = 0; i < indices.size(); i++)
-            indices[i] += mesh.GetVertices().size();
+            indices[i] += vertexOffset;
+            
+        mesh.GetVertices().insert(mesh.GetVertices().end(), vertices.begin(), vertices.end());
         mesh.GetIndices().insert(mesh.GetIndices().end(), indices.begin(), indices.end());
     }
 }
