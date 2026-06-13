@@ -1,5 +1,6 @@
 #include "SampleImportModel.h"
 #include "UIManager.h"
+#include "Rectangle.h"
 #include <filesystem>
 
 namespace Sample
@@ -54,6 +55,13 @@ namespace Sample
             material->BindShader();
             material->SetPointLightsNum(1);
         }
+
+        auto rect = std::make_shared<Mesh::Rectangle>(1, 1, 1.0f, 1.0f);
+        auto rectMaterial = std::make_shared<Material>("res/shaders/Texture.shader");
+        rectMaterial->AddTexture("res/textures/blending_transparent_window.png", 2, "u_Texture");
+        rectMaterial->BindTextures();
+        window = std::make_unique<GameObject>(rect, rectMaterial);
+        window->GetTransform().SetTranslation(0, 0, 0.5f);
     }
     
     SampleImportModel::~SampleImportModel()
@@ -78,6 +86,7 @@ namespace Sample
 
         backpackModel->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
         pointLight->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+        window->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
     }
     
     void SampleImportModel::OnImguiRender()

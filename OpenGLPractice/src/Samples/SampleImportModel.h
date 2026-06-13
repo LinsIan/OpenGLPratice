@@ -23,6 +23,7 @@ namespace Sample
         std::unique_ptr<Light<PointLightProperties>> pointLight;
         std::unique_ptr<Light<SpotLightProperties>> spotLight;
         std::unique_ptr<Model> backpackModel;
+        std::unique_ptr<GameObject> window;
 
     public:
         SampleImportModel();
