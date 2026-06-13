@@ -1,6 +1,31 @@
 {
     "configurations": [
         {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/Graphics",
+                "${workspaceFolder}/src/Common",
+                "${workspaceFolder}/src/UI",
+                "${workspaceFolder}/src/Meshes",
+                "${workspaceFolder}/src/3rdParty",
+                "${workspaceFolder}/Dependencies/GLAD/include",
+                "${workspaceFolder}/Dependencies/GLFW/include",
+                "${workspaceFolder}/Dependencies/assimp/include"
+            ],
+            "defines": [
+                "WIN32",
+                "_DEBUG",
+                "_CONSOLE",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.19041.0",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x86"
+        },
+        {
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
