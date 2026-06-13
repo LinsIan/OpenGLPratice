@@ -7,15 +7,14 @@ namespace Sample
 {
     SampleTexture2D::SampleTexture2D()
     {
-        auto rect = std::make_shared<Mesh::Rectangle>(100, 100, 1.0f, 1.0f);
+        auto rect = std::make_shared<Mesh::Rectangle>(1, 1, 1.0f, 1.0f);
 
         auto material = std::make_shared<Material>("res/shaders/Texture.shader");
-        material->AddTexture("res/textures/ChernoLogo.png", 0, "u_Texture");
+        material->AddTexture("res/textures/blending_transparent_window.png", 0, "u_Texture");
         material->BindTextures();
         rectangle = std::make_unique<GameObject>(rect, material);
-
-        rectangle->GetTransform().SetTranslation(200, 200, 0);
-        camera = std::make_unique<Camera>(CameraType::ORTHOGRAPHIC, 960.0f, 540.0f);
+        rectangle->GetTransform().SetTranslation(0, 0, 0);
+        camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960.0f, 540.0f);
     }
     
     SampleTexture2D::~SampleTexture2D()
@@ -33,8 +32,8 @@ namespace Sample
     
     void SampleTexture2D::OnImguiRender()
     {
-		ImGui::Text("Camera: Orthographic");
-        ImGui::SliderFloat3("Model translation A:", &rectangle->GetTransform().GetTranslation().x, -3.0f, 960.0f);
+		ImGui::Text("Camera: PERSPECTIVE");
+        ImGui::SliderFloat3("Model translation A:", &rectangle->GetTransform().GetTranslation().x, -2.0f, 2.0f);
         ImGui::SliderFloat3("Model rotation:", &rectangle->GetTransform().GetRotation().x, 0.0f, 360.0f);
         ImGui::SliderFloat3("Model scale:", &rectangle->GetTransform().GetScale().x, 0.1f, 5.0f);
     }
