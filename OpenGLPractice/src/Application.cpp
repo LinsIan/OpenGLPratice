@@ -64,6 +64,7 @@ int main(void)
 		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
         GLCall(glEnable(GL_DEPTH_TEST));
         GLCall(glEnable(GL_STENCIL_TEST));
+        GLCall(glEnable(GL_CULL_FACE));
         GLCall(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
 
 		ImGui::CreateContext();

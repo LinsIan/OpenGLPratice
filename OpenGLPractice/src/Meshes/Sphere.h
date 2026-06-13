@@ -46,14 +46,13 @@ namespace Mesh
                     unsigned int first = i * (slices + 1) + j;
                     unsigned int second = first + slices + 1;
 
-                    // �K�[����
                     indices.push_back(first);
-                    indices.push_back(second);
                     indices.push_back(first + 1);
+                    indices.push_back(second);
 
                     indices.push_back(second);
-                    indices.push_back(second + 1);
                     indices.push_back(first + 1);
+                    indices.push_back(second + 1);
                 }
             }
 
