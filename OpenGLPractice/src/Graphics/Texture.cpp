@@ -41,6 +41,17 @@ Texture::Texture(const std::string& path, bool isFullPath /*= false*/, const std
 		stbi_image_free(localBuffer);
 }
 
+Texture::Texture(unsigned int textureID)
+{
+    rendererID = textureID;
+    width = 0;
+    height = 0;
+    bitPerPixel = 0;
+	localBuffer = nullptr;
+    filteringMode = GL_LINEAR;
+    wrappingMode = GL_CLAMP_TO_EDGE;
+}
+
 Texture::~Texture()
 {
     GLCall(glDeleteTextures(1, &rendererID));

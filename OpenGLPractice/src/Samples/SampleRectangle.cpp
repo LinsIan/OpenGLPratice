@@ -25,6 +25,7 @@ namespace Sample
 
     void SampleRectangle::OnRender()
 	{
+        rectangle->GetMaterial().BindShader();
         rectangle->GetMaterial().GetShader().SetUniform4f("u_Color", r, 0.5f, 0.8f, 1.0f);
 		rectangle->OnRender();
 	}

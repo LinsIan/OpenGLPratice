@@ -33,6 +33,7 @@ namespace Sample
 
 	void SampleTextureMix::OnRender()
 	{
+		rectangle->GetMaterial().BindShader();
 		rectangle->GetMaterial().GetShader().SetUniform1f("u_Degree", mixValue);
         rectangle->OnRender();
 	}

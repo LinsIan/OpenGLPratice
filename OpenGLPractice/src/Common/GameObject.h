@@ -55,6 +55,7 @@ public:
     void OnRender(const glm::mat4& proj, const glm::mat4& view)
     {
         material->BindShader();
+        material->BindTextures();
         material->GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
         material->GetShader().SetUniformMat4f("u_Model", transform->GetMatrix());
         material->GetShader().SetUniformMat3f("u_NormalMatrix", transform->GetNormalMatrix());
@@ -66,35 +67,35 @@ public:
 		}
 		else if (outlineMaterial != nullptr && isSelected)
         {
-			// «e¨â¨BÆJ¦bApplication.cpp¤¤¤w³]©w
-            // ±Ò¥Î¼ÒªO½w½Ä
+			// ï¿½eï¿½ï¿½Bï¿½Jï¿½bApplication.cppï¿½ï¿½ï¿½wï¿½]ï¿½w
+            // ï¿½Ò¥Î¼ÒªOï¿½wï¿½ï¿½
             // glEnable(GL_STENCIL_TEST);
-			// ³]©w¤£³q¹L¡B³q¹L®Éªº¾Þ§@¡AGL_REPLACE¥Nªí¥Îref­È´À´«¼ÒªO½w½Äªº­È
+			// ï¿½]ï¿½wï¿½ï¿½ï¿½qï¿½Lï¿½Bï¿½qï¿½Lï¿½Éªï¿½ï¿½Þ§@ï¿½AGL_REPLACEï¿½Nï¿½ï¿½ï¿½refï¿½È´ï¿½ï¿½ï¿½ï¿½ÒªOï¿½wï¿½Äªï¿½ï¿½ï¿½
             // glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
             
-			// ³]©w³q¹L±ø¥ó¡Bref­È¡B¾B¸n
+			// ï¿½]ï¿½wï¿½qï¿½Lï¿½ï¿½ï¿½ï¿½Brefï¿½È¡Bï¿½Bï¿½n
 			glStencilFunc(GL_ALWAYS, 1, 0xFF);
-			// ±Ò¥Î¼g¤J¼ÒªO½w½Ä
+			// ï¿½Ò¥Î¼gï¿½Jï¿½ÒªOï¿½wï¿½ï¿½
 			glStencilMask(0xFF);
-            // Ã¸»sª«Åé
+            // Ã¸ï¿½sï¿½ï¿½ï¿½ï¿½
 			Renderer::Draw(model->GetVertexArray(), material->GetShader(), GetIndexCount());
-			// §ï¼g³q¹L±ø¥ó¬°¤£µ¥©ó1
+			// ï¿½ï¿½gï¿½qï¿½Lï¿½ï¿½ï¿½ó¬°¤ï¿½ï¿½ï¿½ï¿½ï¿½1
 			glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-			// ¸T¤î¼g¤J¼ÒªO½w½Ä
+			// ï¿½Tï¿½ï¿½gï¿½Jï¿½ÒªOï¿½wï¿½ï¿½
 			glStencilMask(0x00);
-			// Ãö³¬²`«×´ú¸Õ¡AÁ×§K½ü¹ø³Q¾B¾×
+			// ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½×´ï¿½ï¿½Õ¡Aï¿½×§Kï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½Bï¿½ï¿½
 			glDisable(GL_DEPTH_TEST);
-			// ©ñ¤jª«Åé¥HÃ¸»s½ü¹ø
+			// ï¿½ï¿½jï¿½ï¿½ï¿½ï¿½HÃ¸ï¿½sï¿½ï¿½ï¿½ï¿½
 			transform->GetScale() *= 1.1f;
             outlineMaterial->BindShader();
             outlineMaterial->GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
-			// Ã¸»s½ü¹ø
+			// Ã¸ï¿½sï¿½ï¿½ï¿½ï¿½
 			Renderer::Draw(model->GetVertexArray(), outlineMaterial->GetShader(), GetIndexCount());
-			// ¶}±Ò¼g¤J¼ÒªO½w½Ä¡AÁ×§KglClear²M¤£±¼
+			// ï¿½}ï¿½Ò¼gï¿½Jï¿½ÒªOï¿½wï¿½Ä¡Aï¿½×§KglClearï¿½Mï¿½ï¿½ï¿½ï¿½
 			glStencilMask(0xFF);
-			// ­«·s¶}±Ò²`«×´ú¸Õ
+			// ï¿½ï¿½ï¿½sï¿½}ï¿½Ò²`ï¿½×´ï¿½ï¿½ï¿½
 			glEnable(GL_DEPTH_TEST);
-			// ª«Åé¤j¤pÁÙ­ì
+			// ï¿½ï¿½ï¿½ï¿½jï¿½pï¿½Ù­ï¿½
 			transform->GetScale() /= 1.1f;
         }
         
