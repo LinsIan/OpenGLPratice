@@ -5,6 +5,7 @@
 VertexArray::VertexArray()
 {
 	GLCall(glGenVertexArrays(1, &rendererID));
+	Bind();
 }
 
 VertexArray::~VertexArray()
@@ -14,9 +15,6 @@ VertexArray::~VertexArray()
 
 void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout, const IndexBuffer& ib)
 {
-	Bind();
-	vb.Bind();
-
 	const auto& elements = layout.GetElements();
 	unsigned int stride = layout.GetStride();
 	unsigned int offset = 0;

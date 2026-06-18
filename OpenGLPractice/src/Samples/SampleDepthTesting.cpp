@@ -35,10 +35,14 @@ namespace Sample
 		cubes[2]->SetIsSelected(true);
 
 		camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960.0f, 540.0f);
+
+		glEnable(GL_STENCIL_TEST);
 	}
 
 	SampleDepthTesting::~SampleDepthTesting()
 	{
+		glStencilFunc(GL_ALWAYS, 0, 0xFF);
+		glDisable(GL_STENCIL_TEST);
 	}
 
 	void SampleDepthTesting::OnUpdate(float deltaTime)

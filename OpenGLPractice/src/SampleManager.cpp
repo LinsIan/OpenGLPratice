@@ -150,7 +150,6 @@ void SampleManager::OnUpdate()
 
     // draw to framebuffer
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_STENCIL_TEST);
     glStencilMask(0xFF);
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -163,7 +162,6 @@ void SampleManager::OnUpdate()
     glClearColor(1, 1, 1, 1);
     GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
     glDisable(GL_DEPTH_TEST);
-    glDisable(GL_STENCIL_TEST);
     screen->GetMaterial().BindTextures();
     screen->OnRender(glm::mat4(1.0f), glm::mat4(1.0f));
 }
