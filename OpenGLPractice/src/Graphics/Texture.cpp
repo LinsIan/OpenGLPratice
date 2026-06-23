@@ -12,6 +12,7 @@ Texture::Texture(const std::string& path, bool isFullPath /*= false*/, const std
 #endif
 
 	this->typeName = typeName;
+	type = GL_TEXTURE_2D;
 
 	stbi_set_flip_vertically_on_load(1);
 	// desired_channels for RGBA is 4
@@ -41,8 +42,46 @@ Texture::Texture(const std::string& path, bool isFullPath /*= false*/, const std
 		stbi_image_free(localBuffer);
 }
 
+Texture::Texture(std::vector <std::string> faces, bool isFullPath /*= false*/, const std::string& typeName /*= ""*/, int filtering /*= GL_LINEAR*/, int wrapping /*= GL_CLAMP_TO_EDGE*/)
+	: rendererID(0), localBuffer(nullptr), width(0), height(0), bitPerPixel(0), filteringMode(filtering), wrappingMode(wrapping)
+{
+#ifdef __APPLE__
+	if (!isFullPath)
+		for (auto& face : faces)
+			face = "../" + face;
+#endif
+
+	this->typeName = typeName;
+
+	type = GL_TEXTURE_CUBE_MAP;
+	glGenTextures(1, &rendererID);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, rendererID);
+	
+	for (unsigned int i = 0; i < faces.size(); i++)
+	{
+		localBuffer = stbi_load(faces[i].c_str(), &width, &height, &bitPerPixel, 0);
+		if (localBuffer)
+		{
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, localBuffer);
+			stbi_image_free(localBuffer);
+		}
+		else
+		{
+			std::cout << "Failed to load cubemap texture at path: " << faces[i] << std::endl;
+			stbi_image_free(localBuffer);
+		}
+	}
+
+	GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, filtering));
+	GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, filtering));
+	GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, wrapping));
+	GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, wrapping));
+	GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, wrapping));
+}
+
 Texture::Texture(unsigned int textureID)
 {
+	type = GL_TEXTURE_2D;
     rendererID = textureID;
     width = 0;
     height = 0;
@@ -60,12 +99,12 @@ Texture::~Texture()
 void Texture::Bind(unsigned int slot) const
 {
     GLCall(glActiveTexture(GL_TEXTURE0 + slot));
-    GLCall(glBindTexture(GL_TEXTURE_2D, rendererID));
+    GLCall(glBindTexture(type, rendererID));
 }
 
 void Texture::UnBind() const
 {
-    GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+    GLCall(glBindTexture(type, 0));
 }
 
 

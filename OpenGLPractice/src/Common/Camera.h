@@ -44,6 +44,7 @@ public:
 	void SetFov(float newFov);
 
     inline const glm::mat4& GetViewMatrix() { UpdateView(); return view; }
+    inline glm::mat4 GetViewMatrixWithoutTranslation() { UpdateView(); return glm::mat4(glm::mat3(view)); }
     inline const glm::mat4& GetProjectionMatrix() const { return proj; }
 	inline const std::string GetCameraTypeString() const
 	{

@@ -567,6 +567,7 @@
     </None>
     <None Include="res\shaders\DepthTest.shader" />
     <None Include="res\shaders\SingleColor.shader" />
+    <None Include="res\shaders\Skybox.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\3rdParty\stb\stb_image.h">
@@ -1844,6 +1845,30 @@
       <Filter>資源檔</Filter>
     </Image>
     <Image Include="res\textures\matrix.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\skybox\back.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\skybox\bottom.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\skybox\front.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\skybox\left.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\skybox\right.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\skybox\top.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\blending_transparent_window.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="res\textures\grass.png">
       <Filter>資源檔</Filter>
     </Image>
   </ItemGroup>

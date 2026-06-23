@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Renderer.h"
-
 class Texture
 {
 private:
@@ -9,6 +8,7 @@ private:
     std::string filePath;
     std::string typeName;
     unsigned char* localBuffer;
+    GLenum type;
     int width;
     int height;
     int bitPerPixel;
@@ -16,6 +16,7 @@ private:
     int wrappingMode;
 public:
     Texture(const std::string& path, bool isFullPath = false, const std::string& typeName = "", int filtering = GL_LINEAR, int wrapping = GL_CLAMP_TO_EDGE);
+    Texture(std::vector <std::string> faces, bool isFullPath = false, const std::string& typeName = "", int filtering = GL_LINEAR, int wrapping = GL_CLAMP_TO_EDGE);
     Texture(unsigned int textureID);
     ~Texture();
 

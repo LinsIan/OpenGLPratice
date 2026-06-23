@@ -13,6 +13,7 @@ namespace Sample
     {
     private:
 		std::vector<std::unique_ptr<GameObject>> cubes;
+		std::unique_ptr<GameObject> skybox;
 		std::unique_ptr<Camera> camera;
 
 	public:
