@@ -54,6 +54,7 @@ Texture::Texture(std::vector <std::string> faces, bool isFullPath /*= false*/, c
 	this->typeName = typeName;
 
 	type = GL_TEXTURE_CUBE_MAP;
+	stbi_set_flip_vertically_on_load(0);
 	glGenTextures(1, &rendererID);
     glBindTexture(GL_TEXTURE_CUBE_MAP, rendererID);
 	

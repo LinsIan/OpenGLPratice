@@ -6,6 +6,14 @@ namespace Sample
 {
     SampleLightCaster::SampleLightCaster()
     {
+        skybox = std::make_unique<Skybox>(std::vector<std::string>{
+            "res/textures/skybox/right.jpg",
+            "res/textures/skybox/left.jpg",
+            "res/textures/skybox/top.jpg",
+            "res/textures/skybox/bottom.jpg",
+            "res/textures/skybox/front.jpg",
+            "res/textures/skybox/back.jpg"
+        });
         camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960, 540);
 
         DirLightProperties dirLightProperties;
@@ -76,6 +84,7 @@ namespace Sample
         }
 
         pointLight->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+        skybox->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrixWithoutTranslation());
     }
 
     void SampleLightCaster::OnImguiRender()

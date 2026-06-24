@@ -67,35 +67,22 @@ public:
 		}
 		else if (outlineMaterial != nullptr && isSelected)
         {
-			// �e��B�J�bApplication.cpp���w�]�w
-            // �ҥμҪO�w��
+			// in Application.cpp, we have enabled stencil test and set the stencil operation to GL_KEEP, GL_KEEP, GL_REPLACE
             // glEnable(GL_STENCIL_TEST);
-			// �]�w���q�L�B�q�L�ɪ��ާ@�AGL_REPLACE�N���ref�ȴ����ҪO�w�Ī���
             // glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
             
-			// �]�w�q�L����Bref�ȡB�B�n
 			glStencilFunc(GL_ALWAYS, 1, 0xFF);
-			// �ҥμg�J�ҪO�w��
 			glStencilMask(0xFF);
-            // ø�s����
 			Renderer::Draw(model->GetVertexArray(), material->GetShader(), GetIndexCount());
-			// ��g�q�L���󬰤�����1
 			glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-			// �T��g�J�ҪO�w��
 			glStencilMask(0x00);
-			// �����`�״��աA�קK�����Q�B��
-			glDisable(GL_DEPTH_TEST);
-			// ��j����Hø�s����
+			glDepthFunc(GL_ALWAYS);
 			transform->GetScale() *= 1.1f;
             outlineMaterial->BindShader();
             outlineMaterial->GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
-			// ø�s����
 			Renderer::Draw(model->GetVertexArray(), outlineMaterial->GetShader(), GetIndexCount());
-			// �}�Ҽg�J�ҪO�w�ġA�קKglClear�M����
 			glStencilMask(0xFF);
-			// ���s�}�Ҳ`�״���
-			glEnable(GL_DEPTH_TEST);
-			// ����j�p�٭�
+			glDepthFunc(GL_LESS);
 			transform->GetScale() /= 1.1f;
         }
         

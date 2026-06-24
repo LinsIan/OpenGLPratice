@@ -1,7 +1,7 @@
 #pragma once
 #include "Sample.h"
 #include "Camera.h"
-#include "GameObject.h"
+#include "Skybox.h"
 #include "Light.h"
 #include "Material.h"
 
@@ -17,6 +17,7 @@ namespace Sample
         std::unique_ptr<GameObject> pointCube;
 		std::unique_ptr<GameObject> spotCube;
         std::unique_ptr<Camera> camera;
+        std::unique_ptr<Skybox> skybox;
         std::unique_ptr<Light<DirLightProperties>> dirLight;
         std::unique_ptr<Light<PointLightProperties>> pointLight;
 		std::unique_ptr<Light<SpotLightProperties>> spotLight;

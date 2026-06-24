@@ -2,7 +2,7 @@
 
 #include "Sample.h"
 #include "Camera.h"
-#include "GameObject.h"
+#include "Skybox.h"
 
 #include <vector>
 #include <memory>
@@ -13,6 +13,7 @@ namespace Sample
     {
     private:
         std::vector<std::unique_ptr<GameObject>> cubes;
+        std::unique_ptr<Skybox> skybox;
         std::unique_ptr<Camera> camera;
 		bool depthTestEnabled = false;
 		bool isLinerizedDepth = false;

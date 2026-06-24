@@ -6,20 +6,6 @@ namespace Sample
 {
 	SampleTexture3D::SampleTexture3D()
 	{
-		std::vector<std::string> faces
-		{
-			"res/textures/skybox/right.jpg",
-			"res/textures/skybox/left.jpg",
-			"res/textures/skybox/top.jpg",
-			"res/textures/skybox/bottom.jpg",
-			"res/textures/skybox/front.jpg",
-			"res/textures/skybox/back.jpg"
-		};
-		auto skyboxMaterial = std::make_shared<Material>("res/shaders/Skybox.shader");
-		skyboxMaterial->AddTexture(faces, 0, "u_Cubemap");
-		skyboxMaterial->BindTextures();
-		skybox = std::make_unique<GameObject>(std::make_shared<Mesh::Cube>(2.0f, 2.0f, 2.0f), skyboxMaterial);
-
         auto material = std::make_shared<Material>("res/shaders/TextureMix.shader");
         material->AddTexture("res/textures/awesomeface.png", 0, "u_TextureA");
         material->AddTexture("res/textures/container.jpg", 1, "u_TextureB");
@@ -55,14 +41,9 @@ namespace Sample
 
 	void SampleTexture3D::OnRender()
 	{
-		glDisable(GL_CULL_FACE);
-		glDepthMask(GL_FALSE);
-		skybox->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrixWithoutTranslation());
-		glDepthMask(GL_TRUE);
-		glEnable(GL_CULL_FACE);
-        for (auto& cube : cubes)
+		for (auto& cube : cubes)
         {
-            cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+			cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
         }
 	}
 

@@ -6,6 +6,15 @@ namespace Sample
 {
 	SampleDepthTesting::SampleDepthTesting()
 	{
+		skybox = std::make_unique<Skybox>(std::vector<std::string>{
+			"res/textures/skybox/right.jpg",
+			"res/textures/skybox/left.jpg",
+			"res/textures/skybox/top.jpg",
+			"res/textures/skybox/bottom.jpg",
+			"res/textures/skybox/front.jpg",
+			"res/textures/skybox/back.jpg"
+		});
+
 		auto material = std::make_shared<Material>("res/shaders/DepthTest.shader");
 		material->AddTexture("res/textures/container.jpg", 0, "u_Texture");
 		material->BindTextures();
@@ -57,6 +66,7 @@ namespace Sample
 		{
 			cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
 		}
+		skybox->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
 	}
 
 	void SampleDepthTesting::OnImguiRender()

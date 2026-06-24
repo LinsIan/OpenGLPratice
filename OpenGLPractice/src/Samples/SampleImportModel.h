@@ -3,6 +3,7 @@
 #include "Light.h"
 #include "Camera.h"
 #include "Material.h"
+#include "Skybox.h"
 #include "Model.h"
 
 #include <memory>
@@ -19,6 +20,7 @@ namespace Sample
     {
     private:
         std::unique_ptr<Camera> camera;
+        std::unique_ptr<Skybox> skybox;
         std::unique_ptr<Light<DirLightProperties>> dirLight;
         std::unique_ptr<Light<PointLightProperties>> pointLight;
         std::unique_ptr<Light<SpotLightProperties>> spotLight;
