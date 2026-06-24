@@ -14,6 +14,7 @@
 #include "Samples/SampleMultiLight.h"
 #include "Samples/SampleImportModel.h"
 #include "Samples/SampleDepthTesting.h"
+#include "Samples/SampleEnvironmentMapping.h"
 
 SampleManager::SampleManager()
 {
@@ -137,6 +138,12 @@ void SampleManager::OnUpdate()
                 sample = nullptr;
                 sample = std::make_unique<Sample::SampleDepthTesting>();
 			}
+
+            if (ImGui::MenuItem("EnvironmentMapping"))
+            {
+                sample = nullptr;
+                sample = std::make_unique<Sample::SampleEnvironmentMapping>();
+            }
 
             ImGui::EndMenu();
         }

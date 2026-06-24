@@ -191,6 +191,8 @@
     <None Include="res\shaders\LightCaster\SpotLight.shader" />
     <None Include="res\shaders\LightMaps.shader" />
     <None Include="res\shaders\MultiLights.shader" />
+    <None Include="res\shaders\Reflection.shader" />
+    <None Include="res\shaders\Refraction.shader" />
     <None Include="res\shaders\Skybox.shader" />
     <None Include="res\shaders\Texture.shader" />
     <None Include="res\shaders\TextureMix.shader" />

@@ -574,6 +574,8 @@
     <None Include="res\shaders\DepthTest.shader" />
     <None Include="res\shaders\SingleColor.shader" />
     <None Include="res\shaders\Skybox.shader" />
+    <None Include="res\shaders\Reflection.shader" />
+    <None Include="res\shaders\Refraction.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\3rdParty\stb\stb_image.h">

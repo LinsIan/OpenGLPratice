@@ -139,6 +139,7 @@ public:
 
     void SetViewPos(const glm::vec3& viewPos)
     {
+        shader->Bind();
         shader->SetUniform3f("u_ViewPos", viewPos.x, viewPos.y, viewPos.z);
     }
 
@@ -182,6 +183,7 @@ public:
 
     void SetNormalMatrix(const glm::mat3& normalMatrix)
     {
+        shader->Bind();
         shader->SetUniformMat3f("u_NormalMatrix", normalMatrix);
     }
 
