@@ -8,7 +8,8 @@ out vec3 v_TexCoord;
 
 void main()
 {
-    gl_Position = u_MVP * position;
+    vec4 pos = u_MVP * position;
+    gl_Position = pos.xyww;
 
     // TexCoord is the same as position for skybox, since we are using a cube map
     v_TexCoord = position.xyz;
