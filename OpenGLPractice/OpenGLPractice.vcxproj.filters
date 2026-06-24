@@ -117,6 +117,9 @@
     <ClCompile Include="src\Common\Skybox.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="src\Samples\SampleEnvironmentMapping.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\3rdParty\glm\detail\func_common.inl">
@@ -1831,6 +1834,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="src\Common\Skybox.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Samples\SampleEnvironmentMapping.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

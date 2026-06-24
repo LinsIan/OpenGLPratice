@@ -225,5 +225,6 @@ public:
     }
 
     inline Shader& GetShader() const { return *shader.get(); }
+    inline std::shared_ptr<Texture> GetTexture(unsigned int slot) const { return textures.at(slot); }
     inline glm::vec4 GetColor() const { return color; }
 };

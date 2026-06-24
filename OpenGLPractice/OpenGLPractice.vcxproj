@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Samples\SampleEnvironmentMapping.cpp" />
     <ClCompile Include="src\Common\Skybox.cpp" />
     <ClCompile Include="src\Samples\SampleDepthTesting.cpp" />
     <ClCompile Include="src\Common\Model.cpp" />
@@ -421,6 +422,7 @@
     <ClInclude Include="Dependencies\assimp\include\assimp\ZipArchiveIOSystem.h" />
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />
+    <ClInclude Include="src\Samples\SampleEnvironmentMapping.h" />
     <ClInclude Include="src\Common\Skybox.h" />
     <ClInclude Include="src\Samples\SampleDepthTesting.h" />
     <ClInclude Include="src\Common\Model.h" />

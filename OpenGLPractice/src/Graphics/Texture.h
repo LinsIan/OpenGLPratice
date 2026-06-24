@@ -23,6 +23,7 @@ public:
     void Bind(unsigned int slot = 0) const;
     void UnBind() const;
 
+    inline unsigned int GetRendererID() const { return rendererID; }
     inline int GetWidth() const { return width; }
     inline int GetHeight() const { return height; }
 	inline void SetFilteringMode(int mode) { filteringMode = mode; }
