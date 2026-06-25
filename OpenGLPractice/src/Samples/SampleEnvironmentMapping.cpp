@@ -23,11 +23,11 @@ namespace Sample
         reflectionCube = std::make_unique<GameObject>(std::make_shared<Mesh::Cube>(1.0f, 1.0f, 1.0f), reflectionMaterial);
 		reflectionCube->GetTransform().SetTranslation(-1.5f, 0, -3.0f);
 
-        // auto refractionMaterial = std::make_shared<Material>("res/shaders/Refraction.shader");
-        // refractionMaterial->AddTexture(skyboxTexture, 0, "u_Cubemap");
-        // refractionMaterial->BindTextures();
-        // refractionCube = std::make_unique<GameObject>(std::make_shared<Mesh::Cube>(0.8f, 0.8f, 0.8f), refractionMaterial);
-        // refractionCube->GetTransform().SetTranslation(1.5f, 0, -3.0f);
+        auto refractionMaterial = std::make_shared<Material>("res/shaders/Refraction.shader");
+        refractionMaterial->AddTexture(skyboxTexture, 0, "u_Cubemap");
+        refractionMaterial->BindTextures();
+        refractionCube = std::make_unique<GameObject>(std::make_shared<Mesh::Cube>(1.0f, 1.0f, 1.0f), refractionMaterial);
+        refractionCube->GetTransform().SetTranslation(1.5f, 0, -3.0f);
 
 		camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960.0f, 540.0f);
 	}
@@ -38,16 +38,16 @@ namespace Sample
 
 	void SampleEnvironmentMapping::OnUpdate(float deltaTime)
 	{
-		reflectionCube->GetTransform().GetRotation().y += 1 * deltaTime;
-		// refractionCube->GetTransform().GetRotation().x += 1 * deltaTime;
+		reflectionCube->GetTransform().GetRotation().y += 2 * deltaTime;
+		refractionCube->GetTransform().GetRotation().y += 2 * deltaTime;
 	}
 
 	void SampleEnvironmentMapping::OnRender()
 	{
 		reflectionCube->GetMaterial().SetViewPos(camera->GetPosition());
 		reflectionCube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
-		// refractionCube->GetMaterial().SetViewPos(camera->GetPosition());
-		// refractionCube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+		refractionCube->GetMaterial().SetViewPos(camera->GetPosition());
+		refractionCube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
 		skybox->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
 	}
 
