@@ -338,6 +338,7 @@
     <None Include="src\3rdParty\glm\gtx\wrap.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Common\CameraUniformBuffer.h" />
     <ClInclude Include="Dependencies\assimp\include\assimp\aabb.h" />
     <ClInclude Include="Dependencies\assimp\include\assimp\ai_assert.h" />
     <ClInclude Include="Dependencies\assimp\include\assimp\anim.h" />
@@ -759,6 +760,7 @@
     <ClInclude Include="src\Graphics\VertexArray.h" />
     <ClInclude Include="src\Graphics\VertexBuffer.h" />
     <ClInclude Include="src\Graphics\VertexBufferLayout.h" />
+    <ClInclude Include="src\Graphics\UniformBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\awesomeface.png" />

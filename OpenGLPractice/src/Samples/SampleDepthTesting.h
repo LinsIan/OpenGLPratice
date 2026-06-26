@@ -2,6 +2,7 @@
 
 #include "Sample.h"
 #include "Camera.h"
+#include "CameraUniformBuffer.h"
 #include "Skybox.h"
 
 #include <vector>
@@ -15,6 +16,7 @@ namespace Sample
         std::vector<std::unique_ptr<GameObject>> cubes;
         std::unique_ptr<Skybox> skybox;
         std::unique_ptr<Camera> camera;
+        std::unique_ptr<CameraUniformBuffer> cameraUniformBuffer;
 		bool depthTestEnabled = false;
 		bool isLinerizedDepth = false;
 		bool isCubeLeftSelected = true;

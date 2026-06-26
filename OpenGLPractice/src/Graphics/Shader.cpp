@@ -148,6 +148,17 @@ void Shader::Unbind() const
     GLCall(glUseProgram(0));
 }
 
+void Shader::BindUniformBlock(const std::string& blockName, unsigned int bindingPoint)
+{
+    unsigned int index = glGetUniformBlockIndex(rendererID, blockName.c_str());
+    if (index == GL_INVALID_INDEX)
+    {
+        std::cerr << "Warning: Uniform block '" << blockName << "' not found in shader!" << std::endl;
+        return;
+    }
+    GLCall(glUniformBlockBinding(rendererID, index, bindingPoint));
+}
+
 void Shader::SetUniform1i(const std::string& name, int value)
 {
     int location = GetUniformLocation(name);

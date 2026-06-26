@@ -5,6 +5,7 @@
 #include "glm/glm.hpp"
 #include "MaterialDatabase.h"
 #include "LightProperties.h"
+#include "CameraUniformBuffer.h"
 
 #include <iostream>
 #include <memory>
@@ -23,6 +24,7 @@ public:
     {
         shader = std::make_shared<Shader>(shaderPath);
         shader->Bind();
+        shader->BindUniformBlock("Matrices", CameraUniformBuffer::BINDING_POINT);
         SetColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 

@@ -23,6 +23,7 @@ public:
 
     void Bind() const;
     void Unbind() const;
+    void BindUniformBlock(const std::string& blockName, unsigned int bindingPoint);
     void SetUniform1i(const std::string& name, int value);
     void SetUniform1f(const std::string& name, float value);
     void SetUniform3f(const std::string& name, float v0, float v1, float v2);
