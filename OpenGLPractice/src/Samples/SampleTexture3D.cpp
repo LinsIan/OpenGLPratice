@@ -41,9 +41,10 @@ namespace Sample
 
 	void SampleTexture3D::OnRender()
 	{
+		camera->OnRender();
 		for (auto& cube : cubes)
         {
-			cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+			cube->OnRender();
         }
 	}
 

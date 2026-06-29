@@ -2,13 +2,20 @@
 #version 330 core
 
 layout(location = 0) in vec4 position;
-uniform mat4 u_MVP;
+layout(std140) uniform Matrices
+{
+    mat4 u_Projection;
+    mat4 u_View;
+};
+
+uniform mat4 u_Model;
 
 out vec3 v_TexCoord;
 
 void main()
 {
-    vec4 pos = u_MVP * position;
+    mat4 noTranslationView = mat4(mat3(u_View));
+    vec4 pos = u_Projection * noTranslationView * u_Model * position;
     gl_Position = pos.xyww;
 
     // TexCoord is the same as position for skybox, since we are using a cube map

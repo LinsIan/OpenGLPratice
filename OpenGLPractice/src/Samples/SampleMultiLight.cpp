@@ -92,6 +92,8 @@ namespace Sample
 
     void SampleMultiLight::OnRender()
     {
+        camera->OnRender();
+
         for (auto& cube : cubes)
         {
             cube->GetMaterial().UpdateDirLightUniforms(dirLight->GetLightProperties(), camera->GetPosition(), cube->GetTransform().GetNormalMatrix());
@@ -103,12 +105,12 @@ namespace Sample
 
             cube->GetMaterial().UpdateSpotLightUniforms(spotLight->GetLightProperties(), camera->GetPosition(), cube->GetTransform().GetNormalMatrix());
 
-            cube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+            cube->OnRender();
 		}
 
         for (auto& pointLight : pointLights)
         {
-            pointLight->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+            pointLight->OnRender();
         }
     }
     

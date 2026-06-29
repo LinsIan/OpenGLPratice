@@ -47,52 +47,16 @@ public:
 
     virtual void OnUpdate(float deltaTime) {}
 
-    void OnRender() 
+    void OnRender2D() 
     {
         Renderer::Draw(model->GetVertexArray(),  material->GetShader(), model->GetIndexBuffer().GetCount());
     }
 
-    void OnRender(const glm::mat4& proj, const glm::mat4& view)
+    void OnRender()
     {
         material->BindShader();
         material->BindTextures();
-        material->GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
         material->GetShader().SetUniformMat4f("u_Model", transform->GetMatrix());
-        material->GetShader().SetUniformMat3f("u_NormalMatrix", transform->GetNormalMatrix());
-
-        if (outlineMaterial == nullptr || !isSelected)
-        {
-            glStencilMask(0x00);
-            Renderer::Draw(model->GetVertexArray(), material->GetShader(), GetIndexCount());
-		}
-		else if (outlineMaterial != nullptr && isSelected)
-        {
-			// in Application.cpp, we have enabled stencil test and set the stencil operation to GL_KEEP, GL_KEEP, GL_REPLACE
-            // glEnable(GL_STENCIL_TEST);
-            // glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-            
-			glStencilFunc(GL_ALWAYS, 1, 0xFF);
-			glStencilMask(0xFF);
-			Renderer::Draw(model->GetVertexArray(), material->GetShader(), GetIndexCount());
-			glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-			glStencilMask(0x00);
-			glDepthFunc(GL_ALWAYS);
-			transform->GetScale() *= 1.1f;
-            outlineMaterial->BindShader();
-            outlineMaterial->GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
-			Renderer::Draw(model->GetVertexArray(), outlineMaterial->GetShader(), GetIndexCount());
-			glStencilMask(0xFF);
-			glDepthFunc(GL_LESS);
-			transform->GetScale() /= 1.1f;
-        }
-        
-    }
-
-    void OnRenderUBO() //temp method name
-    {
-        material->BindShader();
-        material->BindTextures();
-            material->GetShader().SetUniformMat4f("u_Model", transform->GetMatrix());
         material->GetShader().SetUniformMat3f("u_NormalMatrix", transform->GetNormalMatrix());
 
         if (outlineMaterial == nullptr || !isSelected)

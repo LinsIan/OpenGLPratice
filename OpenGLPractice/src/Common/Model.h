@@ -27,7 +27,7 @@ class Model
 public:
 	Model(string const &path);
 	~Model();
-	void OnRender(const glm::mat4& proj, const glm::mat4& view);
+	void OnRender();
 
 	inline Transform& GetTransform() const { return *transform; }
 	inline map<int, shared_ptr<Material>> GetMaterialMap() const { return materialMap; }

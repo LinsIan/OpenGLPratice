@@ -10,11 +10,11 @@ Skybox::Skybox(const std::vector<std::string>& faces)
     material = skyboxMaterial;
 }
 
-void Skybox::OnRender(const glm::mat4& proj, const glm::mat4& view)
+void Skybox::OnRender()
 {
     glDisable(GL_CULL_FACE);
     GLCall(glDepthFunc(GL_LEQUAL));
-    GameObject::OnRender(proj, glm::mat4(glm::mat3(view)));
+    GameObject::OnRender();
     GLCall(glDepthFunc(GL_LESS));
     glEnable(GL_CULL_FACE);
 }

@@ -92,10 +92,11 @@ namespace Sample
             material->UpdateSpotLightUniforms(spotLight->GetLightProperties(), camera->GetPosition(), backpackModel->GetTransform().GetNormalMatrix());
         }
 
-        backpackModel->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
-        pointLight->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
-        window->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
-        skybox->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrixWithoutTranslation());
+        camera->OnRender();
+        backpackModel->OnRender();
+        pointLight->OnRender();
+        window->OnRender();
+        skybox->OnRender();
     }
     
     void SampleImportModel::OnImguiRender()

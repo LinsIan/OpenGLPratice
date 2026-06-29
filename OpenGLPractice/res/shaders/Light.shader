@@ -5,7 +5,11 @@ layout(location = 0) in vec4 position;
 layout(location = 1) in vec3 normal;
 layout(location = 2) in vec2 texCoord;
 
-uniform mat4 u_MVP;
+layout(std140) uniform Matrices
+{
+    mat4 u_Projection;
+    mat4 u_View;
+};
 uniform mat4 u_Model;
 
 out vec3 v_Normal;
@@ -13,7 +17,7 @@ out vec3 v_FragPos;
 
 void main()
 {
-    gl_Position = u_MVP * position;
+    gl_Position = u_Projection * u_View * u_Model * position;
     v_FragPos = vec3(u_Model * position);
     v_Normal = normal;
 }

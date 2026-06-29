@@ -21,7 +21,11 @@ namespace Sample
 		material->AddTexture("res/textures/container.jpg", 1, "u_TextureB", filteringMode, wrappingMode);
 		material->BindTextures();
 
-		material->GetShader().SetUniformMat4f("u_MVP", glm::mat4(1.0f));
+		cameraUBO = std::make_unique<CameraUniformBuffer>();
+		cameraUBO->UpdateProjectionMatrix(glm::mat4(1.0f));
+		cameraUBO->UpdateViewMatrix(glm::mat4(1.0f));
+		material->GetShader().BindUniformBlock("Matrices", CameraUniformBuffer::BINDING_POINT);
+		material->GetShader().SetUniformMat4f("u_Model", glm::mat4(1.0f));
 		material->GetShader().SetUniform1f("u_Degree", mixValue);
 
         rectangle = std::make_unique<GameObject>(rect, material);

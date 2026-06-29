@@ -10,5 +10,5 @@ public:
     Skybox(const std::vector<std::string>& faces);
     ~Skybox() = default;
 
-    void OnRender(const glm::mat4& proj, const glm::mat4& view);
+    void OnRender();
 };

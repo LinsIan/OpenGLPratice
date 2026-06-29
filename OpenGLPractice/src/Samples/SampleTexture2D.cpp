@@ -10,7 +10,7 @@ namespace Sample
         auto rect = std::make_shared<Mesh::Rectangle>(1, 1, 1.0f, 1.0f);
 
         auto material = std::make_shared<Material>("res/shaders/Texture.shader");
-        material->AddTexture("res/textures/blending_transparent_window.png", 0, "u_Texture");
+        material->AddTexture("res/textures/container.jpg", 0, "u_Texture");
         material->BindTextures();
         rectangle = std::make_unique<GameObject>(rect, material);
         rectangle->GetTransform().SetTranslation(0, 0, 0);
@@ -27,7 +27,10 @@ namespace Sample
     
     void SampleTexture2D::OnRender()
     {
-        rectangle->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+        camera->OnRender();
+        rectangle->GetMaterial().BindShader();
+        rectangle->GetMaterial().GetShader().SetUniformMat4f("u_Model", rectangle->GetTransform().GetMatrix());
+        rectangle->OnRender2D();
     }
     
     void SampleTexture2D::OnImguiRender()

@@ -10,13 +10,12 @@ Model::~Model()
 {
 }
 
-void Model::OnRender(const glm::mat4& proj, const glm::mat4& view)
+void Model::OnRender()
 {
     for (unsigned int i = 0; i < meshes.size(); i++)
     {
         int materialIndex = meshToMaterialIndex[i];
         materialMap[materialIndex]->BindShader();
-        materialMap[materialIndex]->GetShader().SetUniformMat4f("u_MVP", proj * view * transform->GetMatrix());
         materialMap[materialIndex]->GetShader().SetUniformMat4f("u_Model", transform->GetMatrix());
         Renderer::Draw(meshes[i].GetVertexArray(), materialMap[materialIndex]->GetShader(), meshes[i].GetIndexBuffer().GetCount());
 	}

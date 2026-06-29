@@ -44,11 +44,12 @@ namespace Sample
 
 	void SampleEnvironmentMapping::OnRender()
 	{
+		camera->OnRender();
 		reflectionCube->GetMaterial().SetViewPos(camera->GetPosition());
-		reflectionCube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+		reflectionCube->OnRender();
 		refractionCube->GetMaterial().SetViewPos(camera->GetPosition());
-		refractionCube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
-		skybox->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+		refractionCube->OnRender();
+		skybox->OnRender();
 	}
 
 	void SampleEnvironmentMapping::OnImguiRender()

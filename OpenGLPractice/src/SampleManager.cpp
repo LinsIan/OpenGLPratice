@@ -51,7 +51,7 @@ SampleManager::SampleManager()
 
     auto rect = std::make_shared<Mesh::Rectangle>(2.0f, 2.0f, 1.0f, 1.0f);
     auto texture = std::make_shared<Texture>(texColorBuffer);
-    auto material = std::make_shared<Material>("res/shaders/Texture.shader");
+    auto material = std::make_shared<Material>("res/shaders/Screen.shader");
     material->AddTexture(texture, 8, "u_Texture");
     material->BindTextures();
     screen = std::make_unique<GameObject>(rect, material);
@@ -170,5 +170,5 @@ void SampleManager::OnUpdate()
     GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
     glDisable(GL_DEPTH_TEST);
     screen->GetMaterial().BindTextures();
-    screen->OnRender(glm::mat4(1.0f), glm::mat4(1.0f));
+    screen->OnRender();
 }

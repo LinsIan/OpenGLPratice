@@ -65,26 +65,27 @@ namespace Sample
 
     void SampleLightCaster::OnRender()
     {
+        camera->OnRender();
         switch (currentLightType)
         {
         case LightType::DIRECTIONAL:
             dirCube->GetMaterial().UpdateDirLightUniforms(dirLight->GetLightProperties(), camera->GetPosition(), dirCube->GetTransform().GetNormalMatrix());
-            dirCube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+            dirCube->OnRender();
             break;
         case LightType::POINT:
             pointCube->GetMaterial().UpdatePointLightUniforms(pointLight->GetLightProperties(), camera->GetPosition(), pointCube->GetTransform().GetNormalMatrix());
-            pointCube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+            pointCube->OnRender();
             break;
         case LightType::SPOT:
 			spotCube->GetMaterial().UpdateSpotLightUniforms(spotLight->GetLightProperties(), camera->GetPosition(), spotCube->GetTransform().GetNormalMatrix());
-			spotCube->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+			spotCube->OnRender();
             break;
         default:
             break;
         }
 
-        pointLight->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
-        skybox->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrixWithoutTranslation());
+        pointLight->OnRender();
+        skybox->OnRender();
     }
 
     void SampleLightCaster::OnImguiRender()
