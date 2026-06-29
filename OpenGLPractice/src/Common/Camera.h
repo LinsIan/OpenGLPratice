@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
 #include <string>
+#include "CameraUniformBuffer.h"
 
 enum CameraType
 {
@@ -28,6 +29,7 @@ private:
     std::unique_ptr<glm::vec3> position;
     std::unique_ptr<glm::vec3> forward;
     std::unique_ptr<glm::vec3> up;
+    std::unique_ptr<CameraUniformBuffer> uniformBuffer;
 
     void UpdateView();
 
@@ -36,6 +38,7 @@ public:
     ~Camera();
 
     void SetType(CameraType newType);
+    void OnRender();
     void MoveForward();
     void MoveBackward();
     void MoveLeft();

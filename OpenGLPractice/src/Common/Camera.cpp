@@ -17,6 +17,7 @@ Camera::Camera(CameraType type, float screenWidth, float screenHeight)
     view = glm::mat4(1.0f);
     proj = glm::mat4(1.0f);
 
+    uniformBuffer = std::make_unique<CameraUniformBuffer>();
     SetType(type);
 }
 
@@ -41,6 +42,13 @@ void Camera::SetType(CameraType newType)
     {
         proj = glm::ortho(0.0f, screenWidth, 0.0f, screenHeight, -1.0f, 100.0f);
     }
+}
+
+void Camera::OnRender()
+{
+    UpdateView();
+    uniformBuffer->UpdateProjectionMatrix(proj);
+    uniformBuffer->UpdateViewMatrix(view);
 }
 
 void Camera::MoveForward()

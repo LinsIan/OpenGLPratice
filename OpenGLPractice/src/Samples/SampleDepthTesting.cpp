@@ -44,7 +44,6 @@ namespace Sample
 		cubes[2]->SetIsSelected(true);
 
 		camera = std::make_unique<Camera>(CameraType::PERSPECTIVE, 960.0f, 540.0f);
-		cameraUniformBuffer = std::make_unique<CameraUniformBuffer>();
 
 		glEnable(GL_STENCIL_TEST);
 	}
@@ -63,14 +62,13 @@ namespace Sample
 
 	void SampleDepthTesting::OnRender()
 	{
-		cameraUniformBuffer->UpdateProjectionMatrix(camera->GetProjectionMatrix());
-		cameraUniformBuffer->UpdateViewMatrix(camera->GetViewMatrix());
+		camera->OnRender();
 
 		for (auto& cube : cubes)
 		{
-			cube->OnRenderUBO();
+			cube->OnRender();
 		}
-		skybox->OnRender(camera->GetProjectionMatrix(), camera->GetViewMatrix());
+		skybox->OnRender();
 	}
 
 	void SampleDepthTesting::OnImguiRender()
